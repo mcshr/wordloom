@@ -3,7 +3,6 @@ package com.mcshr.wordloom.domain.interactors.wordCard
 import com.mcshr.wordloom.domain.WordloomRepository
 import com.mcshr.wordloom.domain.entities.WordCard
 import com.mcshr.wordloom.domain.entities.WordStatus
-import java.time.LocalDateTime
 
 class UpdateWordCardStatusUseCase(private val repository: WordloomRepository) {
     operator fun invoke(wordCardId: Int, isPositiveAction: Boolean) {
@@ -38,7 +37,7 @@ class UpdateWordCardStatusUseCase(private val repository: WordloomRepository) {
                 else -> throw RuntimeException("card with status ${wordCard.status}")
             }
         }
-        val newReviewTime: LocalDateTime = CalculateNextReviewTimeUseCase()(newReviewCount)
+        val newReviewTime = CalculateNextReviewTimeUseCase()(newReviewCount)
         EditWordCardUseCase(repository)(
             wordCard.copy(
                 status = newWordStatus,

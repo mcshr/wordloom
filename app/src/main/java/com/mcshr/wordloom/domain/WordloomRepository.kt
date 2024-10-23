@@ -3,7 +3,6 @@ package com.mcshr.wordloom.domain
 import androidx.lifecycle.LiveData
 import com.mcshr.wordloom.domain.entities.Dictionary
 import com.mcshr.wordloom.domain.entities.WordCard
-import java.time.LocalDateTime
 
 interface WordloomRepository {
     //word card
@@ -12,7 +11,7 @@ interface WordloomRepository {
     fun deleteWordCard(wordCard:WordCard)
     fun getWordCardById(wordCardId: Int):WordCard
     fun getWordCardList(): LiveData<List<WordCard>>
-    fun getWordsForReview(currentTime: LocalDateTime):List<WordCard>
+    fun getWordsForReview(currentTime: Long):List<WordCard>
 
 
     //dictionary

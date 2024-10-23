@@ -1,7 +1,5 @@
 package com.mcshr.wordloom.domain.entities
 
-import java.time.LocalDateTime
-
 data class WordCard(
     val wordText:String,
     val wordTranslation:String,
@@ -9,7 +7,7 @@ data class WordCard(
     val partOfSpeech: String?,
     val status: WordStatus,
     val reviewCount:Int,
-    val nextReviewTime: LocalDateTime?,
+    val nextReviewTime: Long?, //Unix timestamp
     val definitions:List<String>?,
     val belongsToDictionaries: List<Dictionary>
 //    val usageExamples:List<UsageExample>,
