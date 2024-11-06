@@ -5,6 +5,9 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
+import com.mcshr.wordloom.data.WordStatusConverter
+import com.mcshr.wordloom.domain.entities.WordStatus
 
 
 @Entity(
@@ -16,16 +19,17 @@ import androidx.room.PrimaryKey
             childColumns = ["word_id"]
         )
     ],
-    indices = [Index("word_id")]
+    indices = [Index("word_id"), Index("status")]
 )
 data class CardDbModel(
     @PrimaryKey(autoGenerate = true) val id: Int,
-    //val status: WordStatus, //TODO create converter
+    @TypeConverters(WordStatusConverter::class)
+    val status: WordStatus,
     @ColumnInfo(
         name = "reviews_count",
         defaultValue = "0"
     ) val reviewsCount: Int,
-    val nextRevDate: Long?,
+    @ColumnInfo(name = "next_rev_date")val nextRevDate: Long?,
     @ColumnInfo(name = "word_id") val wordId: Int,
-    //val picture:... TODO
+    @ColumnInfo(name = "image_path") val imagePath: String?
 )

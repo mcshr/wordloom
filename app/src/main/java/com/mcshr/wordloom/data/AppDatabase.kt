@@ -1,6 +1,8 @@
 package com.mcshr.wordloom.data
 
+import android.app.Application
 import androidx.room.Database
+import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.mcshr.wordloom.data.entities.CardDbModel
 import com.mcshr.wordloom.data.entities.CardTranslationDbModel
@@ -24,4 +26,24 @@ import com.mcshr.wordloom.data.entities.WordDbModel
     exportSchema = false
 )
 abstract class AppDatabase: RoomDatabase() {
+    companion object{
+        @Volatile
+        private var INSTANCE: AppDatabase? = null
+        private val LOCK = Any()
+        private const val DATABASE_NAME = "wordloom_db"
+        fun getInstance(application: Application):AppDatabase{
+            INSTANCE?.let {
+                return it
+            }
+            synchronized(LOCK) {
+                val db = Room.databaseBuilder(
+                    application,
+                    AppDatabase::class.java,
+                    DATABASE_NAME
+                ).build()
+                INSTANCE = db
+                return db
+            }
+        }
+    }
 }
