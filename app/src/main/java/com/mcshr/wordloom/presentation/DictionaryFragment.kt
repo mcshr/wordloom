@@ -1,23 +1,22 @@
 package com.mcshr.wordloom.presentation
 
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import com.mcshr.wordloom.databinding.FragmentProgressBinding
+import com.mcshr.wordloom.databinding.FragmentDictionaryBinding
 
-class ProgressFragment : Fragment() {
+class DictionaryFragment : Fragment() {
 
-    private var _binding:FragmentProgressBinding? = null
+    private var _binding : FragmentDictionaryBinding? = null
     private val binding
-        get() = _binding?:throw RuntimeException("FragmentProgressBinding is null")
-
+        get() = _binding ?: throw RuntimeException("FragmentDictionaryBinding is null")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentProgressBinding.inflate(inflater, container, false)
+        _binding = FragmentDictionaryBinding.inflate(inflater,container, false)
         return binding.root
     }
 

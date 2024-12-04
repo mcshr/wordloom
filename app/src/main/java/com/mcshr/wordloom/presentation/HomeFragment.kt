@@ -21,8 +21,18 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        binding.btnMainLearn.setOnClickListener {
+            SessionSettingsFragment().show(parentFragmentManager,"SessionSettingsTag")
+        }
+
+
+        super.onViewCreated(view, savedInstanceState)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 }

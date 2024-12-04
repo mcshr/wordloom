@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/corner_radius"
+    android:layout_marginBottom="8dp"
+    android:elevation="1dp"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/card_with_border"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/tv_language"
+            style="@style/text.body"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="English/Russian" />
+
+        <TextView
+            android:id="@+id/textView"
+            style="@style/text.title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_language"
+            tools:text="Dictionary name" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textView">
+
+            <TextView
+                android:id="@+id/tv_total_count"
+                style="@style/text.title.medium_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="51234" />
+
+            <TextView
+                style="@style/text.body"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/total" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toStartOf="@id/linearLayout3"
+            app:layout_constraintStart_toEndOf="@+id/linearLayout1"
+            app:layout_constraintTop_toTopOf="@+id/linearLayout1">
+
+            <TextView
+                android:id="@+id/tv_learning_count"
+                style="@style/text.title.medium_number.learning"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="4123" />
+
+            <TextView
+                style="@style/text.body.learning"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/learning" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintStart_toEndOf="@+id/linearLayout2"
+            app:layout_constraintTop_toTopOf="@+id/linearLayout1">
+
+            <TextView
+                android:id="@+id/tv_learned_count"
+                style="@style/text.title.medium_number.learned"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="312" />
+
+            <TextView
+                style="@style/text.body.learned"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/learned" />
+        </LinearLayout>
+
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/progress_indicator"
+            app:indicatorColor="@color/learned_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:progress="30" />
+
+        <TextView
+            android:id="@+id/progress_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/progress_indicator"
+            app:layout_constraintEnd_toEndOf="@+id/progress_indicator"
+            app:layout_constraintStart_toStartOf="@+id/progress_indicator"
+            app:layout_constraintTop_toTopOf="@+id/progress_indicator"
+            tools:text="30%" />
+
+        <Button
+            style="@style/Widget.Material3.Button.IconButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/ic_more_vert_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

@@ -59,5 +59,5 @@ dependencies {
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.navigation.ui.ktx)
 
-
+    implementation(libs.material)
 }

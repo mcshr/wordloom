@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+<!-- TEXT   -->
+
+    <style name="text">
+        <item name="fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/text87</item>
+    </style>
+
+    <style name="text.title">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+    <style name="text.title.main">
+        <item name="fontFamily">sans-serif-medium</item>
+    </style>
+    <style name="text.title.large">
+        <item name="android:textSize">24sp</item>
+    </style>
+    <style name="text.title.medium_number">
+        <item name="fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+    <style name="text.title.medium_number.learning">
+        <item name="android:textColor">@color/learning_status</item>
+    </style>
+    <style name="text.title.medium_number.learned">
+        <item name="android:textColor">@color/learned_status</item>
+    </style>
+
+    <style name="text.list_item">
+        <item name="android:textSize">16sp</item>
+    </style>
+    <style name="text.list_item.bold">
+        <item name="fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="text.body">
+        <item name="android:textColor">@color/text60</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+    <style name="text.body.learning">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/learning_status60</item>
+    </style>
+    <style name="text.body.learned">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/learned_status60</item>
+    </style>
+    <style name="text.body.small">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+
+<!--BOTTOM NAVIGATION -->
+
+    <style name="WordloomBottomNavigationView" parent="Widget.Material3.BottomNavigationView">
+        <item name="android:minHeight">64dp</item>
+        <item name="itemActiveIndicatorStyle">@style/ActiveIndicator.transparent</item>
+        <item name="itemPaddingTop">12dp</item>
+        <item name="itemPaddingBottom">12dp</item>
+    </style>
+    <style name="ActiveIndicator.transparent" parent="Widget.Material3.BottomNavigationView">
+        <item name="android:color">@color/transparent</item>
+    </style>
+
+
+<!-- EDIT TEXT   -->
+    
+    <style name="WordloomTextInputLayout" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="boxCornerRadiusTopStart">10dp</item>
+        <item name="boxCornerRadiusTopEnd">10dp</item>
+        <item name="boxCornerRadiusBottomStart">10dp</item>
+        <item name="boxCornerRadiusBottomEnd">10dp</item>
+        <item name="boxStrokeColor">@color/learning_status</item> <!--TODO drop-->
+    </style>
+    <style name="WordloomTextInputEditText" parent="Widget.Material3.TextInputEditText.OutlinedBox">
+        <item name="boxStrokeColor">@color/learning_status</item> <!--TODO drop-->
+        <item name="android:paddingTop">6dp</item>
+        <item name="android:paddingBottom">6dp</item>
+    </style>
+
+
+<!-- FAB   -->
+    <style name="WordloomFAB" parent="Widget.Material3.FloatingActionButton.Primary">
+        <item name="backgroundTint">@color/black</item>
+        <item name="tint">@color/white</item>
+        <item name="shapeAppearance">@style/roundShape</item>
+        <item name="elevation">2dp</item>
+    </style>
+    <style name="roundShape" parent="ShapeAppearance.Material3.Corner.Large">
+        <item name="cornerSize">50%</item>
+    </style>
+
+
+    <!-- SEARCH BAR  -->
+
+    <style name="WordloomSearchBar" parent="Widget.Material3.SearchBar.Outlined">
+        <item name="shapeAppearanceOverlay">@style/cardShape</item>
+    </style>
+    <style name="cardShape" parent="ShapeAppearance.Material3.Corner.Large">
+        <item name="cornerSize">10dp</item>
+    </style>
+
+
+    <!-- ICON BUTTON  -->
+
+    <style name="WordloomIcon" parent ="Widget.Material3.Button.IconButton">
+        <item name="iconTint">@color/black</item>
+    </style>
+
+
+    <!-- BUTTON  -->
+
+    <style name="WordloomButton" parent="Widget.Material3.Button">
+        <item name="android:paddingStart">32dp</item>
+        <item name="android:paddingEnd">32dp</item>
+        <item name="android:paddingTop">14dp</item>
+        <item name="android:paddingBottom">14dp</item>
+        <item name="backgroundTint">@color/black</item>
+        <item name="cornerRadius">@dimen/corner_radius</item>
+        <item name="android:textSize">19sp</item>
+    </style>
+
+</resources>

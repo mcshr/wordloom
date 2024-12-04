@@ -26,7 +26,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_nav_menu"
+        style="@style/WordloomBottomNavigationView"
         />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

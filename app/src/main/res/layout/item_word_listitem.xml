@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/corner_radius"
+    android:layout_marginBottom="4dp"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:background="@drawable/card_with_border">
+
+        <View
+            android:id="@+id/status_indicator_long"
+            android:layout_width="10dp"
+            android:layout_height="0dp"
+            android:layout_marginVertical="4dp"
+            android:background="@drawable/status_indicator_long"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:backgroundTint="@color/learning_status" />
+
+        <TextView
+            android:id="@+id/tv_word_status"
+            style="@style/text.body"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            app:layout_constraintStart_toEndOf="@+id/status_indicator_long"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Learning"
+            tools:textColor="@color/learning_status60" />
+
+        <TextView
+            android:id="@+id/tv_word_text"
+            style="@style/text.list_item.bold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            app:layout_constraintEnd_toStartOf="@+id/btn_more"
+            app:layout_constraintStart_toEndOf="@+id/status_indicator_long"
+            app:layout_constraintTop_toBottomOf="@+id/tv_word_status"
+            tools:text="Word text" />
+
+        <TextView
+            android:id="@+id/tv_meaning"
+            style="@style/text.list_item"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+
+            app:layout_constraintEnd_toStartOf="@+id/btn_more"
+            app:layout_constraintStart_toEndOf="@+id/status_indicator_long"
+            app:layout_constraintTop_toBottomOf="@+id/tv_word_text"
+            tools:text="meaning1, meaning2, meaning3" />
+
+        <Button
+            android:id="@+id/btn_more"
+            style="@style/Widget.Material3.Button.IconButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/ic_more_vert_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

@@ -1,5 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="transparent">#00000000</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="text87">#DE000000</color>
+    <color name="text60">#99000000</color>
+    <color name="text38">#61000000</color>
+
+    <color name="container_lvl0">#ffffff</color>
+    <color name="container_lvl1">#f3f3f3</color>
+    <color name="container_lvl2">#eeeeee</color>
+    <color name="container_lvl3">#e8e8e8</color>
+    <color name="container_lvl4">#e2e2e2</color>
+
+    <color name="learned_status">#213FD9</color>
+    <color name="learned_status60">#99213FD9</color>
+    <color name="learning_status">#D92173</color>
+    <color name="learning_status60">#99D92173</color>
+    <color name="readyToLearn_status">#A222D9</color>
+    <color name="known_status">#21D9D6</color>
+    <color name="unknown_status">#A1A1A1</color>
+
+
 </resources>
