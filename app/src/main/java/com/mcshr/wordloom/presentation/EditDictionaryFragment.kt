@@ -5,19 +5,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.mcshr.wordloom.databinding.FragmentDictionaryEditBinding
+import com.mcshr.wordloom.databinding.FragmentEditDictionaryBinding
 
-class DictionaryEditFragment : Fragment() {
+class EditDictionaryFragment : Fragment() {
 
-    private var _binding: FragmentDictionaryEditBinding? = null
+    private var _binding: FragmentEditDictionaryBinding? = null
     private val binding
-        get() = _binding ?: throw RuntimeException("FragmentDictionaryEdit is null")
+        get() = _binding ?: throw RuntimeException("FragmentEditDictionaryBinding is null")
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentDictionaryEditBinding.inflate(inflater, container, false)
+        _binding = FragmentEditDictionaryBinding.inflate(inflater, container, false)
         return binding.root
     }
 

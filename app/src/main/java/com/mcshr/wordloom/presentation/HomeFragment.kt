@@ -27,7 +27,6 @@ class HomeFragment : Fragment() {
             SessionSettingsFragment().show(parentFragmentManager,"SessionSettingsTag")
         }
 
-
         super.onViewCreated(view, savedInstanceState)
     }
 

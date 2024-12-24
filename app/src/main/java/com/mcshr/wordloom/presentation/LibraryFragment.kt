@@ -21,6 +21,13 @@ class LibraryFragment : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        binding.btnOpenSelectAdd.setOnClickListener{
+            SelectAddBottomSheetFragment().show(parentFragmentManager, "SelectAddTag")
+        }
+        super.onViewCreated(view, savedInstanceState)
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

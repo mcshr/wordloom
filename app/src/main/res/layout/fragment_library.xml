@@ -11,7 +11,7 @@
 
         style="@style/WordloomSearchBar"
         android:layout_width="match_parent"
-        android:layout_height="42dp"
+        android:layout_height="48dp"
         android:hint="@string/search_in_dictionaries"
         app:defaultMarginsEnabled="true"
         app:elevation="1dp"
@@ -30,11 +30,12 @@
         tools:listitem="@layout/item_dictionary_with_stats" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_open_select_add"
         style="@style/WordloomFAB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:contentDescription="@string/button_add_content_decsription"
+        android:contentDescription="@string/add_new"
         android:src="@drawable/ic_add_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

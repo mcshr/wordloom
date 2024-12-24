@@ -4,25 +4,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:padding="16dp"
-    tools:context=".presentation.SessionSettingsFragment"
-    >
+    tools:context=".presentation.SessionSettingsFragment">
 
     <TextView
         android:id="@+id/textView9"
         style="@style/text.title.large"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Session settings"
-        app:layout_constraintBottom_toBottomOf="@+id/imageButton"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton"
+        android:text="@string/session_settings"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_close_sheet"
+        app:layout_constraintEnd_toStartOf="@+id/btn_close_sheet"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/imageButton"
+        android:id="@+id/btn_close_sheet"
         style="@style/WordloomIcon"
+        android:contentDescription="@string/close_bottom_sheet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:icon="@drawable/ic_close_24"
@@ -39,98 +39,40 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
-
     <RadioGroup
         android:id="@+id/radioGroup"
-        app:layout_constraintVertical_chainStyle="packed"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="12dp"
         app:layout_constraintBottom_toTopOf="@+id/materialDivider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView11">
+        app:layout_constraintTop_toBottomOf="@+id/textView11"
+        app:layout_constraintVertical_chainStyle="packed">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <com.mcshr.wordloom.presentation.CustomRadioButton
             android:id="@+id/option_learn_mode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clickable="true"
-            android:focusable="true"
-            >
+            app:title="@string/learning_mode"
+            app:subtitle="Прогресс запоминается...блаблабла" />
 
-            <TextView
-                android:id="@+id/tv1"
-                style="@style/text.title.medium_number"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Learning mode"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:text="Прогресс запоминается...блаблабла"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/radioButton_learn_mode"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv1" />
-
-            <RadioButton
-                android:id="@+id/radioButton_learn_mode"
-                android:clickable="false"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/option_swipe_mode"
+        <com.mcshr.wordloom.presentation.CustomRadioButton
+            android:id="@+id/option_other_mode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clickable="true"
-            android:focusable="true">
-
-            <TextView
-                android:id="@+id/tv2"
-                style="@style/text.title.medium_number"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Swiping mode"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:text="Прогресс запоминается...блаблабла"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/radioButton_swipe_mode"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv2" />
-
-            <RadioButton
-                android:id="@+id/radioButton_swipe_mode"
-                android:clickable="false"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
+            app:title="@string/swipe_mode"
+            app:subtitle="Еще один режим обучения" />
     </RadioGroup>
 
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/radioGroup"
+        app:layout_constraintBottom_toTopOf="@id/materialDivider"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 
     <com.google.android.material.divider.MaterialDivider
@@ -138,16 +80,16 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginBottom="20dp"
-        app:layout_constraintBottom_toTopOf="@id/button"
+        app:layout_constraintBottom_toTopOf="@id/btn_start_learning"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btn_start_learning"
         style="@style/WordloomButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Start learning"
+        android:text="@string/start_learning"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

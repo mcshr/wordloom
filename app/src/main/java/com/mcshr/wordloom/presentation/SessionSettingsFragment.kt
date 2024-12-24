@@ -23,16 +23,12 @@ class SessionSettingsFragment : BottomSheetDialogFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.optionLearnMode.setOnClickListener {
-            binding.radioButtonLearnMode.isChecked = true
-            binding.radioButtonSwipeMode.isChecked = false
-        }
-        binding.optionSwipeMode.setOnClickListener {
-            binding.radioButtonSwipeMode.isChecked = true
-            binding.radioButtonLearnMode.isChecked = false
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.btnCloseSheet.setOnClickListener {
+            dismiss()
         }
 
-        super.onViewCreated(view, savedInstanceState)
     }
 
     override fun onDestroyView() {

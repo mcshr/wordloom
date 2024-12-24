@@ -5,9 +5,17 @@
 <!-- TEXT   -->
 
     <style name="text">
+        <item name="android:textSize">16sp</item>
         <item name="fontFamily">sans-serif</item>
         <item name="android:textColor">@color/text87</item>
     </style>
+    <style name="text.large">
+        <item name="android:textSize">18sp</item>
+    </style>
+    <style name="text.hint">
+        <item name="android:textSize">14sp</item>
+    </style>
+
 
     <style name="text.title">
         <item name="android:textStyle">bold</item>
@@ -18,6 +26,9 @@
     </style>
     <style name="text.title.large">
         <item name="android:textSize">24sp</item>
+    </style>
+    <style name="text.title.medium">
+        <item name="android:textSize">16sp</item>
     </style>
     <style name="text.title.medium_number">
         <item name="fontFamily">sans-serif-medium</item>
@@ -31,11 +42,11 @@
     </style>
 
     <style name="text.list_item">
-        <item name="android:textSize">16sp</item>
     </style>
     <style name="text.list_item.bold">
         <item name="fontFamily">sans-serif-medium</item>
     </style>
+
 
     <style name="text.body">
         <item name="android:textColor">@color/text60</item>
@@ -43,11 +54,11 @@
     </style>
     <style name="text.body.learning">
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/learning_status60</item>
+        <item name="android:textColor">@color/learning_status</item>
     </style>
     <style name="text.body.learned">
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/learned_status60</item>
+        <item name="android:textColor">@color/learned_status</item>
     </style>
     <style name="text.body.small">
         <item name="android:textSize">12sp</item>
@@ -74,16 +85,29 @@
         <item name="boxCornerRadiusTopEnd">10dp</item>
         <item name="boxCornerRadiusBottomStart">10dp</item>
         <item name="boxCornerRadiusBottomEnd">10dp</item>
-        <item name="boxStrokeColor">@color/learning_status</item> <!--TODO drop-->
     </style>
     <style name="WordloomTextInputEditText" parent="Widget.Material3.TextInputEditText.OutlinedBox">
-        <item name="boxStrokeColor">@color/learning_status</item> <!--TODO drop-->
-        <item name="android:paddingTop">6dp</item>
-        <item name="android:paddingBottom">6dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">11dp</item>
     </style>
 
+    <style name="WordloomExposedDropdownMenu" parent="Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        <item name="boxCornerRadiusTopStart">10dp</item>
+        <item name="boxCornerRadiusTopEnd">10dp</item>
+        <item name="boxCornerRadiusBottomStart">10dp</item>
+        <item name="boxCornerRadiusBottomEnd">10dp</item>
+        <item name="hintTextAppearance">@style/text.hint</item>
+<!--        <item name="boxStrokeWidth">0dp</item>-->
+    </style>
+
+    <style name="WordloomAutocompleteTextView" parent="Widget.Material3.AutoCompleteTextView.OutlinedBox">
+        <item name="android:paddingTop">13dp</item>
+        <item name="android:paddingBottom">13dp</item>
+        <item name="android:inputType">none</item>
+    </style>
 
 <!-- FAB   -->
+
     <style name="WordloomFAB" parent="Widget.Material3.FloatingActionButton.Primary">
         <item name="backgroundTint">@color/black</item>
         <item name="tint">@color/white</item>
@@ -108,7 +132,21 @@
     <!-- ICON BUTTON  -->
 
     <style name="WordloomIcon" parent ="Widget.Material3.Button.IconButton">
-        <item name="iconTint">@color/black</item>
+        <item name="iconTint">@color/text87</item>
+    </style>
+
+    <style name="WordloomIcon.Big">
+        <item name="android:padding">20dp</item>
+        <item name="backgroundTint">@color/button_light</item>
+        <item name="shapeAppearance">@style/cardShape</item>
+        <item name="iconSize">30dp</item>
+    </style>
+
+    <style name="WordloomIconOutlined" parent ="Widget.Material3.Button.IconButton.Outlined">
+        <item name="iconTint">@color/icon_button_outlined_color</item>
+        <item name="android:insetTop">5dp</item>
+        <item name="shapeAppearance">@style/cardShape</item>
+        <item name="android:insetBottom">1dp</item>
     </style>
 
 
@@ -122,6 +160,18 @@
         <item name="backgroundTint">@color/black</item>
         <item name="cornerRadius">@dimen/corner_radius</item>
         <item name="android:textSize">19sp</item>
+    </style>
+    <style name="WordloomButton.small" >
+        <item name="android:minHeight">40dp</item>
+        <item name="android:paddingStart">8dp</item>
+        <item name="android:paddingEnd">8dp</item>
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:paddingBottom">0dp</item>
+
+
+        <item name="backgroundTint">@color/black</item>
+        <item name="cornerRadius">@dimen/corner_radius</item>
+        <item name="android:textSize">12sp</item>
     </style>
 
 </resources>

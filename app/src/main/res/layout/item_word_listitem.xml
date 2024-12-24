@@ -4,15 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="@dimen/corner_radius"
     android:layout_marginBottom="4dp"
-    >
+    app:cardCornerRadius="@dimen/corner_radius">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="12dp"
-        android:background="@drawable/card_with_border">
+        android:background="@drawable/card_with_border"
+        android:padding="12dp">
 
         <View
             android:id="@+id/status_indicator_long"
@@ -34,7 +33,7 @@
             app:layout_constraintStart_toEndOf="@+id/status_indicator_long"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Learning"
-            tools:textColor="@color/learning_status60" />
+            tools:textColor="@color/learning_status" />
 
         <TextView
             android:id="@+id/tv_word_text"
@@ -48,7 +47,7 @@
             tools:text="Word text" />
 
         <TextView
-            android:id="@+id/tv_meaning"
+            android:id="@+id/tv_meaning_list"
             style="@style/text.list_item"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -64,6 +63,7 @@
             style="@style/Widget.Material3.Button.IconButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/open_menu"
             app:icon="@drawable/ic_more_vert_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

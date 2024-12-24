@@ -18,7 +18,22 @@
     <string name="available_for_repeat">Available for repeat</string>
     <string name="ready_to_learn">Ready to learn</string>
     <string name="unknown">Unknown</string>
-    <string name="button_add_content_decsription">Button Add</string>
+    <string name="add_new">Add new</string>
     <string name="search_in_dictionaries">Search in dictionaries</string>
     <string name="mode_selection">Mode selection:</string>
+    <string name="start_learning">Start learning</string>
+    <string name="session_settings">Session settings</string>
+    <string name="learning_mode">Learning mode</string>
+    <string name="swipe_mode">Swipe mode</string>
+    <string name="word">Word</string>
+    <string name="language">Language</string>
+    <string name="meaning">Meaning</string>
+    <string name="search_for_words">Search for words</string>
+    <string name="add_new_meaning">Add new meaning</string>
+    <string name="swap_options">Swap options</string>
+    <string name="dictionary_name">Dictionary name</string>
+    <string name="edit">edit</string>
+    <string name="open_menu">open menu</string>
+    <string name="delete_meaning">Delete meaning</string>
+    <string name="close_bottom_sheet">close bottom sheet</string>
 </resources>

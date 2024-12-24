@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="12dp"
+    tools:context=".presentation.SessionModeLearningFragment">
+
+
+    <TextView
+        android:id="@+id/textView10"
+        style="@style/text.title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Available words:"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_add_new_words"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_add_new_words"
+        style="@style/WordloomButton.small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Learning words"
+        app:icon="@drawable/ic_add_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/to_repeat_circle"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:background="@drawable/circle_shape"
+        android:backgroundTint="@color/learning_status"
+        app:layout_constraintBottom_toBottomOf="@+id/textView12"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView12" />
+
+    <TextView
+        android:id="@+id/textView12"
+        style="@style/text.large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text="To repeat:"
+        app:layout_constraintStart_toEndOf="@id/to_repeat_circle"
+        app:layout_constraintTop_toBottomOf="@+id/btn_add_new_words" />
+
+    <TextView
+        style="@style/text.title.medium_number"
+        android:id="@+id/tv_to_repeat_count_available"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView12"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView12"
+        tools:text="12" />
+
+    <View
+        android:id="@+id/to_learn_circle"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:background="@drawable/circle_shape"
+        android:backgroundTint="@color/readyToLearn_status"
+        app:layout_constraintBottom_toBottomOf="@+id/textView13"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView13" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        style="@style/text.large"
+        android:text="To learn:"
+        app:layout_constraintStart_toEndOf="@id/to_learn_circle"
+        app:layout_constraintTop_toBottomOf="@id/textView12" />
+    <TextView
+        style="@style/text.title.medium_number"
+        android:id="@+id/tv_to_learn_count_available"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView13"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView13"
+        tools:text="1223" />
+
+    <TextView
+        android:id="@+id/textView14"
+        style="@style/text.large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Total:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView13" />
+
+    <TextView
+        style="@style/text.title.medium_number"
+        android:id="@+id/tv_total_count_available"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/textView14"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView14"
+        tools:text="1235" />
+
+    <TextView
+        android:id="@+id/textView16"
+        style="@style/text.title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Word limit for this session:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+    <TextView
+        android:id="@+id/textView17"
+        style="@style/text.large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Current limit:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView16" />
+
+    <EditText
+        android:id="@+id/tv_limit_count_available"
+        style="@style/text.title.medium_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="2dp"
+
+        app:layout_constraintBottom_toBottomOf="@+id/textView17"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView17"
+        tools:text="50" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

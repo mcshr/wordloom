@@ -15,12 +15,13 @@
     <color name="container_lvl4">#e2e2e2</color>
 
     <color name="learned_status">#213FD9</color>
-    <color name="learned_status60">#99213FD9</color>
+    <color name="learned_status87">#DE213FD9</color>
     <color name="learning_status">#D92173</color>
-    <color name="learning_status60">#99D92173</color>
+    <color name="learning_status87">#DED92173</color>
     <color name="readyToLearn_status">#A222D9</color>
     <color name="known_status">#21D9D6</color>
     <color name="unknown_status">#A1A1A1</color>
+    <color name="button_light">#1F000000</color>
 
 
 </resources>

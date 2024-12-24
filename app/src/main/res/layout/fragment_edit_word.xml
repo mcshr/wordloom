@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="12dp"
+    tools:context=".presentation.EditWordFragment">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout4"
+        style="@style/WordloomTextInputLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/word"
+        app:layout_constraintEnd_toStartOf="@+id/btn_search_word"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_text_word"
+            style="@style/WordloomTextInputEditText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:text="j" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/btn_search_word"
+        style="@style/WordloomIconOutlined"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:enabled="true"
+        app:icon="@drawable/ic_search_24"
+        android:contentDescription="@string/search_for_words"
+        app:layout_constraintBottom_toBottomOf="@+id/textInputLayout4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textInputLayout4" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout6"
+        style="@style/WordloomTextInputLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hint="@string/meaning"
+        app:layout_constraintEnd_toStartOf="@+id/btn_add_meaning"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout4">
+
+        <com.google.android.material.textfield.TextInputEditText
+            style="@style/WordloomTextInputEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="asd" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/btn_add_meaning"
+        style="@style/WordloomIconOutlined"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        app:icon="@drawable/ic_add_24"
+        android:contentDescription="@string/add_new_meaning"
+        app:layout_constraintBottom_toBottomOf="@+id/textInputLayout6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textInputLayout6" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout6"
+        tools:itemCount="3"
+        tools:listitem="@layout/item_edit_word_meaning" />
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/WordloomExposedDropdownMenu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:hint="@string/language"
+        android:labelFor="@id/autocomplete_word_language"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerView"
+        app:layout_constraintWidth_percent="0.5">
+
+        <AutoCompleteTextView
+            android:id="@+id/autocomplete_word_language"
+            style="@style/WordloomAutocompleteTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Russiann" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

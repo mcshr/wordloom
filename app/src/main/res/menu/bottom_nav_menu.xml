@@ -7,7 +7,7 @@
         android:title="@string/learn_title" />
     <item
         android:id="@+id/libraryFragment"
-        android:icon="@drawable/ic_folder_open_24"
+        android:icon="@drawable/ic_library_24"
         android:title="@string/library_title" />
     <item
         android:id="@+id/progressFragment"
