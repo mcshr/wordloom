@@ -34,7 +34,7 @@
         style="@style/text.title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:text="@string/mode_selection"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView9" />
@@ -43,43 +43,58 @@
         android:id="@+id/radioGroup"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/materialDivider"
+        android:layout_margin="6dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView11"
-        app:layout_constraintVertical_chainStyle="packed">
+       >
 
         <com.mcshr.wordloom.presentation.CustomRadioButton
             android:id="@+id/option_learn_mode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:title="@string/learning_mode"
-            app:subtitle="Прогресс запоминается...блаблабла" />
+            app:subtitle="Прогресс запоминается" />
+<!--        TODO extract string resources -->
 
         <com.mcshr.wordloom.presentation.CustomRadioButton
-            android:id="@+id/option_other_mode"
+            android:id="@+id/option_swipe_mode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:title="@string/swipe_mode"
             app:subtitle="Еще один режим обучения" />
     </RadioGroup>
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/viewPager"
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/materialDivider2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="6dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/radioGroup"
         app:layout_constraintBottom_toTopOf="@id/materialDivider"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/materialDivider2">
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </androidx.core.widget.NestedScrollView>
 
 
     <com.google.android.material.divider.MaterialDivider
         android:id="@+id/materialDivider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toTopOf="@id/btn_start_learning"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

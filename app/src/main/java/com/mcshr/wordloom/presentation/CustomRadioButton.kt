@@ -30,7 +30,6 @@ class CustomRadioButton @JvmOverloads constructor(
         setOnClickListener {
             if (!isChecked()) {
                 setChecked(true)
-                notifyRadioGroup()
             }
         }
     }
@@ -45,11 +44,13 @@ class CustomRadioButton @JvmOverloads constructor(
                     child.setChecked(false)
                 }
             }
+            parent.check(currentId)
         }
     }
 
     fun setChecked(checked: Boolean) {
         binding.radioButton.isChecked = checked
+        if(checked) notifyRadioGroup()
     }
 
     fun isChecked(): Boolean {

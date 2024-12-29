@@ -14,10 +14,27 @@
         android:id="@+id/libraryFragment"
         android:name="com.mcshr.wordloom.presentation.LibraryFragment"
         android:label="fragment_library"
-        tools:layout="@layout/fragment_library" />
+        tools:layout="@layout/fragment_library" >
+        <action
+            android:id="@+id/action_libraryFragment_to_editDictionaryFragment"
+            app:destination="@id/editDictionaryFragment" />
+        <action
+            android:id="@+id/action_libraryFragment_to_editWordFragment"
+            app:destination="@id/editWordFragment" />
+    </fragment>
     <fragment
         android:id="@+id/progressFragment"
         android:name="com.mcshr.wordloom.presentation.ProgressFragment"
         android:label="fragment_progress"
         tools:layout="@layout/fragment_progress" />
+    <fragment
+        android:id="@+id/editWordFragment"
+        android:name="com.mcshr.wordloom.presentation.EditWordFragment"
+        android:label="fragment_edit_word"
+        tools:layout="@layout/fragment_edit_word" />
+    <fragment
+        android:id="@+id/editDictionaryFragment"
+        android:name="com.mcshr.wordloom.presentation.EditDictionaryFragment"
+        android:label="fragment_edit_dictionary"
+        tools:layout="@layout/fragment_edit_dictionary" />
 </navigation>
