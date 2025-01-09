@@ -15,6 +15,10 @@
     <style name="text.hint">
         <item name="android:textSize">14sp</item>
     </style>
+    <style name="text.appbar">
+        <item name="android:textSize">22sp</item>
+        <item name="fontFamily">sans-serif-medium</item>
+    </style>
 
 
     <style name="text.title">
@@ -27,6 +31,7 @@
     <style name="text.title.large">
         <item name="android:textSize">24sp</item>
     </style>
+
     <style name="text.title.medium">
         <item name="android:textSize">16sp</item>
     </style>
@@ -180,6 +185,19 @@
         <item name="android:windowSoftInputMode">adjustPan</item>
     </style>
 
+
+    <!-- TOOLBAR -->
+
+    <style name="WordloomToolbar" parent="Widget.Material3.Toolbar">
+        <item name="titleTextAppearance">@style/text.appbar</item>
+        <item name="android:actionMenuTextAppearance">@style/text.title</item>
+    </style>
+    <style name="WordloomToolbar.Centered" parent="Widget.Material3.Toolbar">
+        <item name="titleTextAppearance">@style/text.title</item>
+        <item name="subtitleTextAppearance">@style/text.body</item>
+        <item name="titleCentered">true</item>
+        <item name="subtitleCentered">true</item>
+    </style>
 
 
 </resources>

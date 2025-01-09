@@ -6,15 +6,35 @@
     android:layout_height="match_parent"
     tools:context=".presentation.HomeFragment">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            style="@style/WordloomToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:title="Wordloom"
+            app:menu="@menu/toolbar_settings_menu"
+            />
+    </com.google.android.material.appbar.AppBarLayout>
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraint1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clipToPadding="false"
-        android:padding="16dp"
+        android:paddingHorizontal="16dp"
+        android:paddingBottom="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout3">
+
         <TextView
             android:id="@+id/tvTitle1"
             style="@style/text.title.main"
@@ -38,14 +58,13 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/card_with_border"
-                >
+                android:background="@drawable/card_with_border">
 
                 <TextView
                     android:id="@+id/tvCard1_ready_to_learn"
+                    style="@style/text.title.large"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/text.title.large"
                     app:layout_constraintBottom_toTopOf="@+id/textView1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -86,9 +105,9 @@
 
                 <TextView
                     android:id="@+id/tvCard2_repeat"
+                    style="@style/text.title.large"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/text.title.large"
                     app:layout_constraintBottom_toTopOf="@+id/textView2"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -148,9 +167,9 @@
 
                 <TextView
                     android:id="@+id/tvCard3_total_words"
+                    style="@style/text.title.large"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/text.title.large"
                     app:layout_constraintBottom_toTopOf="@+id/textView3"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -191,9 +210,9 @@
 
                 <TextView
                     android:id="@+id/tvCard4_learned"
+                    style="@style/text.title.large"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/text.title.large"
                     app:layout_constraintBottom_toTopOf="@+id/textView4"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -233,9 +252,9 @@
 
                 <TextView
                     android:id="@+id/tvCard5_unknown"
+                    style="@style/text.title.large"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/text.title.large"
                     app:layout_constraintBottom_toTopOf="@+id/textView5"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
