@@ -1,19 +1,24 @@
-package com.mcshr.wordloom.presentation
+package com.mcshr.wordloom.presentation.editWordScreen
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
 import com.mcshr.wordloom.databinding.ItemEditWordMeaningBinding
 
-class MeaningListAdapter: ListAdapter<String, MeaningListAdapter.MeaningViewHolder>(MeaningDiffCallback()) {
+class MeaningListAdapter: ListAdapter<String,MeaningViewHolder>(
+    MeaningDiffCallback()
+) {
+    var deleteMeaning: ((String) ->Unit)? = null
+    var updateMeaning: ((String) ->Unit)? = null
+
     override fun onBindViewHolder(holder: MeaningViewHolder, position: Int) {
        val binding = holder.binding
-        binding.tvMeaning.text = getItem(position)
+        val meaning = getItem(position)
+        binding.tvMeaning.text = meaning
         binding.btnDeleteMeaning.setOnClickListener {
-            //TODO()
+            deleteMeaning?.invoke(meaning)
         }
         binding.cardView.setOnClickListener {
-            //TODO()
+            updateMeaning?.invoke(meaning )
         }
     }
 
@@ -21,7 +26,7 @@ class MeaningListAdapter: ListAdapter<String, MeaningListAdapter.MeaningViewHold
         val binding = ItemEditWordMeaningBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MeaningViewHolder(binding)
     }
-    class MeaningViewHolder(val binding: ItemEditWordMeaningBinding) :RecyclerView.ViewHolder(binding.root)
+
 }
 
 

@@ -29,7 +29,7 @@
         tools:layout="@layout/fragment_progress" />
     <fragment
         android:id="@+id/editWordFragment"
-        android:name="com.mcshr.wordloom.presentation.EditWordFragment"
+        android:name="com.mcshr.wordloom.presentation.editWordScreen.EditWordFragment"
         android:label="fragment_edit_word"
         tools:layout="@layout/fragment_edit_word" />
     <fragment

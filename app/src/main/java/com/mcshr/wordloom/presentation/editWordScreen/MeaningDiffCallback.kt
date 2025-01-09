@@ -1,4 +1,4 @@
-package com.mcshr.wordloom.presentation
+package com.mcshr.wordloom.presentation.editWordScreen
 
 import androidx.recyclerview.widget.DiffUtil
 

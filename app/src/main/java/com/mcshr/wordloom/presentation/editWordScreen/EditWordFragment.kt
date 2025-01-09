@@ -1,4 +1,4 @@
-package com.mcshr.wordloom.presentation
+package com.mcshr.wordloom.presentation.editWordScreen
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.mcshr.wordloom.databinding.FragmentEditWordBinding
 
 class EditWordFragment : Fragment() {
@@ -17,7 +17,9 @@ class EditWordFragment : Fragment() {
     private val binding
         get() = _binding ?: throw RuntimeException("FragmentEditWordBinding is null")
 
-    private val meaningList :MutableList<String> = mutableListOf("123", "qweqe")
+    private val viewModel: EditWordViewModel by lazy {
+        ViewModelProvider(this)[EditWordViewModel::class.java]
+    }
     private val meaningAdapter = MeaningListAdapter()
 
     override fun onCreateView(
@@ -25,37 +27,37 @@ class EditWordFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentEditWordBinding.inflate(inflater, container, false)
-
-
-        binding.rvMeaningList.adapter = meaningAdapter
-        binding.rvMeaningList.layoutManager = LinearLayoutManager(context)
-
-        meaningAdapter.submitList(meaningList)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            findNavController().popBackStack()
-        }
-
-        binding.toolbar.setNavigationOnClickListener{
+        binding.toolbar.setNavigationOnClickListener {
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }
         binding.toolbar.setOnClickListener {
-            Toast.makeText(activity, "Text!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity, "Text!", Toast.LENGTH_SHORT).show() //TODO
+        }
+
+        binding.rvMeaningList.adapter = meaningAdapter
+        meaningAdapter.deleteMeaning = { meaning  -> viewModel.deleteMeaning(meaning ) }
+        meaningAdapter.updateMeaning =
+            { meaning  -> binding.editTextMeaning.setText(viewModel.deleteMeaning(meaning)) }
+        viewModel.meaningList.observe(viewLifecycleOwner) {
+            meaningAdapter.submitList(it)
         }
 
         binding.btnAddMeaning.setOnClickListener {
             val meaning = binding.editTextMeaning.editableText.toString()
-            if (meaning.isNotBlank()) {
-                meaningList.add(meaning)
-                meaningAdapter.submitList(meaningList.toList()) // Создать новый список
+            if(viewModel.addMeaning(meaning))
+                binding.editTextMeaning.editableText.clear()
+            else{
+            //TODO error message
             }
         }
 
-
-
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
         super.onViewCreated(view, savedInstanceState)
     }
 
