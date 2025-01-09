@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.mcshr.wordloom.R
 import com.mcshr.wordloom.databinding.FragmentEditDictionaryBinding
 
 class EditDictionaryFragment : Fragment() {
@@ -27,8 +29,28 @@ class EditDictionaryFragment : Fragment() {
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().popBackStack()
         }
+
+//        (requireActivity() as AppCompatActivity).setSupportActionBar(binding.toolbar)
+
+        binding.toolbar.setNavigationOnClickListener {
+            requireActivity().onBackPressedDispatcher.onBackPressed()
+        }
+        binding.toolbar.setOnMenuItemClickListener {
+            option ->
+                when(option.itemId){
+                    R.id.menu_item_save -> {
+                        Toast.makeText(activity, "Text!", Toast.LENGTH_SHORT).show()
+                        true
+                    }
+                    else -> false//throw IllegalArgumentException("option.itemId such id doesnt exist")
+                }
+
+        }
+
         super.onViewCreated(view, savedInstanceState)
     }
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()
