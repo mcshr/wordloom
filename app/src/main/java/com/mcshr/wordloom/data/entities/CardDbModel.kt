@@ -22,7 +22,7 @@ import com.mcshr.wordloom.domain.entities.WordStatus
     indices = [Index("word_id"), Index("status")]
 )
 data class CardDbModel(
-    @PrimaryKey(autoGenerate = true) val id: Int,
+    @PrimaryKey(autoGenerate = true) val id: Long,
     @TypeConverters(WordStatusConverter::class)
     val status: WordStatus,
     @ColumnInfo(
@@ -30,6 +30,6 @@ data class CardDbModel(
         defaultValue = "0"
     ) val reviewsCount: Int,
     @ColumnInfo(name = "next_rev_date")val nextRevDate: Long?,
-    @ColumnInfo(name = "word_id") val wordId: Int,
+    @ColumnInfo(name = "word_id") val wordId: Long,
     @ColumnInfo(name = "image_path") val imagePath: String?
 )

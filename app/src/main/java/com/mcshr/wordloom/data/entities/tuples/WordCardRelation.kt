@@ -5,6 +5,7 @@ import androidx.room.Junction
 import androidx.room.Relation
 import com.mcshr.wordloom.data.entities.CardDbModel
 import com.mcshr.wordloom.data.entities.CardTranslationDbModel
+import com.mcshr.wordloom.data.entities.TranslationDbModel
 
 data class WordCardRelation(
     @Embedded val card: CardDbModel,
@@ -16,7 +17,8 @@ data class WordCardRelation(
             value = CardTranslationDbModel::class,
             parentColumn = "card_id",
             entityColumn = "translation_id"
-        )
+        ),
+        entity = TranslationDbModel::class
     )
-    val translations: List<WordWithTranslationRelation>,
+    val translations: List<WordWithTranslationRelation>
 )

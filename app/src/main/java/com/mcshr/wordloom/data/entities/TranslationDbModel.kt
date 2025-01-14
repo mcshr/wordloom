@@ -30,7 +30,7 @@ import androidx.room.PrimaryKey
     ]
 )
 data class TranslationDbModel(
-    @PrimaryKey(autoGenerate = true) val id: Int,
-    @ColumnInfo(name = "word_id_original") val wordIdOriginal: Int,
-    @ColumnInfo(name = "word_id_translation") val wordIdTranslation: Int
+    @PrimaryKey(autoGenerate = true) val id: Long,
+    @ColumnInfo(name = "word_id_original") val wordIdOriginal: Long,
+    @ColumnInfo(name = "word_id_translation") val wordIdTranslation: Long
 )

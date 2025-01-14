@@ -22,8 +22,8 @@ import androidx.room.PrimaryKey
 
 )
 data class WordDbModel(
-    @PrimaryKey(autoGenerate = true) val id: Int,
+    @PrimaryKey(autoGenerate = true) val id: Long,
     @ColumnInfo(name = "word_text") val wordText: String,
-    @ColumnInfo(name = "language_id") val languageId: Int,
-    @ColumnInfo(name = "part_of_speech_id") val partOfSpeechId: Int //TODO part_of_speech
+    @ColumnInfo(name = "language_id") val languageId: Long,
+    @ColumnInfo(name = "part_of_speech_id") val partOfSpeechId: Int? //TODO part_of_speech
 )

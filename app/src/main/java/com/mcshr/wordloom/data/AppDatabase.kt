@@ -11,6 +11,7 @@ import com.mcshr.wordloom.data.entities.DictionaryDbModel
 import com.mcshr.wordloom.data.entities.LanguageDbModel
 import com.mcshr.wordloom.data.entities.TranslationDbModel
 import com.mcshr.wordloom.data.entities.WordDbModel
+import com.mcshr.wordloom.data.entities.tuples.SelectedDictionaryCardView
 
 @Database(
     version = 1,
@@ -23,9 +24,15 @@ import com.mcshr.wordloom.data.entities.WordDbModel
         TranslationDbModel::class,
         WordDbModel::class
     ],
+    views = [
+        SelectedDictionaryCardView::class
+            ],
     exportSchema = false
 )
 abstract class AppDatabase: RoomDatabase() {
+
+    abstract fun appDao():WordloomDao
+
     companion object{
         @Volatile
         private var INSTANCE: AppDatabase? = null

@@ -27,6 +27,6 @@ import androidx.room.Index
     indices = [Index("translation_id")]
 )
 data class CardTranslationDbModel(
-    @ColumnInfo(name = "card_id") val cardId: Int,
-    @ColumnInfo(name = "translation_id") val translationId: Int
+    @ColumnInfo(name = "card_id") val cardId: Long,
+    @ColumnInfo(name = "translation_id") val translationId: Long
 )

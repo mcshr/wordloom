@@ -27,6 +27,6 @@ import androidx.room.Index
     ]
 )
 data class DictionaryCardDbModel(
-    @ColumnInfo(name = "dictionary_id") val dictionaryId: Int,
-    @ColumnInfo(name = "card_id") val cardId: Int
+    @ColumnInfo(name = "dictionary_id") val dictionaryId: Long,
+    @ColumnInfo(name = "card_id") val cardId: Long
 )
