@@ -2,6 +2,7 @@ package com.mcshr.wordloom.data
 
 import android.app.Application
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.map
 import com.mcshr.wordloom.data.entities.mappers.DictionaryMapper
 import com.mcshr.wordloom.domain.WordloomRepository
 import com.mcshr.wordloom.domain.entities.Dictionary
@@ -40,7 +41,7 @@ class WordloomRepositoryImpl(application: Application):WordloomRepository {
 
     //Dictionary
 
-    override fun createDictionary(dictionary: Dictionary) {
+    override suspend fun createDictionary(dictionary: Dictionary) {
        dao.createDictionary(dictMapper.mapToDatabaseModel(dictionary))
     }
 
@@ -50,5 +51,11 @@ class WordloomRepositoryImpl(application: Application):WordloomRepository {
 
     override fun deleteDictionary(dictionary: Dictionary) {
         TODO("Not yet implemented")
+    }
+
+    override fun getAllDictionaries(): LiveData<List<Dictionary>> {
+        return dao.getAllDictionaries().map {
+            list -> dictMapper.mapListToDomainEntityList(list)
+        }
     }
 }

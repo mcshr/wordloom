@@ -1,12 +1,12 @@
-package com.mcshr.wordloom.presentation
+package com.mcshr.wordloom.presentation.editDictionaryScreen
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.mcshr.wordloom.R
 import com.mcshr.wordloom.databinding.FragmentEditDictionaryBinding
@@ -16,6 +16,10 @@ class EditDictionaryFragment : Fragment() {
     private var _binding: FragmentEditDictionaryBinding? = null
     private val binding
         get() = _binding ?: throw RuntimeException("FragmentEditDictionaryBinding is null")
+
+    private val viewModel: EditDictionaryViewModel by lazy {
+        ViewModelProvider(this)[EditDictionaryViewModel::class.java]
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,15 +43,18 @@ class EditDictionaryFragment : Fragment() {
             option ->
                 when(option.itemId){
                     R.id.menu_item_save -> {
-                        Toast.makeText(activity, "Text!", Toast.LENGTH_SHORT).show()
+                        saveDictionary()
                         true
                     }
                     else -> false//throw IllegalArgumentException("option.itemId such id doesnt exist")
                 }
-
         }
-
         super.onViewCreated(view, savedInstanceState)
+    }
+
+    private fun saveDictionary(){
+        val dictName = binding.editTextDictName.text.toString()
+        viewModel.createDictionary(dictName)
     }
 
 

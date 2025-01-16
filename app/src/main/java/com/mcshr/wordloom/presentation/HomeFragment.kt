@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.mcshr.wordloom.databinding.FragmentHomeBinding
+import com.mcshr.wordloom.presentation.sessionSettings.SessionSettingsFragment
 
 class HomeFragment : Fragment() {
 

@@ -7,6 +7,8 @@
     app:cardCornerRadius="@dimen/corner_radius"
     android:layout_marginBottom="8dp"
     android:elevation="1dp"
+    android:clickable="true"
+    android:focusable="true"
     >
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -25,7 +27,7 @@
             tools:text="English/Russian" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/textView_dictionary_name"
             style="@style/text.title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -42,7 +44,7 @@
             android:gravity="center"
             android:orientation="vertical"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textView">
+            app:layout_constraintTop_toBottomOf="@id/textView_dictionary_name">
 
             <TextView
                 android:id="@+id/tv_total_count"

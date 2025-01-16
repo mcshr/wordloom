@@ -15,7 +15,8 @@ interface WordloomRepository {
 
 
     //dictionary
-    fun createDictionary(dictionary: Dictionary)
+    suspend fun createDictionary(dictionary: Dictionary)
     fun editDictionary(dictionary: Dictionary)
     fun deleteDictionary(dictionary:Dictionary)
+    fun getAllDictionaries():LiveData<List<Dictionary>>
 }

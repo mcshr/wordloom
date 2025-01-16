@@ -1,4 +1,4 @@
-package com.mcshr.wordloom.presentation
+package com.mcshr.wordloom.presentation.dictionaryScreen
 
 import android.os.Bundle
 import android.view.LayoutInflater

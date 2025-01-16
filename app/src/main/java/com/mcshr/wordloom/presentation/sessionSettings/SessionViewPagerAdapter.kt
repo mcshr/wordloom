@@ -1,4 +1,4 @@
-package com.mcshr.wordloom.presentation
+package com.mcshr.wordloom.presentation.sessionSettings
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter

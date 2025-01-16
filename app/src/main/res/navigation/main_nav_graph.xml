@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/libraryFragment"
-        android:name="com.mcshr.wordloom.presentation.LibraryFragment"
+        android:name="com.mcshr.wordloom.presentation.libraryScreen.LibraryFragment"
         android:label="fragment_library"
         tools:layout="@layout/fragment_library" >
         <action
@@ -34,7 +34,7 @@
         tools:layout="@layout/fragment_edit_word" />
     <fragment
         android:id="@+id/editDictionaryFragment"
-        android:name="com.mcshr.wordloom.presentation.EditDictionaryFragment"
+        android:name="com.mcshr.wordloom.presentation.editDictionaryScreen.EditDictionaryFragment"
         android:label="fragment_edit_dictionary"
         tools:layout="@layout/fragment_edit_dictionary" />
 </navigation>

@@ -5,7 +5,7 @@ import com.mcshr.wordloom.domain.entities.Dictionary
 
 class CreateDictionaryUseCase
     (private val repository: WordloomRepository){
-    operator fun invoke(name:String, description:String, imagePath:String?){
+    suspend operator fun invoke(name:String, description:String?, imagePath:String?){
         val dictionary = Dictionary(
             id = 0, //default id
             name = name,

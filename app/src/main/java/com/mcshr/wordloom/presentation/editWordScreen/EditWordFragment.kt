@@ -35,7 +35,7 @@ class EditWordFragment : Fragment() {
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }
         binding.toolbar.setOnClickListener {
-            Toast.makeText(activity, "Text!", Toast.LENGTH_SHORT).show() //TODO
+            Toast.makeText(activity, "Text!", Toast.LENGTH_SHORT).show() //TODO dictionary selection
         }
 
         binding.rvMeaningList.adapter = meaningAdapter

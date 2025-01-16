@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.EditDictionaryFragment">
+    tools:context=".presentation.editDictionaryScreen.EditDictionaryFragment">
 
     <com.google.android.material.appbar.AppBarLayout
 
@@ -40,6 +40,7 @@
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_text_dict_name"
             style="@style/WordloomTextInputEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

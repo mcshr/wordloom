@@ -20,7 +20,7 @@ import com.mcshr.wordloom.domain.entities.WordStatus
 @Dao
 interface WordloomDao {
     @Insert
-    fun createDictionary(dictionary:DictionaryDbModel)
+    suspend fun createDictionary(dictionary:DictionaryDbModel)
 
     @Update
     fun editDictionary(dictionary: DictionaryDbModel)
@@ -85,14 +85,14 @@ interface WordloomDao {
             val translationId = createWord(meaningDbModel)
 
 
-            val hz = createTranslation(TranslationDbModel(
+            val translation = createTranslation(TranslationDbModel(
                 id = 0,
                 wordIdOriginal = wordId,
                 wordIdTranslation = translationId
             ))
             createCardTranslation(CardTranslationDbModel(
                 cardId = cardId,
-                translationId = hz
+                translationId = translation
             ))
         }
     }

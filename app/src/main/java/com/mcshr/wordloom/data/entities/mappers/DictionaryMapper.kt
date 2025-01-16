@@ -27,4 +27,9 @@ class DictionaryMapper {
         )
     }
 
+    fun mapListToDomainEntityList(list:List<DictionaryDbModel>):List<Dictionary>{
+        return list.map{
+            dictionaryDbModel -> mapToDomainEntity(dictionaryDbModel)
+        }
+    }
 }
