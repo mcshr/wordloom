@@ -31,6 +31,9 @@ interface WordloomDao {
     @Query("SELECT * FROM dictionary")
     fun getAllDictionaries():LiveData<List<DictionaryDbModel>>
 
+    @Query("SELECT * FROM dictionary WHERE id == :id")
+    suspend fun getDictionaryById(id:Long):DictionaryDbModel
+
     @Delete
     fun deleteDictionary(dictionary: DictionaryDbModel)
 
@@ -39,7 +42,7 @@ interface WordloomDao {
 
     @Transaction
     @Query("SELECT * FROM card WHERE id == :cardId")
-    fun getWordCardByCardId(cardId:Int):LiveData<WordCardRelation>
+    fun getWordCardByCardId(cardId:Long):LiveData<WordCardRelation>
 
     @Insert
     fun createCard(cardDbModel: CardDbModel): Long

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.mcshr.wordloom.databinding.FragmentLibraryBinding
 import com.mcshr.wordloom.presentation.SelectAddBottomSheetFragment
 
@@ -33,6 +34,11 @@ class LibraryFragment : Fragment() {
             SelectAddBottomSheetFragment().show(parentFragmentManager, "SelectAddTag")
         }
         binding.rvDictionaryWithStatsList.adapter = dictionaryAdapter
+        dictionaryAdapter.openDictionary = {
+            dictionaryId ->
+                val action = LibraryFragmentDirections.actionLibraryFragmentToDictionaryFragment(dictionaryId)
+                findNavController().navigate(action)
+        }
         viewModel.allDictionaries.observe(viewLifecycleOwner){
             dictionaryAdapter.submitList(it)
         }

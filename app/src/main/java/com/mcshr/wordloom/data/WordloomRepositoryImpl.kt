@@ -53,6 +53,12 @@ class WordloomRepositoryImpl(application: Application):WordloomRepository {
         TODO("Not yet implemented")
     }
 
+    override suspend fun getDictionary(dictionaryId: Long):Dictionary {
+       return dictMapper.mapToDomainEntity(
+           dao.getDictionaryById(dictionaryId)
+       )
+    }
+
     override fun getAllDictionaries(): LiveData<List<Dictionary>> {
         return dao.getAllDictionaries().map {
             list -> dictMapper.mapListToDomainEntityList(list)

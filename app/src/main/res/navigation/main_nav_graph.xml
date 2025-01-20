@@ -21,6 +21,9 @@
         <action
             android:id="@+id/action_libraryFragment_to_editWordFragment"
             app:destination="@id/editWordFragment" />
+        <action
+            android:id="@+id/action_libraryFragment_to_dictionaryFragment"
+            app:destination="@id/dictionaryFragment" />
     </fragment>
     <fragment
         android:id="@+id/progressFragment"
@@ -37,4 +40,13 @@
         android:name="com.mcshr.wordloom.presentation.editDictionaryScreen.EditDictionaryFragment"
         android:label="fragment_edit_dictionary"
         tools:layout="@layout/fragment_edit_dictionary" />
+    <fragment
+        android:id="@+id/dictionaryFragment"
+        android:name="com.mcshr.wordloom.presentation.dictionaryScreen.DictionaryFragment"
+        android:label="fragment_dictionary"
+        tools:layout="@layout/fragment_dictionary" >
+        <argument
+            android:name="dictionaryId"
+            app:argType="long" />
+    </fragment>
 </navigation>

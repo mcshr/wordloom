@@ -7,13 +7,16 @@ import com.mcshr.wordloom.databinding.ItemDictionaryLibBinding
 import com.mcshr.wordloom.domain.entities.Dictionary
 
 class DictionaryLibListAdapter:ListAdapter<Dictionary, DictionaryLibViewHolder>(DictionaryLibDiffCallback()) {
+
+    var openDictionary : ((dictionaryId: Long) -> Unit)? = null
+
     override fun onBindViewHolder(holder: DictionaryLibViewHolder, position: Int) {
         val dictionary = getItem(position)
         holder.binding.textViewDictionaryName.text = dictionary.name
         //TODO
 
         holder.binding.root.setOnClickListener {
-            //TODO
+            openDictionary?.invoke(dictionary.id)
         }
     }
 
