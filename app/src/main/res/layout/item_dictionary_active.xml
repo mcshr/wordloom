@@ -12,8 +12,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="16dp"
-        android:paddingVertical="16dp"
+        android:paddingHorizontal="18dp"
+        android:paddingVertical="18dp"
         android:background="@drawable/card_with_border"
         android:theme="@style/text.body.small">
 

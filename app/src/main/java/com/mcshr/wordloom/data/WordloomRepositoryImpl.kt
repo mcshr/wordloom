@@ -15,7 +15,7 @@ class WordloomRepositoryImpl(application: Application):WordloomRepository {
     private val dictMapper = DictionaryMapper()
 
 
-    override fun createWordCard(wordCard: WordCard) {
+    override suspend fun createWordCard(wordCard: WordCard) {
         dao.insertWordCard(wordCard)
     }
 

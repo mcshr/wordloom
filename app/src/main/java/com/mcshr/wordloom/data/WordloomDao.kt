@@ -19,6 +19,7 @@ import com.mcshr.wordloom.domain.entities.WordStatus
 
 @Dao
 interface WordloomDao {
+
     @Insert
     suspend fun createDictionary(dictionary:DictionaryDbModel)
 
@@ -45,26 +46,26 @@ interface WordloomDao {
     fun getWordCardByCardId(cardId:Long):LiveData<WordCardRelation>
 
     @Insert
-    fun createCard(cardDbModel: CardDbModel): Long
+    suspend fun createCard(cardDbModel: CardDbModel): Long
 
     @Insert
-    fun createWord(wordDbModel: WordDbModel): Long
+    suspend fun createWord(wordDbModel: WordDbModel): Long
 
     @Insert
-    fun createTranslation(translationDbModel: TranslationDbModel): Long
+    suspend fun createTranslation(translationDbModel: TranslationDbModel): Long
 
     @Insert
-    fun createCardTranslation(cardTranslationDbModel: CardTranslationDbModel)
+    suspend fun createCardTranslation(cardTranslationDbModel: CardTranslationDbModel)
 
 
     @Transaction
-    fun insertWordCard(wordCard: WordCard){
+    suspend fun insertWordCard(wordCard: WordCard){
 
         val word = WordDbModel(
             id = 0,
             wordText = wordCard.wordText,
-            languageId = 0, //TODO
-            partOfSpeechId = null
+            languageId = 1, //TODO
+            partOfSpeechId = 1
         )
         val wordId = createWord(word)
 
@@ -82,8 +83,8 @@ interface WordloomDao {
             val meaningDbModel = WordDbModel(
                 id = 0,
                 wordText = meaning,
-                languageId = 0, //TODO
-                partOfSpeechId = null
+                languageId = 1, //TODO
+                partOfSpeechId = 1
             )
             val translationId = createWord(meaningDbModel)
 

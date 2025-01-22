@@ -6,7 +6,7 @@ import com.mcshr.wordloom.domain.entities.WordCard
 
 interface WordloomRepository {
     //word card
-    fun createWordCard(wordCard: WordCard)
+    suspend fun createWordCard(wordCard: WordCard)
     fun editWordCard(wordCard: WordCard)
     fun deleteWordCard(wordCard:WordCard)
     fun getWordCardById(wordCardId: Int):WordCard

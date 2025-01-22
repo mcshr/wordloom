@@ -32,6 +32,7 @@ import com.mcshr.wordloom.data.entities.tuples.SelectedDictionaryCardView
 abstract class AppDatabase: RoomDatabase() {
 
     abstract fun appDao():WordloomDao
+    abstract fun prepopulateDataDao():PrepopulateDataDao
 
     companion object{
         @Volatile
@@ -47,7 +48,7 @@ abstract class AppDatabase: RoomDatabase() {
                     application,
                     AppDatabase::class.java,
                     DATABASE_NAME
-                ).build()
+                ).addCallback(DatabaseCallback(application)).build()
                 INSTANCE = db
                 return db
             }

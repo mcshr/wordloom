@@ -5,7 +5,9 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.mcshr.wordloom.data.WordloomRepositoryImpl
 import com.mcshr.wordloom.domain.interactors.dictionary.CreateDictionaryUseCase
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class EditDictionaryViewModel(application: Application): AndroidViewModel(application) {
     private val repository = WordloomRepositoryImpl(application)
@@ -15,7 +17,9 @@ class EditDictionaryViewModel(application: Application): AndroidViewModel(applic
     fun createDictionary(name: String){
         if (name.isNotEmpty())
             viewModelScope.launch {
-                createDictionaryUseCase(name, null, null)
+                withContext(Dispatchers.IO){
+                    createDictionaryUseCase(name, null, null)
+                }
             }
     }
 }
