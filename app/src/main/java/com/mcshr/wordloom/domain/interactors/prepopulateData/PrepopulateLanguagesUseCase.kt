@@ -1,6 +1,6 @@
-package com.mcshr.wordloom.domain.interactors
+package com.mcshr.wordloom.domain.interactors.prepopulateData
 
-import com.mcshr.wordloom.domain.PrepopulateDataRepository
+import com.mcshr.wordloom.domain.repository.PrepopulateDataRepository
 import com.mcshr.wordloom.domain.entities.Language
 
 class PrepopulateLanguagesUseCase(

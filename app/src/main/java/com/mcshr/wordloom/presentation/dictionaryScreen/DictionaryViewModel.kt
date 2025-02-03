@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.mcshr.wordloom.data.WordloomRepositoryImpl
+import com.mcshr.wordloom.data.repository.DictionaryRepositoryImpl
 import com.mcshr.wordloom.domain.entities.Dictionary
 import com.mcshr.wordloom.domain.interactors.dictionary.GetDictionaryUseCase
 import kotlinx.coroutines.Dispatchers
@@ -17,7 +17,7 @@ class DictionaryViewModel(
     application: Application,
     private val dictionaryId:Long
 ): ViewModel() {
-    private val repository = WordloomRepositoryImpl(application)
+    private val repository = DictionaryRepositoryImpl(application)
     private val getDictionaryUseCase = GetDictionaryUseCase(repository)
 
     private var _dictionary = MutableLiveData<Dictionary>()

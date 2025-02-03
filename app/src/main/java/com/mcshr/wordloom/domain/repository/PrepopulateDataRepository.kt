@@ -1,4 +1,4 @@
-package com.mcshr.wordloom.domain
+package com.mcshr.wordloom.domain.repository
 
 import com.mcshr.wordloom.domain.entities.Language
 

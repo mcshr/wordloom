@@ -1,9 +1,12 @@
-package com.mcshr.wordloom.data
+package com.mcshr.wordloom.data.database
 
 import android.app.Application
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.mcshr.wordloom.data.database.dao.DictionaryDao
+import com.mcshr.wordloom.data.database.dao.PrepopulateDataDao
+import com.mcshr.wordloom.data.database.dao.WordCardDao
 import com.mcshr.wordloom.data.entities.CardDbModel
 import com.mcshr.wordloom.data.entities.CardTranslationDbModel
 import com.mcshr.wordloom.data.entities.DictionaryCardDbModel
@@ -31,15 +34,16 @@ import com.mcshr.wordloom.data.entities.tuples.SelectedDictionaryCardView
 )
 abstract class AppDatabase: RoomDatabase() {
 
-    abstract fun appDao():WordloomDao
-    abstract fun prepopulateDataDao():PrepopulateDataDao
+    abstract fun wordCardDao(): WordCardDao
+    abstract fun prepopulateDataDao(): PrepopulateDataDao
+    abstract fun dictionaryDao(): DictionaryDao
 
     companion object{
         @Volatile
         private var INSTANCE: AppDatabase? = null
         private val LOCK = Any()
         private const val DATABASE_NAME = "wordloom_db"
-        fun getInstance(application: Application):AppDatabase{
+        fun getInstance(application: Application): AppDatabase {
             INSTANCE?.let {
                 return it
             }

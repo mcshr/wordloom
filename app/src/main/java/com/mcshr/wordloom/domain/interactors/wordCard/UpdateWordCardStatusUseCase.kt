@@ -1,10 +1,10 @@
 package com.mcshr.wordloom.domain.interactors.wordCard
 
-import com.mcshr.wordloom.domain.WordloomRepository
+import com.mcshr.wordloom.domain.repository.WordCardRepository
 import com.mcshr.wordloom.domain.entities.WordCard
 import com.mcshr.wordloom.domain.entities.WordStatus
 
-class UpdateWordCardStatusUseCase(private val repository: WordloomRepository) {
+class UpdateWordCardStatusUseCase(private val repository: WordCardRepository) {
     operator fun invoke(wordCardId: Int, isPositiveAction: Boolean) {
         val wordCard = GetWordCardByIdUseCase(repository)(wordCardId)
         var newWordStatus: WordStatus = wordCard.status

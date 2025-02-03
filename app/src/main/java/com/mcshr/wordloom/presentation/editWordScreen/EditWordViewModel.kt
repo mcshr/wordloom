@@ -5,14 +5,14 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.mcshr.wordloom.data.WordloomRepositoryImpl
+import com.mcshr.wordloom.data.repository.WordCardRepositoryImpl
 import com.mcshr.wordloom.domain.interactors.wordCard.CreateWordCardUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class EditWordViewModel(application: Application) : AndroidViewModel(application) {
-    private val repository = WordloomRepositoryImpl(application)
+    private val repository = WordCardRepositoryImpl(application)
     private val createWordCardUseCase = CreateWordCardUseCase(repository)
 
     private val _meaningList: MutableLiveData<List<String>> = MutableLiveData(emptyList())

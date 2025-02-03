@@ -1,15 +1,12 @@
-package com.mcshr.wordloom.data
+package com.mcshr.wordloom.data.database.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Transaction
-import androidx.room.Update
 import com.mcshr.wordloom.data.entities.CardDbModel
 import com.mcshr.wordloom.data.entities.CardTranslationDbModel
-import com.mcshr.wordloom.data.entities.DictionaryDbModel
 import com.mcshr.wordloom.data.entities.TranslationDbModel
 import com.mcshr.wordloom.data.entities.WordDbModel
 import com.mcshr.wordloom.data.entities.tuples.SelectedDictionaryCardView
@@ -18,25 +15,7 @@ import com.mcshr.wordloom.domain.entities.WordCard
 import com.mcshr.wordloom.domain.entities.WordStatus
 
 @Dao
-interface WordloomDao {
-
-    @Insert
-    suspend fun createDictionary(dictionary:DictionaryDbModel)
-
-    @Update
-    fun editDictionary(dictionary: DictionaryDbModel)
-
-    @Query("SELECT * FROM dictionary WHERE is_selected == 1")
-    fun getSelectedDictionaries():LiveData<List<DictionaryDbModel>>
-
-    @Query("SELECT * FROM dictionary")
-    fun getAllDictionaries():LiveData<List<DictionaryDbModel>>
-
-    @Query("SELECT * FROM dictionary WHERE id == :id")
-    suspend fun getDictionaryById(id:Long):DictionaryDbModel
-
-    @Delete
-    fun deleteDictionary(dictionary: DictionaryDbModel)
+interface WordCardDao {
 
     @Query("SELECT * FROM selected_dictionary_with_cards WHERE status == :wordStatus")
     fun getWordCardsListWithStatus(wordStatus: WordStatus):LiveData<List<SelectedDictionaryCardView>>

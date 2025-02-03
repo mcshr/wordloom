@@ -6,7 +6,7 @@ import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
-import com.mcshr.wordloom.data.WordStatusConverter
+import com.mcshr.wordloom.data.database.converters.WordStatusConverter
 import com.mcshr.wordloom.domain.entities.WordStatus
 
 

@@ -1,11 +1,11 @@
 package com.mcshr.wordloom.domain.interactors.wordCard
 
-import com.mcshr.wordloom.domain.WordloomRepository
+import com.mcshr.wordloom.domain.repository.WordCardRepository
 import com.mcshr.wordloom.domain.entities.WordCard
 import com.mcshr.wordloom.domain.entities.WordStatus
 
 class CreateWordCardUseCase
-    (private val repository: WordloomRepository) {
+    (private val repository: WordCardRepository) {
     suspend operator fun invoke(word:String, translations: List<String>, partOfSpeech: String?, imagePath: String?){
         val wordCard = WordCard(
             id = 0,

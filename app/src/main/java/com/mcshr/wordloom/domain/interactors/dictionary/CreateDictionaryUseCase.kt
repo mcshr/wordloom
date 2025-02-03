@@ -1,10 +1,10 @@
 package com.mcshr.wordloom.domain.interactors.dictionary
 
-import com.mcshr.wordloom.domain.WordloomRepository
+import com.mcshr.wordloom.domain.repository.DictionaryRepository
 import com.mcshr.wordloom.domain.entities.Dictionary
 
 class CreateDictionaryUseCase
-    (private val repository: WordloomRepository){
+    (private val repository: DictionaryRepository){
     suspend operator fun invoke(name:String, description:String?, imagePath:String?){
         val dictionary = Dictionary(
             id = 0, //default id

@@ -1,4 +1,4 @@
-package com.mcshr.wordloom.data
+package com.mcshr.wordloom.data.database.converters
 
 import androidx.room.TypeConverter
 import com.mcshr.wordloom.domain.entities.WordStatus
