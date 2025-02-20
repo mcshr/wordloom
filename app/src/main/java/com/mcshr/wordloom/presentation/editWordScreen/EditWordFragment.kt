@@ -4,13 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.mcshr.wordloom.R
 import com.mcshr.wordloom.databinding.FragmentEditWordBinding
+import com.mcshr.wordloom.presentation.editWordScreen.selectDictionary.SelectDictionaryBottomSheet
 
 class EditWordFragment : Fragment() {
 
@@ -18,9 +19,9 @@ class EditWordFragment : Fragment() {
     private val binding
         get() = _binding ?: throw RuntimeException("FragmentEditWordBinding is null")
 
-    private val viewModel: EditWordViewModel by lazy {
-        ViewModelProvider(this)[EditWordViewModel::class.java]
-    }
+    private val viewModel: EditWordViewModel by viewModels()
+    private val sharedViewModel:SharedDictionarySelectViewModel by activityViewModels()
+
     private val meaningAdapter = MeaningListAdapter()
 
     override fun onCreateView(
@@ -36,8 +37,14 @@ class EditWordFragment : Fragment() {
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }
         binding.toolbar.setOnClickListener {
-            Toast.makeText(activity, "Text!", Toast.LENGTH_SHORT).show() //TODO dictionary selection
+            SelectDictionaryBottomSheet().show(parentFragmentManager, "SelectDictionaryTag")
         }
+
+       sharedViewModel.selectedDictionary.observe(viewLifecycleOwner){
+            binding.toolbar.title = it.name
+        }
+
+
         binding.toolbar.setOnMenuItemClickListener {
             option -> when(option.itemId){
                 R.id.menu_item_save -> saveWord()
@@ -77,6 +84,8 @@ class EditWordFragment : Fragment() {
         }
         return false
     }
+
+
 
     override fun onDestroyView() {
         _binding = null

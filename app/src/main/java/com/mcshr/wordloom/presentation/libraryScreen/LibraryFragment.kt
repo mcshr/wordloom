@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.mcshr.wordloom.databinding.FragmentLibraryBinding
-import com.mcshr.wordloom.presentation.SelectAddBottomSheetFragment
+import com.mcshr.wordloom.presentation.libraryScreen.chooseAddAction.ChooseAddActionBottomSheetFragment
 
 class LibraryFragment : Fragment() {
 
@@ -31,7 +31,7 @@ class LibraryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.btnOpenSelectAdd.setOnClickListener{
-            SelectAddBottomSheetFragment().show(parentFragmentManager, "SelectAddTag")
+            ChooseAddActionBottomSheetFragment().show(parentFragmentManager, "SelectAddTag")
         }
         binding.rvDictionaryWithStatsList.adapter = dictionaryAdapter
         dictionaryAdapter.openDictionary = {

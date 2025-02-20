@@ -38,4 +38,8 @@
     <string name="close_bottom_sheet">close bottom sheet</string>
     <string name="settings">Settings</string>
     <string name="save">Save</string>
+    <string name="select_dictionary">Select a dictionary</string>
+    <string name="add_something">Add something</string>
+    <string name="dictionary">Dictionary</string>
+    <string name="selected_dictionary">Selected dictionary</string>
 </resources>

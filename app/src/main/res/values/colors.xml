@@ -21,7 +21,9 @@
     <color name="readyToLearn_status">#A222D9</color>
     <color name="known_status">#21D9D6</color>
     <color name="unknown_status">#A1A1A1</color>
-    <color name="button_light">#1F000000</color>
+
+    <color name="button_light_enabled">#E0E0E0</color>
+    <color name="button_light_disabled">#EEEEEE</color>
 
 
 </resources>

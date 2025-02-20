@@ -22,8 +22,8 @@
             android:layout_height="wrap_content"
             app:navigationIcon="@drawable/ic_back_24"
             style="@style/WordloomToolbar.Centered"
-            app:title="Dictionary name!@"
-            app:subtitle="Selected dictionary"
+            tools:title="Dictionary name!@"
+            app:subtitle="@string/selected_dictionary"
             app:menu="@menu/toolbar_save_menu"
             />
 

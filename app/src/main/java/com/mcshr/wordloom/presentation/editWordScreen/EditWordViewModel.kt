@@ -12,12 +12,15 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class EditWordViewModel(application: Application) : AndroidViewModel(application) {
-    private val repository = WordCardRepositoryImpl(application)
-    private val createWordCardUseCase = CreateWordCardUseCase(repository)
+    private val wordCardRepository = WordCardRepositoryImpl(application)
+
+    private val createWordCardUseCase = CreateWordCardUseCase(wordCardRepository)
+
 
     private val _meaningList: MutableLiveData<List<String>> = MutableLiveData(emptyList())
     val meaningList: LiveData<List<String>>
         get() = _meaningList
+
 
     fun addMeaning(meaning: String): Boolean {
         if (meaning.isNotBlank() && _meaningList.value?.contains(meaning) == false) {

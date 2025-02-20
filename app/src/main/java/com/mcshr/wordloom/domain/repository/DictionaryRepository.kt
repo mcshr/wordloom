@@ -10,4 +10,5 @@ interface DictionaryRepository {
     suspend fun getDictionary(dictionaryId:Long): Dictionary
     fun getAllDictionaries(): LiveData<List<Dictionary>>
     suspend fun getLastCreatedDictionary(): Dictionary?
+    suspend fun isAnyDictionaryExists(): Boolean
 }

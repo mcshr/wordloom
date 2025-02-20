@@ -42,4 +42,8 @@ class DictionaryRepositoryImpl(application: Application): DictionaryRepository {
                dictMapper.mapToDomainEntity(it)
             }
     }
+
+    override suspend fun isAnyDictionaryExists(): Boolean {
+        return dao.getLastCreatedDictionary() != null
+    }
 }
