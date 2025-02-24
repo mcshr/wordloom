@@ -22,8 +22,7 @@
     <color name="known_status">#21D9D6</color>
     <color name="unknown_status">#A1A1A1</color>
 
-    <color name="button_light_enabled">#E0E0E0</color>
-    <color name="button_light_disabled">#EEEEEE</color>
+    <color name="button_light">#E0E0E0</color>
 
 
 </resources>

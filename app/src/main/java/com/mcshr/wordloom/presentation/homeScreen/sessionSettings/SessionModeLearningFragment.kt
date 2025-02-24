@@ -1,4 +1,4 @@
-package com.mcshr.wordloom.presentation.sessionSettings
+package com.mcshr.wordloom.presentation.homeScreen.sessionSettings
 
 import android.os.Bundle
 import android.view.LayoutInflater

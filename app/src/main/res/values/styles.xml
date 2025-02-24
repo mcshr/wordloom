@@ -146,7 +146,7 @@
 
     <style name="WordloomIcon.Big">
         <item name="android:padding">20dp</item>
-        <item name="backgroundTint">@color/button_filled_color</item>
+        <item name="backgroundTint">@color/button_light</item>
         <item name="shapeAppearance">@style/cardShape</item>
         <item name="iconSize">30dp</item>
     </style>

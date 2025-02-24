@@ -23,7 +23,7 @@ class EditWordViewModel(application: Application) : AndroidViewModel(application
 
 
     fun addMeaning(meaning: String): Boolean {
-        if (meaning.isNotBlank() && _meaningList.value?.contains(meaning) == false) {
+        if (_meaningList.value?.contains(meaning) == false) {
             _meaningList.value = _meaningList.value?.plus(meaning)
             return true
         }

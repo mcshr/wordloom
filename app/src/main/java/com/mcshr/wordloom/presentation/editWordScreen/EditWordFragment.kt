@@ -62,11 +62,14 @@ class EditWordFragment : Fragment() {
         }
 
         binding.btnAddMeaning.setOnClickListener {
-            val meaning = binding.editTextMeaning.editableText.toString()
-            if(viewModel.addMeaning(meaning))
-                binding.editTextMeaning.editableText.clear()
+            val meaning = binding.editTextMeaning.text.toString()
+            if(meaning.isEmpty()){
+                binding.editTextMeaning.error = getString(R.string.error_empty_field)
+            }
+            else if(!viewModel.addMeaning(meaning))
+                binding.editTextMeaning.error = getString(R.string.error_already_exists_meaning)
             else{
-            //TODO error message
+                binding.editTextMeaning.editableText.clear()
             }
         }
 

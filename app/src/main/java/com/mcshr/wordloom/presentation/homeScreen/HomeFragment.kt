@@ -1,4 +1,4 @@
-package com.mcshr.wordloom.presentation
+package com.mcshr.wordloom.presentation.homeScreen
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.mcshr.wordloom.databinding.FragmentHomeBinding
-import com.mcshr.wordloom.presentation.sessionSettings.SessionSettingsFragment
+import com.mcshr.wordloom.presentation.homeScreen.sessionSettings.SessionSettingsFragment
 
 class HomeFragment : Fragment() {
 

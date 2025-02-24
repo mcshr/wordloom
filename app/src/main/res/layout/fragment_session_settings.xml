@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="16dp"
-    tools:context=".presentation.sessionSettings.SessionSettingsFragment">
+    tools:context=".presentation.homeScreen.sessionSettings.SessionSettingsFragment">
 
     <TextView
         android:id="@+id/textView9"

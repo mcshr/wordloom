@@ -42,4 +42,7 @@
     <string name="add_something">Add something</string>
     <string name="dictionary">Dictionary</string>
     <string name="selected_dictionary">Selected dictionary</string>
+    <string name="warning_no_dictionary">You need to create a dictionary first</string>
+    <string name="error_empty_field">Field cannot be empty</string>
+    <string name="error_already_exists_meaning">This meaning already exists</string>
 </resources>

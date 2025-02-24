@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.mcshr.wordloom.R
 import com.mcshr.wordloom.databinding.FragmentEditDictionaryBinding
@@ -17,9 +17,7 @@ class EditDictionaryFragment : Fragment() {
     private val binding
         get() = _binding ?: throw RuntimeException("FragmentEditDictionaryBinding is null")
 
-    private val viewModel: EditDictionaryViewModel by lazy {
-        ViewModelProvider(this)[EditDictionaryViewModel::class.java]
-    }
+    private val viewModel: EditDictionaryViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
