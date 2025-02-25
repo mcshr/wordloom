@@ -21,6 +21,9 @@ class EditWordViewModel(application: Application) : AndroidViewModel(application
     val meaningList: LiveData<List<String>>
         get() = _meaningList
 
+    private val _saveAndClose = MutableLiveData<Boolean>()
+    val saveAndClose: LiveData<Boolean>
+        get() = _saveAndClose
 
     fun addMeaning(meaning: String): Boolean {
         if (_meaningList.value?.contains(meaning) == false) {
@@ -36,17 +39,17 @@ class EditWordViewModel(application: Application) : AndroidViewModel(application
     }
 
     fun createWordCard(wordText: String, wordMeaningList: List<String>) {
-        if (wordText.isNotEmpty())
-            viewModelScope.launch {
-                withContext(Dispatchers.IO) {
-                    createWordCardUseCase(
-                        word = wordText,
-                        translations = wordMeaningList,
-                        partOfSpeech = null,
-                        imagePath = null
-                    )
-                }
+        viewModelScope.launch {
+            val isSuccess = withContext(Dispatchers.IO) {
+                createWordCardUseCase(
+                    word = wordText,
+                    translations = wordMeaningList,
+                    partOfSpeech = null,
+                    imagePath = null
+                )
             }
+            _saveAndClose.postValue(isSuccess)
+        }
     }
 
 }

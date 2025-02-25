@@ -8,6 +8,7 @@ import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import com.mcshr.wordloom.R
 import com.mcshr.wordloom.databinding.FragmentEditDictionaryBinding
 
@@ -37,24 +38,41 @@ class EditDictionaryFragment : Fragment() {
         binding.toolbar.setNavigationOnClickListener {
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }
-        binding.toolbar.setOnMenuItemClickListener {
-            option ->
-                when(option.itemId){
-                    R.id.menu_item_save -> {
-                        saveDictionary()
-                        true
-                    }
-                    else -> false//throw IllegalArgumentException("option.itemId such id doesnt exist")
+        binding.toolbar.setOnMenuItemClickListener { option ->
+            when (option.itemId) {
+                R.id.menu_item_save -> {
+                    saveDictionary()
+                    true
                 }
+
+                else -> false//throw IllegalArgumentException("option.itemId such id doesnt exist")
+            }
         }
+
+        
+        viewModel.saveAndClose.observe(viewLifecycleOwner){
+            if(it){
+                findNavController().popBackStack()
+            }else{
+                Snackbar.make(
+                    binding.root,
+                    getString(R.string.error_already_exists_dictionary),
+                    Snackbar.LENGTH_SHORT
+                    ).show()
+            }
+        }
+
         super.onViewCreated(view, savedInstanceState)
     }
 
-    private fun saveDictionary(){
+    private fun saveDictionary() {
         val dictName = binding.editTextDictName.text.toString()
+        if (dictName.isEmpty()) {
+            binding.editTextDictName.error = getString(R.string.error_empty_field)
+            return
+        }
         viewModel.createDictionary(dictName)
     }
-
 
 
     override fun onDestroyView() {

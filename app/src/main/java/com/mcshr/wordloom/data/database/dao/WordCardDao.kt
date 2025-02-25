@@ -11,18 +11,22 @@ import com.mcshr.wordloom.data.entities.TranslationDbModel
 import com.mcshr.wordloom.data.entities.WordDbModel
 import com.mcshr.wordloom.data.entities.tuples.SelectedDictionaryCardView
 import com.mcshr.wordloom.data.entities.tuples.WordCardRelation
-import com.mcshr.wordloom.domain.entities.WordCard
 import com.mcshr.wordloom.domain.entities.WordStatus
 
 @Dao
 interface WordCardDao {
 
     @Query("SELECT * FROM selected_dictionary_with_cards WHERE status == :wordStatus")
-    fun getWordCardsListWithStatus(wordStatus: WordStatus):LiveData<List<SelectedDictionaryCardView>>
+    fun getWordCardsListWithStatus(wordStatus: WordStatus): LiveData<List<SelectedDictionaryCardView>>
 
     @Transaction
     @Query("SELECT * FROM card WHERE id == :cardId")
-    fun getWordCardByCardId(cardId:Long):LiveData<WordCardRelation>
+    fun getWordCardByCardId(cardId: Long): LiveData<WordCardRelation>
+
+    @Query("SELECT id FROM word WHERE word_text == :wordText " +
+            "AND part_of_speech_id ==:partOfSpeechId " +
+            "AND language_id =:languageId LIMIT 1")
+    suspend fun getWordId(wordText: String, languageId: Long, partOfSpeechId: Int?): Long?
 
     @Insert
     suspend fun createCard(cardDbModel: CardDbModel): Long
@@ -36,48 +40,5 @@ interface WordCardDao {
     @Insert
     suspend fun createCardTranslation(cardTranslationDbModel: CardTranslationDbModel)
 
-
-    @Transaction
-    suspend fun insertWordCard(wordCard: WordCard){
-
-        val word = WordDbModel(
-            id = 0,
-            wordText = wordCard.wordText,
-            languageId = 1, //TODO
-            partOfSpeechId = 1
-        )
-        val wordId = createWord(word)
-
-        val card = CardDbModel(
-            id = 0,
-            status = wordCard.status,
-            reviewsCount = wordCard.reviewCount,
-            nextRevDate = wordCard.nextReviewTime,
-            imagePath = wordCard.imagePath,
-            wordId = wordId
-        )
-        val cardId = createCard(card)
-
-        for(meaning in wordCard.wordTranslations) {
-            val meaningDbModel = WordDbModel(
-                id = 0,
-                wordText = meaning,
-                languageId = 1, //TODO
-                partOfSpeechId = 1
-            )
-            val translationId = createWord(meaningDbModel)
-
-
-            val translation = createTranslation(TranslationDbModel(
-                id = 0,
-                wordIdOriginal = wordId,
-                wordIdTranslation = translationId
-            ))
-            createCardTranslation(CardTranslationDbModel(
-                cardId = cardId,
-                translationId = translation
-            ))
-        }
-    }
 
 }

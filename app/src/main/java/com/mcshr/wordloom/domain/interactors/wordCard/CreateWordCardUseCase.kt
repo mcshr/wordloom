@@ -1,12 +1,12 @@
 package com.mcshr.wordloom.domain.interactors.wordCard
 
-import com.mcshr.wordloom.domain.repository.WordCardRepository
 import com.mcshr.wordloom.domain.entities.WordCard
 import com.mcshr.wordloom.domain.entities.WordStatus
+import com.mcshr.wordloom.domain.repository.WordCardRepository
 
 class CreateWordCardUseCase
     (private val repository: WordCardRepository) {
-    suspend operator fun invoke(word:String, translations: List<String>, partOfSpeech: String?, imagePath: String?){
+    suspend operator fun invoke(word:String, translations: List<String>, partOfSpeech: String?, imagePath: String?):Boolean{
         val wordCard = WordCard(
             id = 0,
             wordText = word,
@@ -18,6 +18,6 @@ class CreateWordCardUseCase
             partOfSpeech = partOfSpeech
         )
 
-        repository.createWordCard(wordCard)
+        return repository.createWordCard(wordCard)
     }
 }

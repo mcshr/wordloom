@@ -13,8 +13,12 @@ class DictionaryRepositoryImpl(application: Application): DictionaryRepository {
     private val dao = db.dictionaryDao()
     private val dictMapper = DictionaryMapper()
 
-    override suspend fun createDictionary(dictionary: Dictionary) {
+    override suspend fun createDictionary(dictionary: Dictionary):Boolean {
+        dao.getDictionaryByName(dictionary.name)?.let {
+            return false
+        }
         dao.createDictionary(dictMapper.mapToDatabaseModel(dictionary))
+        return true
     }
 
     override fun editDictionary(dictionary: Dictionary) {

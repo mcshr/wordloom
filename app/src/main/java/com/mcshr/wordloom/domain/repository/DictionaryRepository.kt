@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import com.mcshr.wordloom.domain.entities.Dictionary
 
 interface DictionaryRepository {
-    suspend fun createDictionary(dictionary: Dictionary)
+    suspend fun createDictionary(dictionary: Dictionary):Boolean
     fun editDictionary(dictionary: Dictionary)
     fun deleteDictionary(dictionary: Dictionary)
     suspend fun getDictionary(dictionaryId:Long): Dictionary

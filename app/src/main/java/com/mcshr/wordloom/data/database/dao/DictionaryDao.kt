@@ -30,4 +30,7 @@ interface DictionaryDao {
 
     @Query("SELECT * FROM dictionary ORDER BY creation_date_time LIMIT 1")
     suspend fun getLastCreatedDictionary(): DictionaryDbModel?
+
+    @Query("SELECT * FROM dictionary WHERE name ==:name LIMIT 1")
+    suspend fun getDictionaryByName(name:String):DictionaryDbModel?
 }
