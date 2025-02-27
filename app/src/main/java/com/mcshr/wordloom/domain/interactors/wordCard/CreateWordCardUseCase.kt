@@ -6,7 +6,7 @@ import com.mcshr.wordloom.domain.repository.WordCardRepository
 
 class CreateWordCardUseCase
     (private val repository: WordCardRepository) {
-    suspend operator fun invoke(word:String, translations: List<String>, partOfSpeech: String?, imagePath: String?):Boolean{
+    suspend operator fun invoke(word:String, translations: List<String>, partOfSpeech: String?, imagePath: String?):Long?{
         val wordCard = WordCard(
             id = 0,
             wordText = word,

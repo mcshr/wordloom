@@ -1,6 +1,7 @@
 package com.mcshr.wordloom.presentation.dictionaryScreen
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,6 +30,8 @@ class DictionaryFragment : Fragment() {
         ViewModelProvider(this, viewModelFactory)[DictionaryViewModel::class.java]
     }
 
+    private val wordListAdapter = WordListAdapter()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,11 +49,19 @@ class DictionaryFragment : Fragment() {
         binding.toolbarDictionary.setNavigationOnClickListener {
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }
-        super.onViewCreated(view, savedInstanceState)
+
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){
             findNavController().popBackStack()
         }
 
+        binding.rvCardsDictionaryList.adapter = wordListAdapter
+
+        viewModel.wordList.observe(viewLifecycleOwner) {
+            Log.d("DictionaryFragment", "WordList size: ${it.size}")
+            wordListAdapter.submitList(it)
+        }
+
+        super.onViewCreated(view, savedInstanceState)
     }
 
 

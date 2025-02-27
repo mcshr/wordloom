@@ -7,8 +7,10 @@ import androidx.room.Query
 import androidx.room.Transaction
 import com.mcshr.wordloom.data.entities.CardDbModel
 import com.mcshr.wordloom.data.entities.CardTranslationDbModel
+import com.mcshr.wordloom.data.entities.DictionaryCardDbModel
 import com.mcshr.wordloom.data.entities.TranslationDbModel
 import com.mcshr.wordloom.data.entities.WordDbModel
+import com.mcshr.wordloom.data.entities.tuples.DictionaryWithCardsRelation
 import com.mcshr.wordloom.data.entities.tuples.SelectedDictionaryCardView
 import com.mcshr.wordloom.data.entities.tuples.WordCardRelation
 import com.mcshr.wordloom.domain.entities.WordStatus
@@ -28,6 +30,10 @@ interface WordCardDao {
             "AND language_id =:languageId LIMIT 1")
     suspend fun getWordId(wordText: String, languageId: Long, partOfSpeechId: Int?): Long?
 
+    @Transaction
+    @Query("SELECT * FROM dictionary WHERE id ==:dictionaryId LIMIT 1")
+    fun getWordCardsFromDictionary(dictionaryId: Long):LiveData<DictionaryWithCardsRelation>
+
     @Insert
     suspend fun createCard(cardDbModel: CardDbModel): Long
 
@@ -40,5 +46,7 @@ interface WordCardDao {
     @Insert
     suspend fun createCardTranslation(cardTranslationDbModel: CardTranslationDbModel)
 
+    @Insert
+    suspend fun addCardToDictionary(dictionaryCard:DictionaryCardDbModel)
 
 }

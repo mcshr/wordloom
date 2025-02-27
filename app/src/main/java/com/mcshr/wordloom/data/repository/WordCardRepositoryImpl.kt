@@ -1,12 +1,16 @@
 package com.mcshr.wordloom.data.repository
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.map
 import com.mcshr.wordloom.data.database.AppDatabase
 import com.mcshr.wordloom.data.entities.CardDbModel
 import com.mcshr.wordloom.data.entities.CardTranslationDbModel
+import com.mcshr.wordloom.data.entities.DictionaryCardDbModel
 import com.mcshr.wordloom.data.entities.TranslationDbModel
 import com.mcshr.wordloom.data.entities.WordDbModel
+import com.mcshr.wordloom.data.entities.mappers.WordCardMapper
 import com.mcshr.wordloom.domain.entities.WordCard
 import com.mcshr.wordloom.domain.repository.WordCardRepository
 
@@ -14,9 +18,10 @@ class WordCardRepositoryImpl(application: Application) : WordCardRepository {
 
     private val database = AppDatabase.getInstance(application)
     private val dao = database.wordCardDao()
+    private val wordCardMapper = WordCardMapper()
 
     //TODO create mappers
-    override suspend fun createWordCard(wordCard: WordCard):Boolean {
+    override suspend fun createWordCard(wordCard: WordCard):Long? {
         val word = WordDbModel(
             id = 0,
             wordText = wordCard.wordText,
@@ -24,7 +29,7 @@ class WordCardRepositoryImpl(application: Application) : WordCardRepository {
             partOfSpeechId = 1
         )
         dao.getWordId(word.wordText, word.languageId, word.partOfSpeechId)?.let{
-            return false
+            return null
         }
 
         val wordId =  dao.createWord(word)
@@ -68,7 +73,16 @@ class WordCardRepositoryImpl(application: Application) : WordCardRepository {
             )
         }
 
-        return true
+        return cardId
+    }
+
+    override suspend fun saveWordCardToDictionary(dictionaryId: Long, wordCardId: Long){
+        dao.addCardToDictionary(
+            DictionaryCardDbModel(
+                dictionaryId = dictionaryId,
+                cardId = wordCardId
+            )
+        )
     }
 
     override fun editWordCard(wordCard: WordCard) {
@@ -83,8 +97,12 @@ class WordCardRepositoryImpl(application: Application) : WordCardRepository {
         TODO("Not yet implemented")
     }
 
-    override fun getWordCardList(): LiveData<List<WordCard>> {
-        TODO("Not yet implemented")
+    override fun getWordCardListByDictId(dictionaryId: Long): LiveData<List<WordCard>> {
+       val list = dao.getWordCardsFromDictionary(dictionaryId)
+        Log.d("siaposjdaklsjdla",list.value.toString())
+        return dao.getWordCardsFromDictionary(dictionaryId).map {
+            wordCardMapper.mapListDBModelToListDomainEntity(it)
+        }
     }
 
     override fun getWordsForReview(currentTime: Long): List<WordCard> {

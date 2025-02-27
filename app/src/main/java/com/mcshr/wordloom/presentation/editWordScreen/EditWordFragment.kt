@@ -24,6 +24,7 @@ class EditWordFragment : Fragment() {
     private val sharedViewModel: SharedDictionarySelectViewModel by activityViewModels()
 
     private val meaningAdapter = MeaningListAdapter()
+    private var dictionaryId:Long? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,6 +37,7 @@ class EditWordFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         sharedViewModel.selectedDictionary.observe(viewLifecycleOwner) {
             binding.toolbar.title = it.name
+            dictionaryId = it.id
         }
 
         binding.rvMeaningList.adapter = meaningAdapter
@@ -56,7 +58,7 @@ class EditWordFragment : Fragment() {
         binding.toolbar.setOnMenuItemClickListener { option ->
             when (option.itemId) {
                 R.id.menu_item_save -> {
-                    saveWord()
+                    saveWordToDictionary()
                     true
                 }
 
@@ -93,7 +95,7 @@ class EditWordFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
     }
 
-    private fun saveWord() {
+    private fun saveWordToDictionary() {
         val wordText = binding.editTextWord.text.toString()
         val meaningsList = viewModel.meaningList.value.orEmpty()
         if (wordText.isEmpty()) {
@@ -108,7 +110,7 @@ class EditWordFragment : Fragment() {
             ).show()
             return
         }
-        viewModel.createWordCard(wordText, meaningsList)
+        viewModel.createWordCardInDictionary(wordText, meaningsList, dictionaryId)
     }
 
 

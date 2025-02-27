@@ -5,11 +5,12 @@ import com.mcshr.wordloom.domain.entities.WordCard
 
 interface WordCardRepository {
     //word card
-    suspend fun createWordCard(wordCard: WordCard):Boolean
+    suspend fun createWordCard(wordCard: WordCard):Long?
+    suspend fun saveWordCardToDictionary(dictionaryId: Long, wordCardId: Long)
     fun editWordCard(wordCard: WordCard)
     fun deleteWordCard(wordCard:WordCard)
     fun getWordCardById(wordCardId: Int):WordCard
-    fun getWordCardList(): LiveData<List<WordCard>>
+    fun getWordCardListByDictId(dictionaryId:Long): LiveData<List<WordCard>>
     fun getWordsForReview(currentTime: Long):List<WordCard>
 
 }

@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.mcshr.wordloom.data.repository.WordCardRepositoryImpl
 import com.mcshr.wordloom.domain.interactors.wordCard.CreateWordCardUseCase
+import com.mcshr.wordloom.domain.interactors.wordCard.SaveWordCardToDictionaryUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -15,6 +16,7 @@ class EditWordViewModel(application: Application) : AndroidViewModel(application
     private val wordCardRepository = WordCardRepositoryImpl(application)
 
     private val createWordCardUseCase = CreateWordCardUseCase(wordCardRepository)
+    private val saveWordCardToDictionaryUseCase = SaveWordCardToDictionaryUseCase(wordCardRepository)
 
 
     private val _meaningList: MutableLiveData<List<String>> = MutableLiveData(emptyList())
@@ -38,15 +40,16 @@ class EditWordViewModel(application: Application) : AndroidViewModel(application
         return meaning
     }
 
-    fun createWordCard(wordText: String, wordMeaningList: List<String>) {
+    fun createWordCardInDictionary(wordText: String, wordMeaningList: List<String>, dictId:Long?) {
         viewModelScope.launch {
             val isSuccess = withContext(Dispatchers.IO) {
-                createWordCardUseCase(
+                val cardId = createWordCardUseCase(
                     word = wordText,
                     translations = wordMeaningList,
                     partOfSpeech = null,
                     imagePath = null
                 )
+                saveWordCardToDictionaryUseCase(dictId, cardId)
             }
             _saveAndClose.postValue(isSuccess)
         }
