@@ -3,7 +3,7 @@ package com.mcshr.wordloom.data.entities.mappers
 import com.mcshr.wordloom.data.entities.LanguageDbModel
 import com.mcshr.wordloom.domain.entities.Language
 
-class LanguageMapper {
+object LanguageMapper {
     fun mapToDatabaseModel(language: Language):LanguageDbModel{
         return LanguageDbModel(
             id = 0,

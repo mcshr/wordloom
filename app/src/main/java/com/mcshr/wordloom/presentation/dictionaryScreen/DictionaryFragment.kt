@@ -1,7 +1,6 @@
 package com.mcshr.wordloom.presentation.dictionaryScreen
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -57,7 +56,6 @@ class DictionaryFragment : Fragment() {
         binding.rvCardsDictionaryList.adapter = wordListAdapter
 
         viewModel.wordList.observe(viewLifecycleOwner) {
-            Log.d("DictionaryFragment", "WordList size: ${it.size}")
             wordListAdapter.submitList(it)
         }
 

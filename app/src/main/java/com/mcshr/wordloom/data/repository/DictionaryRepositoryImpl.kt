@@ -11,13 +11,12 @@ import com.mcshr.wordloom.domain.repository.DictionaryRepository
 class DictionaryRepositoryImpl(application: Application): DictionaryRepository {
     private val db = AppDatabase.getInstance(application)
     private val dao = db.dictionaryDao()
-    private val dictMapper = DictionaryMapper()
 
     override suspend fun createDictionary(dictionary: Dictionary):Boolean {
         dao.getDictionaryByName(dictionary.name)?.let {
             return false
         }
-        dao.createDictionary(dictMapper.mapToDatabaseModel(dictionary))
+        dao.createDictionary(DictionaryMapper.mapToDatabaseModel(dictionary))
         return true
     }
 
@@ -30,20 +29,20 @@ class DictionaryRepositoryImpl(application: Application): DictionaryRepository {
     }
 
     override suspend fun getDictionary(dictionaryId: Long): Dictionary {
-        return dictMapper.mapToDomainEntity(
+        return DictionaryMapper.mapToDomainEntity(
             dao.getDictionaryById(dictionaryId)
         )
     }
 
     override fun getAllDictionaries(): LiveData<List<Dictionary>> {
         return dao.getAllDictionaries().map {
-                list -> dictMapper.mapListToDomainEntityList(list)
+                list -> DictionaryMapper.mapListToDomainEntityList(list)
         }
     }
 
     override suspend fun getLastCreatedDictionary(): Dictionary? {
         return dao.getLastCreatedDictionary()?.let {
-               dictMapper.mapToDomainEntity(it)
+               DictionaryMapper.mapToDomainEntity(it)
             }
     }
 

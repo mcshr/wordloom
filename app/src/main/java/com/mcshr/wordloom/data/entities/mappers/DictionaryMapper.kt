@@ -3,7 +3,7 @@ package com.mcshr.wordloom.data.entities.mappers
 import com.mcshr.wordloom.data.entities.DictionaryDbModel
 import com.mcshr.wordloom.domain.entities.Dictionary
 
-class DictionaryMapper {
+object DictionaryMapper {
     fun mapToDatabaseModel(dictionary:Dictionary):DictionaryDbModel
     {
         return DictionaryDbModel(
