@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.mcshr.wordloom.data.repository.WordCardRepositoryImpl
+import com.mcshr.wordloom.domain.entities.Language
 import com.mcshr.wordloom.domain.interactors.wordCard.CreateWordCardUseCase
 import com.mcshr.wordloom.domain.interactors.wordCard.SaveWordCardToDictionaryUseCase
 import kotlinx.coroutines.Dispatchers
@@ -47,7 +48,9 @@ class EditWordViewModel(application: Application) : AndroidViewModel(application
                     word = wordText,
                     translations = wordMeaningList,
                     partOfSpeech = null,
-                    imagePath = null
+                    imagePath = null,
+                    languageOriginal = Language("","", 0),
+                    languageTranslation = Language("","", 0)
                 )
                 saveWordCardToDictionaryUseCase(dictId, cardId)
             }

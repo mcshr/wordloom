@@ -12,5 +12,7 @@ data class DictionaryDbModel(
     val description: String?,
     @ColumnInfo(name = "is_selected", defaultValue = "false") val isSelected: Boolean,
     @ColumnInfo(name = "creation_date_time") val creationDateTime: Long?,
-    @ColumnInfo(name = "image_path") val imagePath: String?
+    @ColumnInfo(name = "image_path") val imagePath: String?,
+    @ColumnInfo(name = "language_id_original")val languageIdOriginal: Long,
+    @ColumnInfo(name = "language_id_translation")val languageIdTranslation: Long
 )

@@ -6,7 +6,14 @@ import com.mcshr.wordloom.domain.entities.Language
 object LanguageMapper {
     fun mapToDatabaseModel(language: Language):LanguageDbModel{
         return LanguageDbModel(
-            id = 0,
+            id = language.id,
+            name = language.name,
+            code = language.code
+        )
+    }
+    fun mapToDomainEntity(language: LanguageDbModel):Language{
+        return Language(
+            id = language.id,
             name = language.name,
             code = language.code
         )

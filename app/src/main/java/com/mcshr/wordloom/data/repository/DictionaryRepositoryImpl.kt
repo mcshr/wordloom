@@ -17,6 +17,7 @@ class DictionaryRepositoryImpl(application: Application): DictionaryRepository {
             return false
         }
         dao.createDictionary(DictionaryMapper.mapToDatabaseModel(dictionary))
+
         return true
     }
 

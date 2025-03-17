@@ -20,5 +20,6 @@ data class WordCardRelation(
         ),
         entity = TranslationDbModel::class
     )
-    val translations: List<WordWithTranslationRelation>
+    val translations: List<WordWithTranslationRelation>,
+
 )

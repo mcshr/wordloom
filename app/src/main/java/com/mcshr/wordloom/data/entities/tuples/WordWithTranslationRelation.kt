@@ -10,13 +10,15 @@ data class WordWithTranslationRelation(
 
     @Relation(
         parentColumn = "word_id_original",
-        entityColumn = "id"
+        entityColumn = "id",
+        entity = WordDbModel::class
     )
-    val wordOriginal: WordDbModel,
+    val wordOriginal: WordRelation,
 
     @Relation(
         parentColumn = "word_id_translation",
-        entityColumn = "id"
+        entityColumn = "id",
+        entity = WordDbModel::class
     )
-    val wordTranslation: WordDbModel
+    val wordTranslation: WordRelation
 )

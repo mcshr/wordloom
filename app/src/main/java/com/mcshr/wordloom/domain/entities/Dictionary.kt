@@ -6,5 +6,7 @@ data class Dictionary(
     val description:String?,
     val imagePath: String?,
     val isSelected: Boolean,
-    val creationDateTime: Long?
+    val creationDateTime: Long?,
+    val languageOriginal: Language,
+    val languageTranslation: Language
 )

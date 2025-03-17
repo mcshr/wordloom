@@ -5,6 +5,8 @@ data class WordCard(
     val wordTranslations: List<String>,
     val partOfSpeech: String?,
     val status: WordStatus,
+    val languageOriginal: Language,
+    val languageTranslation: Language,
     val reviewCount:Int,
     val nextReviewTime: Long?, //Unix timestamp
     val imagePath: String?,

@@ -9,9 +9,11 @@ import com.mcshr.wordloom.domain.entities.WordCard
 object WordCardMapper {
     fun mapWordCardRelationToWordCard(wordCardDB: WordCardRelation): WordCard {
         return WordCard(
-            wordText = wordCardDB.translations.first().wordOriginal.wordText,
-            wordTranslations = wordCardDB.translations.map { it.wordTranslation.wordText },
-            partOfSpeech = wordCardDB.translations.first().wordOriginal.partOfSpeechId.toString(), //TODO
+            wordText = wordCardDB.translations.first().wordOriginal.word.wordText,
+            wordTranslations = wordCardDB.translations.map { it.wordTranslation.word.wordText },
+            languageOriginal = LanguageMapper.mapToDomainEntity(wordCardDB.translations.first().wordOriginal.language),
+            languageTranslation = LanguageMapper.mapToDomainEntity(wordCardDB.translations.first().wordTranslation.language),
+            partOfSpeech = wordCardDB.translations.first().wordOriginal.word.partOfSpeechId.toString(), //TODO
             status = wordCardDB.card.status,
             reviewCount = wordCardDB.card.reviewsCount,
             nextReviewTime = wordCardDB.card.nextRevDate,
