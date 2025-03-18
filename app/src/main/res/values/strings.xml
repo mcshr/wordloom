@@ -48,4 +48,6 @@
     <string name="error_no_meanings">You must add at least one meaning</string>
     <string name="error_already_exists_word">This word already exists in the dictionary</string>
     <string name="error_already_exists_dictionary">This dictionary already exists in the library</string>
+    <string name="error_empty_languages">Please select both languages</string>
+    <string name="error_same_languages">Languages cannot be the same</string>
 </resources>

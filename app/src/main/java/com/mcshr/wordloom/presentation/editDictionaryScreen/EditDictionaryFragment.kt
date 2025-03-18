@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -11,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.mcshr.wordloom.R
 import com.mcshr.wordloom.databinding.FragmentEditDictionaryBinding
+import com.mcshr.wordloom.domain.entities.Language
 
 class EditDictionaryFragment : Fragment() {
 
@@ -32,9 +34,7 @@ class EditDictionaryFragment : Fragment() {
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().popBackStack()
         }
-
 //        (requireActivity() as AppCompatActivity).setSupportActionBar(binding.toolbar)
-
         binding.toolbar.setNavigationOnClickListener {
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }
@@ -44,22 +44,25 @@ class EditDictionaryFragment : Fragment() {
                     saveDictionary()
                     true
                 }
-
-                else -> false//throw IllegalArgumentException("option.itemId such id doesnt exist")
+                else -> false
             }
         }
 
-        
-        viewModel.saveAndClose.observe(viewLifecycleOwner){
-            if(it){
+        viewModel.saveAndClose.observe(viewLifecycleOwner) {
+            if (it) {
                 findNavController().popBackStack()
-            }else{
-                Snackbar.make(
-                    binding.root,
-                    getString(R.string.error_already_exists_dictionary),
-                    Snackbar.LENGTH_SHORT
-                    ).show()
+            } else {
+                showErrorSnackBar(getString(R.string.error_already_exists_dictionary))
             }
+        }
+        viewModel.allLanguages.observe(viewLifecycleOwner) { languages->
+            val adapter = ArrayAdapter(
+                requireContext(),
+                android.R.layout.simple_dropdown_item_1line,
+                languages.map { it.name }
+            )
+            binding.autocompleteDictWordLanguage.setAdapter(adapter)
+            binding.autocompleteDictMeaningLanguage.setAdapter(adapter)
         }
 
         super.onViewCreated(view, savedInstanceState)
@@ -71,7 +74,32 @@ class EditDictionaryFragment : Fragment() {
             binding.editTextDictName.error = getString(R.string.error_empty_field)
             return
         }
-        viewModel.createDictionary(dictName)
+        val languageWord = getLanguageByName(
+            binding.autocompleteDictWordLanguage.text.toString()
+        )
+        val languageMeaning = getLanguageByName(
+            binding.autocompleteDictMeaningLanguage.text.toString()
+        )
+        if (languageWord == null || languageMeaning == null) {
+            showErrorSnackBar(getString(R.string.error_empty_languages))
+            return
+        }
+        if (languageMeaning == languageWord) {
+            showErrorSnackBar(getString(R.string.error_same_languages))
+            return
+        }
+        viewModel.createDictionary(dictName, languageWord, languageMeaning)
+    }
+
+    private fun getLanguageByName(name: String): Language? {
+        return viewModel.allLanguages.value?.find { it.name == name }
+    }
+    private fun showErrorSnackBar(errorText:String){
+        Snackbar.make(
+            binding.root,
+            errorText,
+            Snackbar.LENGTH_SHORT
+        ).show()
     }
 
 

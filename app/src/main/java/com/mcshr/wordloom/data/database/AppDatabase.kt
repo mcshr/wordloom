@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.mcshr.wordloom.data.database.dao.DictionaryDao
-import com.mcshr.wordloom.data.database.dao.PrepopulateDataDao
+import com.mcshr.wordloom.data.database.dao.LanguageDao
 import com.mcshr.wordloom.data.database.dao.WordCardDao
 import com.mcshr.wordloom.data.entities.CardDbModel
 import com.mcshr.wordloom.data.entities.CardTranslationDbModel
@@ -35,7 +35,7 @@ import com.mcshr.wordloom.data.entities.tuples.SelectedDictionaryCardView
 abstract class AppDatabase: RoomDatabase() {
 
     abstract fun wordCardDao(): WordCardDao
-    abstract fun prepopulateDataDao(): PrepopulateDataDao
+    abstract fun languageDao(): LanguageDao
     abstract fun dictionaryDao(): DictionaryDao
 
     companion object{
@@ -52,7 +52,9 @@ abstract class AppDatabase: RoomDatabase() {
                     application,
                     AppDatabase::class.java,
                     DATABASE_NAME
-                ).addCallback(DatabaseCallback(application)).build()
+                ).addCallback(DatabaseCallback(application))
+                    .fallbackToDestructiveMigration() //TODO delete
+                    .build()
                 INSTANCE = db
                 return db
             }

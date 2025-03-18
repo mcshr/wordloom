@@ -5,6 +5,7 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Transaction
 import androidx.room.Update
 import com.mcshr.wordloom.data.entities.DictionaryDbModel
 import com.mcshr.wordloom.data.entities.tuples.DictionaryRelation
@@ -20,15 +21,18 @@ interface DictionaryDao {
     @Query("SELECT * FROM dictionary WHERE is_selected == 1")
     fun getSelectedDictionaries(): LiveData<List<DictionaryDbModel>>
 
+    @Transaction
     @Query("SELECT * FROM dictionary")
     fun getAllDictionaries(): LiveData<List<DictionaryRelation>>
 
+    @Transaction
     @Query("SELECT * FROM dictionary WHERE id == :id")
     suspend fun getDictionaryById(id:Long): DictionaryRelation
 
     @Delete
     fun deleteDictionary(dictionary: DictionaryDbModel)
 
+    @Transaction
     @Query("SELECT * FROM dictionary ORDER BY creation_date_time LIMIT 1")
     suspend fun getLastCreatedDictionary(): DictionaryRelation?
 
