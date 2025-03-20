@@ -1,14 +1,21 @@
 package com.mcshr.wordloom.presentation.libraryScreen
 
 import androidx.recyclerview.widget.DiffUtil
-import com.mcshr.wordloom.domain.entities.Dictionary
+import com.mcshr.wordloom.domain.entities.DictionaryWithStats
 
-class DictionaryLibDiffCallback: DiffUtil.ItemCallback<Dictionary>() {
-    override fun areContentsTheSame(oldItem: Dictionary, newItem: Dictionary): Boolean {
+class DictionaryLibDiffCallback: DiffUtil.ItemCallback<DictionaryWithStats>() {
+    override fun areContentsTheSame(
+        oldItem: DictionaryWithStats,
+        newItem: DictionaryWithStats
+    ): Boolean {
         return oldItem == newItem
     }
 
-    override fun areItemsTheSame(oldItem: Dictionary, newItem: Dictionary): Boolean {
-        return oldItem.id == newItem.id
+    override fun areItemsTheSame(
+        oldItem: DictionaryWithStats,
+        newItem: DictionaryWithStats
+    ): Boolean {
+        return oldItem.dictionary.id == newItem.dictionary.id
     }
+
 }

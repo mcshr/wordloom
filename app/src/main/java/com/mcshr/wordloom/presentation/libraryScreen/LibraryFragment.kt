@@ -37,7 +37,7 @@ class LibraryFragment : Fragment() {
                 val action = LibraryFragmentDirections.actionLibraryFragmentToDictionaryFragment(dictionaryId)
                 findNavController().navigate(action)
         }
-        viewModel.allDictionaries.observe(viewLifecycleOwner){
+        viewModel.allDictionariesWithStats.observe(viewLifecycleOwner){
             dictionaryAdapter.submitList(it)
         }
 

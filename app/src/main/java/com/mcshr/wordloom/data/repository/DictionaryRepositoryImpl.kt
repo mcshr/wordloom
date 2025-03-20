@@ -6,6 +6,7 @@ import androidx.lifecycle.map
 import com.mcshr.wordloom.data.database.AppDatabase
 import com.mcshr.wordloom.data.entities.mappers.DictionaryMapper
 import com.mcshr.wordloom.domain.entities.Dictionary
+import com.mcshr.wordloom.domain.entities.DictionaryWithStats
 import com.mcshr.wordloom.domain.repository.DictionaryRepository
 
 class DictionaryRepositoryImpl(application: Application): DictionaryRepository {
@@ -39,6 +40,10 @@ class DictionaryRepositoryImpl(application: Application): DictionaryRepository {
         return dao.getAllDictionaries().map {
                 list -> DictionaryMapper.mapListToDomainEntityList(list)
         }
+    }
+
+    override fun getAllDictionariesWithStats(): LiveData<List<DictionaryWithStats>> {
+        return dao.getAllDictWithStats().map { DictionaryMapper.mapListToDomainWithStats(it) }
     }
 
     override suspend fun getLastCreatedDictionary(): Dictionary? {

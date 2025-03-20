@@ -30,8 +30,8 @@ object WordCardMapper {
         return WordDbModel(
             id = 0,
             wordText = wordCard.wordText,
-            languageId = 0, //TODO
-            partOfSpeechId = 0 //^
+            languageId = wordCard.languageOriginal.id,
+            partOfSpeechId = 0 //TODO pos
         )
     }
     fun mapWordCardToCard(wordCard: WordCard, wordId:Long):CardDbModel {
@@ -49,8 +49,8 @@ object WordCardMapper {
             WordDbModel(
                 id = 0,
                 wordText = it,
-                languageId = 0, //TODO
-                partOfSpeechId = 0
+                languageId = wordCard.languageTranslation.id,
+                partOfSpeechId = 0 //TODO pos
             )
         }
     }

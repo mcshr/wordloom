@@ -24,7 +24,6 @@ class EditWordFragment : Fragment() {
     private val sharedViewModel: SharedDictionarySelectViewModel by activityViewModels()
 
     private val meaningAdapter = MeaningListAdapter()
-    private var dictionaryId:Long? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,7 +36,8 @@ class EditWordFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         sharedViewModel.selectedDictionary.observe(viewLifecycleOwner) {
             binding.toolbar.title = it.name
-            dictionaryId = it.id
+            binding.textInputLayout4.hint = it.languageOriginal.name
+            binding.textInputLayout6.hint = it.languageTranslation.name
         }
 
         binding.rvMeaningList.adapter = meaningAdapter
@@ -98,6 +98,7 @@ class EditWordFragment : Fragment() {
     private fun saveWordToDictionary() {
         val wordText = binding.editTextWord.text.toString()
         val meaningsList = viewModel.meaningList.value.orEmpty()
+        val dictionary = sharedViewModel.selectedDictionary.value
         if (wordText.isEmpty()) {
             binding.editTextWord.error = getString(R.string.error_empty_field)
             return
@@ -110,7 +111,15 @@ class EditWordFragment : Fragment() {
             ).show()
             return
         }
-        viewModel.createWordCardInDictionary(wordText, meaningsList, dictionaryId)
+        if (dictionary == null){
+            Snackbar.make(
+                binding.root,
+                "ERROR: No dictionary",
+                Snackbar.LENGTH_SHORT
+            ).show()
+            return
+        }
+        viewModel.createWordCardInDictionary(wordText, meaningsList, dictionary)
     }
 
 

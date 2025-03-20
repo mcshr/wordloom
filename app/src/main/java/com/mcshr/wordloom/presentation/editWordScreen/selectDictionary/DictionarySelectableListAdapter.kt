@@ -28,7 +28,11 @@ class DictionarySelectableListAdapter
     override fun onBindViewHolder(holder: DictionarySelectableViewHolder, position: Int) {
         val dictionary = getItem(position)
         holder.binding.textViewDictionaryName.text = dictionary.name
-        holder.binding.textViewLanguages.text = "TODO"
+        holder.binding.textViewLanguages.text = String.format(
+            "%s/%s",
+            dictionary.languageOriginal.name,
+            dictionary.languageTranslation.name
+        )
 
         val isSelected = dictionary.id == selectedDictionaryId
         holder.binding.root.isSelected = isSelected

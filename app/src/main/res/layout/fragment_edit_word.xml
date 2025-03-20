@@ -115,24 +115,4 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/item_edit_word_meaning" />
 
-
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/WordloomExposedDropdownMenu"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:hint="@string/language"
-        android:labelFor="@id/autocomplete_word_language"
-        app:layout_constraintStart_toStartOf="@+id/startGuideline"
-        app:layout_constraintTop_toBottomOf="@+id/rv_meaning_list"
-        app:layout_constraintWidth_percent="0.5">
-
-        <AutoCompleteTextView
-            android:id="@+id/autocomplete_word_language"
-            style="@style/WordloomAutocompleteTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="Russiann" />
-    </com.google.android.material.textfield.TextInputLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
