@@ -7,7 +7,10 @@ import com.mcshr.wordloom.data.database.AppDatabase
 import com.mcshr.wordloom.data.entities.CardTranslationDbModel
 import com.mcshr.wordloom.data.entities.DictionaryCardDbModel
 import com.mcshr.wordloom.data.entities.TranslationDbModel
-import com.mcshr.wordloom.data.entities.mappers.WordCardMapper
+import com.mcshr.wordloom.data.entities.mappers.toCardDomain
+import com.mcshr.wordloom.data.entities.mappers.toTranslationsList
+import com.mcshr.wordloom.data.entities.mappers.toWordCardListDomain
+import com.mcshr.wordloom.data.entities.mappers.toWordDomain
 import com.mcshr.wordloom.domain.entities.WordCard
 import com.mcshr.wordloom.domain.repository.WordCardRepository
 
@@ -17,19 +20,18 @@ class WordCardRepositoryImpl(application: Application) : WordCardRepository {
     private val dao = database.wordCardDao()
 
     override suspend fun createWordCard(wordCard: WordCard):Long? {
-        val word = WordCardMapper.mapWordCardToWord(wordCard)
+        val word = wordCard.toWordDomain()
         dao.getWordId(word.wordText, word.languageId, word.partOfSpeechId)?.let{
             return null
         }
 
         val wordId =  dao.createWord(word)
 
-        val card = WordCardMapper.mapWordCardToCard(wordCard, wordId)
+        val card = wordCard.toCardDomain(wordId)
         val cardId = dao.createCard(card)
 
-        val meaningList = WordCardMapper.mapWordCardToMeaningList(wordCard)
+        val meaningList = wordCard.toTranslationsList()
         for (meaning in  meaningList) {
-
             val translationId = dao.getWordId(
                 meaning.wordText,
                 meaning.languageId,
@@ -77,7 +79,7 @@ class WordCardRepositoryImpl(application: Application) : WordCardRepository {
 
     override fun getWordCardListByDictId(dictionaryId: Long): LiveData<List<WordCard>> {
         return dao.getWordCardsFromDictionary(dictionaryId).map {
-            WordCardMapper.mapListDBModelToListDomainEntity(it)
+            it.toWordCardListDomain()
         }
     }
 

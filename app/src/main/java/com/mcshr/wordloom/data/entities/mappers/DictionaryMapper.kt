@@ -6,53 +6,51 @@ import com.mcshr.wordloom.data.entities.tuples.DictionaryWithStatsTuple
 import com.mcshr.wordloom.domain.entities.Dictionary
 import com.mcshr.wordloom.domain.entities.DictionaryWithStats
 
-object DictionaryMapper {
-    fun mapToDatabaseModel(dictionary:Dictionary):DictionaryDbModel
-    {
-        return DictionaryDbModel(
-            id = dictionary.id,
-            name = dictionary.name,
-            description = dictionary.description,
-            imagePath = dictionary.imagePath,
-            isSelected = dictionary.isSelected,
-            creationDateTime = dictionary.creationDateTime,
-            languageIdOriginal = dictionary.languageOriginal.id,
-            languageIdTranslation = dictionary.languageTranslation.id
-        )
-    }
-    fun mapToDomainEntity(dictionary:DictionaryRelation):Dictionary
-    {
-        return Dictionary(
-            id = dictionary.dictionary.id,
-            name = dictionary.dictionary.name,
-            description = dictionary.dictionary.description,
-            imagePath = dictionary.dictionary.imagePath,
-            isSelected = dictionary.dictionary.isSelected,
-            creationDateTime = dictionary.dictionary.creationDateTime,
-            languageOriginal = LanguageMapper.mapToDomainEntity(dictionary.languageOriginal),
-            languageTranslation = LanguageMapper.mapToDomainEntity(dictionary.languageTranslation)
-        )
-    }
 
-    fun mapListToDomainEntityList(list:List<DictionaryRelation>):List<Dictionary>{
-        return list.map{
-            dictionaryDbModel -> mapToDomainEntity(dictionaryDbModel)
-        }
-    }
+fun Dictionary.toDBModel(): DictionaryDbModel {
+    return DictionaryDbModel(
+        id = id,
+        name = name,
+        description = description,
+        imagePath = imagePath,
+        isSelected = isSelected,
+        creationDateTime = creationDateTime,
+        languageIdOriginal = languageOriginal.id,
+        languageIdTranslation = languageTranslation.id
+    )
+}
 
-    fun mapToDomainWithStats(dict:DictionaryWithStatsTuple):DictionaryWithStats{
-        return DictionaryWithStats(
-            dictionary = mapToDomainEntity(dict.dictionary),
-            totalCountCards = dict.total,
-            unknownCountCards = dict.unknown,
-            knownCountCards = dict.known,
-            readyToLearnCountCards = dict.readyToLearn,
-            learningCountCards = dict.learning,
-            learnedCountCards = dict.learned
-        )
-    }
+fun DictionaryRelation.toDomainEntity(): Dictionary {
+    return Dictionary(
+        id = dictionary.id,
+        name = dictionary.name,
+        description = dictionary.description,
+        imagePath = dictionary.imagePath,
+        isSelected = dictionary.isSelected,
+        creationDateTime = dictionary.creationDateTime,
+        languageOriginal = languageOriginal.toDomainEntity(),
+        languageTranslation = languageTranslation.toDomainEntity()
+    )
+}
 
-    fun mapListToDomainWithStats(list: List<DictionaryWithStatsTuple>):List<DictionaryWithStats>{
-        return list.map { mapToDomainWithStats(it) }
+fun List<DictionaryRelation>.toDictionaryListDomain(): List<Dictionary> {
+    return map { dictionaryDbModel ->
+        dictionaryDbModel.toDomainEntity()
     }
+}
+
+fun DictionaryWithStatsTuple.toDomainEntity(): DictionaryWithStats {
+    return DictionaryWithStats(
+        dictionary = dictionary.toDomainEntity(),
+        totalCountCards = total,
+        unknownCountCards = unknown,
+        knownCountCards = known,
+        readyToLearnCountCards = readyToLearn,
+        learningCountCards = learning,
+        learnedCountCards = learned
+    )
+}
+
+fun List<DictionaryWithStatsTuple>.toDictionaryWithStatsListDomain(): List<DictionaryWithStats> {
+    return map { it.toDomainEntity() }
 }

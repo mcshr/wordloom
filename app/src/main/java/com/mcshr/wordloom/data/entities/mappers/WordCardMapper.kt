@@ -6,54 +6,55 @@ import com.mcshr.wordloom.data.entities.tuples.DictionaryWithCardsRelation
 import com.mcshr.wordloom.data.entities.tuples.WordCardRelation
 import com.mcshr.wordloom.domain.entities.WordCard
 
-object WordCardMapper {
-    fun mapWordCardRelationToWordCard(wordCardDB: WordCardRelation): WordCard {
-        return WordCard(
-            wordText = wordCardDB.translations.first().wordOriginal.word.wordText,
-            wordTranslations = wordCardDB.translations.map { it.wordTranslation.word.wordText },
-            languageOriginal = LanguageMapper.mapToDomainEntity(wordCardDB.translations.first().wordOriginal.language),
-            languageTranslation = LanguageMapper.mapToDomainEntity(wordCardDB.translations.first().wordTranslation.language),
-            partOfSpeech = wordCardDB.translations.first().wordOriginal.word.partOfSpeechId.toString(), //TODO
-            status = wordCardDB.card.status,
-            reviewCount = wordCardDB.card.reviewsCount,
-            nextReviewTime = wordCardDB.card.nextRevDate,
-            imagePath = wordCardDB.card.imagePath,
-            id = wordCardDB.card.id
-        )
-    }
 
-    fun mapListDBModelToListDomainEntity(dictWithCard: DictionaryWithCardsRelation): List<WordCard> {
-        return dictWithCard.wordCardList.map { mapWordCardRelationToWordCard(it) }
-    }
+fun WordCardRelation.toDomainEntity(): WordCard {
+    return WordCard(
+        wordText = translations.first().wordOriginal.word.wordText,
+        wordTranslations = translations.map { it.wordTranslation.word.wordText },
+        languageOriginal = translations.first().wordOriginal.language.toDomainEntity(),
+        languageTranslation = translations.first().wordTranslation.language.toDomainEntity(),
+        partOfSpeech = translations.first().wordOriginal.word.partOfSpeechId.toString(), //TODO
+        status = card.status,
+        reviewCount = card.reviewsCount,
+        nextReviewTime = card.nextRevDate,
+        imagePath = card.imagePath,
+        id = card.id
+    )
+}
 
-    fun mapWordCardToWord(wordCard: WordCard):WordDbModel{
-        return WordDbModel(
+fun DictionaryWithCardsRelation.toWordCardListDomain(): List<WordCard> {
+    return wordCardList.map { it.toDomainEntity() }
+}
+
+fun WordCard.toWordDomain(): WordDbModel {
+    return WordDbModel(
+        id = 0,
+        wordText = wordText,
+        languageId = languageOriginal.id,
+        partOfSpeechId = 0 //TODO pos
+    )
+}
+
+fun WordCard.toCardDomain(wordId: Long): CardDbModel {
+    return CardDbModel(
+        id = 0,
+        status = status,
+        reviewsCount = reviewCount,
+        nextRevDate = nextReviewTime,
+        imagePath = imagePath,
+        wordId = wordId
+    )
+}
+
+fun WordCard.toTranslationsList(): List<WordDbModel> {
+    return wordTranslations.map {
+        WordDbModel(
             id = 0,
-            wordText = wordCard.wordText,
-            languageId = wordCard.languageOriginal.id,
+            wordText = it,
+            languageId = languageTranslation.id,
             partOfSpeechId = 0 //TODO pos
         )
     }
-    fun mapWordCardToCard(wordCard: WordCard, wordId:Long):CardDbModel {
-        return CardDbModel(
-            id = 0,
-            status = wordCard.status,
-            reviewsCount = wordCard.reviewCount,
-            nextRevDate = wordCard.nextReviewTime,
-            imagePath = wordCard.imagePath,
-            wordId = wordId
-        )
-    }
-    fun mapWordCardToMeaningList(wordCard: WordCard):List<WordDbModel>{
-        return wordCard.wordTranslations.map {
-            WordDbModel(
-                id = 0,
-                wordText = it,
-                languageId = wordCard.languageTranslation.id,
-                partOfSpeechId = 0 //TODO pos
-            )
-        }
-    }
-
-
 }
+
+
