@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.mcshr.wordloom.databinding.FragmentHomeBinding
+import com.mcshr.wordloom.presentation.homeScreen.selectDictionary.SelectDictionaryBottomSheet
 import com.mcshr.wordloom.presentation.homeScreen.sessionSettings.SessionSettingsFragment
 
 class HomeFragment : Fragment() {
@@ -26,6 +27,10 @@ class HomeFragment : Fragment() {
 
         binding.btnMainLearn.setOnClickListener {
             SessionSettingsFragment().show(parentFragmentManager,"SessionSettingsTag")
+        }
+
+        binding.btnAddMoreDicts.setOnClickListener {
+            SelectDictionaryBottomSheet().show(parentFragmentManager, "AddSelectableDictionaryTag")
         }
 
         super.onViewCreated(view, savedInstanceState)

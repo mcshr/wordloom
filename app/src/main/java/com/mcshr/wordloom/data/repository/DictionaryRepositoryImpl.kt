@@ -25,8 +25,8 @@ class DictionaryRepositoryImpl(application: Application) : DictionaryRepository 
         return true
     }
 
-    override fun editDictionary(dictionary: Dictionary) {
-        TODO("Not yet implemented")
+    override suspend fun editDictionary(dictionary: Dictionary) {
+        dao.editDictionary(dictionary.toDBModel())
     }
 
     override fun deleteDictionary(dictionary: Dictionary) {

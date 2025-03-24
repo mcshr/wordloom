@@ -6,7 +6,7 @@ import com.mcshr.wordloom.domain.entities.DictionaryWithStats
 
 interface DictionaryRepository {
     suspend fun createDictionary(dictionary: Dictionary):Boolean
-    fun editDictionary(dictionary: Dictionary)
+    suspend fun editDictionary(dictionary: Dictionary)
     fun deleteDictionary(dictionary: Dictionary)
     suspend fun getDictionary(dictionaryId:Long): Dictionary
     fun getAllDictionaries(): LiveData<List<Dictionary>>

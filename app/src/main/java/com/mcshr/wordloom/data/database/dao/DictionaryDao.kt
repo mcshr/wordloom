@@ -17,10 +17,7 @@ interface DictionaryDao {
     suspend fun createDictionary(dictionary: DictionaryDbModel)
 
     @Update
-    fun editDictionary(dictionary: DictionaryDbModel)
-
-    @Query("SELECT * FROM dictionary WHERE is_selected == 1")
-    fun getSelectedDictionaries(): LiveData<List<DictionaryDbModel>>
+    suspend fun editDictionary(dictionary: DictionaryDbModel)
 
     @Transaction
     @Query("SELECT * FROM dictionary")

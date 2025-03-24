@@ -39,17 +39,17 @@ class SelectDictionaryBottomSheet : BottomSheetDialogFragment() {
             dismiss()
         }
 
-        viewModel.allDictionaries.observe(viewLifecycleOwner){
+        viewModel.allDictionaries.observe(viewLifecycleOwner) {
             rvAdapter.submitList(it)
         }
 
-        sharedViewModel.selectedDictionary.observe(viewLifecycleOwner){
+        sharedViewModel.selectedDictionary.observe(viewLifecycleOwner) {
             rvAdapter.selectDictionary(it.id)
         }
 
         binding.rvDictionarySelectList.adapter = rvAdapter
-        rvAdapter.onSelectDictionary = {
-            sharedViewModel.selectDictionary(it)
+        rvAdapter.onSelectDictionary = { dictionary ->
+            sharedViewModel.selectDictionary(dictionary)
             dismiss()
         }
 
