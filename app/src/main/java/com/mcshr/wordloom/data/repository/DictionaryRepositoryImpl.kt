@@ -47,6 +47,10 @@ class DictionaryRepositoryImpl(application: Application) : DictionaryRepository 
         return dao.getAllDictWithStats().map { it.toDictionaryWithStatsListDomain() }
     }
 
+    override fun getSelectedDictionariesWithStats(): LiveData<List<DictionaryWithStats>> {
+        return dao.getSelectedDictWithStats().map { it.toDictionaryWithStatsListDomain() }
+    }
+
     override suspend fun getLastCreatedDictionary(): Dictionary? {
         return dao.getLastCreatedDictionary()?.toDomainEntity()
     }

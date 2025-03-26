@@ -1,0 +1,38 @@
+package com.mcshr.wordloom.presentation.homeScreen
+
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.recyclerview.widget.ListAdapter
+import com.mcshr.wordloom.databinding.ItemDictionaryActiveBinding
+import com.mcshr.wordloom.domain.entities.DictionaryWithStats
+
+class SelectedDictionariesListAdapter :
+    ListAdapter<DictionaryWithStats, SelectedDictionaryViewHolder>(
+        SelectedDictionaryDiffCallback()
+    ) {
+    override fun onBindViewHolder(holder: SelectedDictionaryViewHolder, position: Int) {
+        val dictionaryWithStats = getItem(position)
+        val dictionary = dictionaryWithStats.dictionary
+        holder.binding.tvDictionaryName.text = dictionary.name
+        holder.binding.tvDictLanguage.text = String.format(
+            "%s/%s",
+            dictionary.languageOriginal.name,
+            dictionary.languageTranslation.name
+        )
+        holder.binding.tvDictTotalCount.text = dictionaryWithStats.totalCountCards.toString()
+        holder.binding.tvDictLearnedCount.text = dictionaryWithStats.learnedCountCards.toString()
+        holder.binding.tvDictLearningCount.text = dictionaryWithStats.learningCountCards.toString()
+    }
+
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): SelectedDictionaryViewHolder {
+       val binding = ItemDictionaryActiveBinding.inflate(
+           LayoutInflater.from(parent.context),
+           parent,
+           false
+       )
+        return SelectedDictionaryViewHolder(binding)
+    }
+}
