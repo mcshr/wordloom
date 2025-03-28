@@ -34,6 +34,14 @@ interface WordCardDao {
     @Query("SELECT * FROM dictionary WHERE id ==:dictionaryId LIMIT 1")
     fun getWordCardsFromDictionary(dictionaryId: Long):LiveData<DictionaryWithCardsRelation>
 
+    @Query("SELECT COUNT(card.id) FROM card " +
+            "INNER JOIN dictionary_card dc ON card.id = dc.card_id " +
+            "INNER JOIN dictionary ON dc.dictionary_id == dictionary.id " +
+            "WHERE dictionary.is_selected = 1 AND next_rev_date <= :currentTime")
+    fun getCardRepeatCountFromSelectedDictionaries(
+        currentTime: Long
+    ):LiveData<Int>
+
     @Insert
     suspend fun createCard(cardDbModel: CardDbModel): Long
 

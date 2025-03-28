@@ -39,26 +39,16 @@ class HomeFragment : Fragment() {
 
         viewModel.selectedDictionaries.observe(viewLifecycleOwner){list->
             selectedDictsAdapter.submitList(list)
-            var readyToLearn = 0
-            var total = 0
-            var learned = 0
-            var unknown = 0
-            var learning = 0
-            var repeat = 0 //TODO
-            list.forEach {
-                readyToLearn += it.readyToLearnCountCards
-                total += it.totalCountCards
-                learned += it.learnedCountCards
-                unknown += it.unknownCountCards
-                learning +=it.learningCountCards
-            }
-            binding.tvCard1ReadyToLearn.text = readyToLearn.toString()
-            binding.tvCard2Learning.text = learning.toString()
-            binding.tvCard2Repeat.text = (666).toString()
-            binding.tvCard3TotalWords.text = total.toString()
-            binding.tvCard4Learned.text = learned.toString()
-            binding.tvCard5Unknown.text = unknown.toString()
-
+        }
+        viewModel.stats.observe(viewLifecycleOwner){
+            binding.tvCard1ReadyToLearn.text = it.readyToLearn.toString()
+            binding.tvCard2Learning.text = it.learning.toString()
+            binding.tvCard3TotalWords.text = it.total.toString()
+            binding.tvCard4Learned.text = it.learned.toString()
+            binding.tvCard5Unknown.text = it.unknown.toString()
+        }
+        viewModel.repeatCount.observe(viewLifecycleOwner){
+            binding.tvCard2Repeat.text = it.toString()
         }
         binding.rvSelectedDictionariesList.adapter = selectedDictsAdapter
         binding.tvCard1ReadyToLearn.text

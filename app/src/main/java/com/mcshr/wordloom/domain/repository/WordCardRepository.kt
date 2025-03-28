@@ -12,5 +12,6 @@ interface WordCardRepository {
     fun getWordCardById(wordCardId: Int):WordCard
     fun getWordCardListByDictId(dictionaryId:Long): LiveData<List<WordCard>>
     fun getWordsForReview(currentTime: Long):List<WordCard>
+    fun getReadyToRepeatCardsCountFromSelectedDictionaries(currentTimeUnix: Long):LiveData<Int>
 
 }

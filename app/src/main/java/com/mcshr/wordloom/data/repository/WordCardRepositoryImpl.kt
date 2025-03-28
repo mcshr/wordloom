@@ -86,4 +86,8 @@ class WordCardRepositoryImpl(application: Application) : WordCardRepository {
     override fun getWordsForReview(currentTime: Long): List<WordCard> {
         TODO("Not yet implemented")
     }
+
+    override fun getReadyToRepeatCardsCountFromSelectedDictionaries(currentTimeUnix: Long): LiveData<Int> {
+        return dao.getCardRepeatCountFromSelectedDictionaries(currentTimeUnix)
+    }
 }

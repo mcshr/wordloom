@@ -24,18 +24,6 @@ interface DictionaryDao {
     @Query("SELECT * FROM dictionary")
     fun getAllDictionaries(): LiveData<List<DictionaryRelation>>
 
-    @Query("SELECT dictionary.* , " +
-            "COUNT(card.id ) AS total, " +
-            "COUNT(CASE WHEN card.status = 1 THEN 1 END) AS unknown, " +
-            "COUNT(CASE WHEN card.status = 2 THEN 1 END) AS known, " +
-            "COUNT(CASE WHEN card.status = 3 THEN 1 END) AS readyToLearn, " +
-            "COUNT(CASE WHEN card.status = 4 THEN 1 END) AS learning, " +
-            "COUNT(CASE WHEN card.status = 5 THEN 1 END) AS learned " +
-            "FROM dictionary " +
-            "LEFT JOIN dictionary_card dc ON dictionary.id = dc.dictionary_id " +
-            "LEFT JOIN card ON dc.card_id = card.id " +
-            "GROUP BY dictionary.id")
-    fun getAllDictWithStats(): LiveData<List<DictionaryWithStatsTuple>>
     @Transaction
     @Query(
         "SELECT dictionary.* , " +
