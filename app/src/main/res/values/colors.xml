@@ -8,6 +8,8 @@
     <color name="text60">#99000000</color>
     <color name="text38">#61000000</color>
 
+    <color name="background">#F1F1F1</color>
+
     <color name="container_lvl0">#ffffff</color>
     <color name="container_lvl1">#f3f3f3</color>
     <color name="container_lvl2">#eeeeee</color>
@@ -21,6 +23,8 @@
     <color name="readyToLearn_status">#A222D9</color>
     <color name="known_status">#21D9D6</color>
     <color name="unknown_status">#A1A1A1</color>
+
+    <color name="readyToLearn_text">#520072</color>
 
     <color name="button_light">#E0E0E0</color>
 

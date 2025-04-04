@@ -20,7 +20,7 @@ class SelectedDictionariesListAdapter :
             dictionary.languageTranslation.name
         )
         holder.binding.tvDictTotalCount.text = dictionaryWithStats.totalCountCards.toString()
-        holder.binding.tvDictLearnedCount.text = dictionaryWithStats.learnedCountCards.toString()
+        holder.binding.tvDictReadyToLearnCount.text = dictionaryWithStats.readyToLearnCountCards.toString()
         holder.binding.tvDictLearningCount.text = dictionaryWithStats.learningCountCards.toString()
     }
 

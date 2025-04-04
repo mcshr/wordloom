@@ -1,145 +1,251 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="12dp"
+    android:background="@color/background"
+    android:elevation="1dp"
+    android:orientation="vertical"
     tools:context=".presentation.homeScreen.sessionSettings.SessionModeLearningFragment">
 
-<!--TODO refactor-->
-    <TextView
-        android:id="@+id/textView10"
-        style="@style/text.title"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Available words:"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_add_new_words"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:background="@color/container_lvl0"
+        android:paddingVertical="16dp"
 
-    <Button
-        android:id="@+id/btn_add_new_words"
-        style="@style/WordloomButton.small"
+        android:elevation="1dp">
+
+        <TextView
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="16dp"
+            android:id="@+id/textView16"
+            style="@style/text.title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/word_limit_per_session"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/slider"
+            android:layout_marginStart="2dp"
+            style="@style/WordloomSlider"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:valueFrom="10"
+            android:valueTo="100"
+            app:layout_constraintEnd_toStartOf="@+id/edit_text_word_limit"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView16" />
+
+        <EditText
+            android:layout_marginEnd="16dp"
+            android:id="@+id/edit_text_word_limit"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            style="@style/text.title.medium_number"
+            app:layout_constraintBottom_toBottomOf="@+id/slider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/slider" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Learning words"
-        app:icon="@drawable/ic_add_24"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginVertical= "8dp"
+        android:text="\tThe session will include all cards for review + cards ready for study, but no more than N"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <View
-        android:id="@+id/to_repeat_circle"
-        android:layout_width="12dp"
-        android:layout_height="12dp"
-        android:background="@drawable/circle_shape"
-        android:backgroundTint="@color/learning_status"
-        app:layout_constraintBottom_toBottomOf="@+id/textView12"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView12" />
+        app:layout_constraintTop_toBottomOf="@+id/slider" />
 
-    <TextView
-        android:id="@+id/textView12"
-        style="@style/text.large"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:text="To repeat:"
-        app:layout_constraintStart_toEndOf="@id/to_repeat_circle"
-        app:layout_constraintTop_toBottomOf="@+id/btn_add_new_words" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_marginVertical="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/container_lvl0"
+            android:padding="16dp"
+            android:elevation="1dp">
 
-    <TextView
-        style="@style/text.title.medium_number"
-        android:id="@+id/tv_to_repeat_count_available"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="3dp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView12"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView12"
-        tools:text="12" />
+            <TextView
+                android:layout_marginTop="12dp"
+                android:id="@+id/textView10"
+                style="@style/text.title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/available_words"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <View
-        android:id="@+id/to_learn_circle"
-        android:layout_width="12dp"
-        android:layout_height="12dp"
-        android:background="@drawable/circle_shape"
-        android:backgroundTint="@color/readyToLearn_status"
-        app:layout_constraintBottom_toBottomOf="@+id/textView13"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView13" />
+            <View
+                android:id="@+id/to_repeat_circle"
+                android:layout_margin="6dp"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:background="@drawable/circle_shape"
+                android:backgroundTint="@color/learning_status"
+                app:layout_constraintBottom_toBottomOf="@+id/textView12"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textView12" />
 
-    <TextView
-        android:id="@+id/textView13"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        style="@style/text.large"
-        android:text="To learn:"
-        app:layout_constraintStart_toEndOf="@id/to_learn_circle"
-        app:layout_constraintTop_toBottomOf="@id/textView12" />
-    <TextView
-        style="@style/text.title.medium_number"
-        android:id="@+id/tv_to_learn_count_available"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="3dp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView13"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView13"
-        tools:text="1223" />
+            <TextView
+                android:id="@+id/textView12"
+                style="@style/text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="@string/to_repeat"
+                app:layout_constraintStart_toEndOf="@id/to_repeat_circle"
+                app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
-    <TextView
-        android:id="@+id/textView14"
-        style="@style/text.large"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Total:"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textView13" />
+            <TextView
+                android:id="@+id/tv_to_repeat_count_available"
+                style="@style/text.title.medium_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView12"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textView12"
+                tools:text="12" />
 
-    <TextView
-        style="@style/text.title.medium_number"
-        android:id="@+id/tv_total_count_available"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/textView14"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView14"
-        tools:text="1235" />
+            <View
+                android:id="@+id/to_learn_circle"
+                android:layout_margin="6dp"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:background="@drawable/circle_shape"
+                android:backgroundTint="@color/readyToLearn_status"
+                app:layout_constraintBottom_toBottomOf="@+id/textView13"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textView13" />
 
-    <TextView
-        android:id="@+id/textView16"
-        style="@style/text.title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Word limit for this session:"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView14" />
+            <TextView
+                android:id="@+id/textView13"
+                style="@style/text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="@string/to_learn"
+                app:layout_constraintStart_toEndOf="@id/to_learn_circle"
+                app:layout_constraintTop_toBottomOf="@id/textView12" />
 
-    <TextView
-        android:id="@+id/textView17"
-        style="@style/text.large"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Current limit:"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView16" />
+            <TextView
+                android:id="@+id/tv_to_learn_count_available"
+                style="@style/text.title.medium_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView13"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textView13"
+                tools:text="1223" />
 
-    <EditText
-        android:id="@+id/tv_limit_count_available"
-        style="@style/text.title.medium_number"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+            <TextView
+                android:id="@+id/textView14"
+                style="@style/text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/total"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textView13" />
 
-        android:layout_marginTop="2dp"
+            <TextView
+                android:id="@+id/tv_total_count_available"
+                style="@style/text.title.medium_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/textView14"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textView14"
+                tools:text="1235" />
 
-        app:layout_constraintBottom_toBottomOf="@+id/textView17"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView17"
-        tools:text="50" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/btn_manage_cards"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView14">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_list_manage_24"
+                    app:tint="@color/readyToLearn_text"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView8"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    style="@style/text"
+                    android:textColor="@color/readyToLearn_text"
+                    android:text="@string/manage_cards"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/imageView"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:background="@color/background"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/textView8"
+                    app:layout_constraintTop_toBottomOf="@+id/textView8" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/btn_auto_add"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_manage_cards">
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_autorenew_24"
+                    app:tint="@color/readyToLearn_text"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+
+                    android:id="@+id/textView9"
+                    style="@style/text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/automatically_add_cards"
+                    android:textColor="@color/readyToLearn_text"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/imageView2"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/background"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/textView9"
+                    app:layout_constraintTop_toBottomOf="@+id/textView9" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</LinearLayout>

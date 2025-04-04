@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools">
     <TextView
         android:id="@+id/radio_button_title"
-        style="@style/text.list_item.bold"
+        style="@style/text.list_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="Learning mode"

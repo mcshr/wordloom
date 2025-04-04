@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.mcshr.wordloom.databinding.FragmentSessionModeLearningBinding
+import java.util.Locale
 
 
 class SessionModeLearningFragment : Fragment() {
@@ -20,6 +21,13 @@ class SessionModeLearningFragment : Fragment() {
     ): View {
         _binding = FragmentSessionModeLearningBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        binding.slider.setLabelFormatter { value ->
+            String.format(Locale.getDefault(), "%d", value.toInt())
+        }
+        super.onViewCreated(view, savedInstanceState)
     }
 
 

@@ -20,7 +20,7 @@
     <string name="unknown">Unknown</string>
     <string name="add_new">Add new</string>
     <string name="search_in_dictionaries">Search in dictionaries</string>
-    <string name="mode_selection">Mode selection:</string>
+    <string name="mode_selection">Mode selection</string>
     <string name="start_learning">Start learning</string>
     <string name="session_settings">Session settings</string>
     <string name="learning_mode">Learning mode</string>
@@ -50,4 +50,10 @@
     <string name="error_already_exists_dictionary">This dictionary already exists in the library</string>
     <string name="error_empty_languages">Please select both languages</string>
     <string name="error_same_languages">Languages cannot be the same</string>
+    <string name="automatically_add_cards">Automatically add cards</string>
+    <string name="manage_cards">Manage cards</string>
+    <string name="available_words">Available words</string>
+    <string name="to_repeat">To repeat</string>
+    <string name="to_learn">To learn</string>
+    <string name="word_limit_per_session">Word limit per session</string>
 </resources>

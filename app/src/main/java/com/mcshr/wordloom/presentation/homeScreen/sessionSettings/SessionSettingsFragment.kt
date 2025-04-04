@@ -38,7 +38,11 @@ class SessionSettingsFragment : BottomSheetDialogFragment() {
         binding.optionLearnMode.setChecked(true)
         binding.viewPager.currentItem = 0
 
+
+        binding.scrollView.smoothScrollTo(0, 0)
+
         binding.radioGroup.setOnCheckedChangeListener { _, checkedId ->
+            binding.scrollView.smoothScrollTo(0, 0)
             val position = when(checkedId) {
                 R.id.option_learn_mode -> 0
                 R.id.option_swipe_mode -> 1
@@ -51,8 +55,6 @@ class SessionSettingsFragment : BottomSheetDialogFragment() {
             sheet ->
             val behavior = BottomSheetBehavior.from(sheet)
             behavior.state = BottomSheetBehavior.STATE_EXPANDED
-//            behavior.isFitToContents = false
-//            behavior.expandedOffset = 100
         }
 
     }
