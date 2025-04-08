@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.mcshr.wordloom.R
@@ -23,6 +24,7 @@ class SessionSettingsFragment : BottomSheetDialogFragment() {
         _binding = FragmentSessionSettingsBinding.inflate(inflater, container, false)
         return binding.root
     }
+    private val viewModel: SessionSettingsViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -56,7 +58,9 @@ class SessionSettingsFragment : BottomSheetDialogFragment() {
             val behavior = BottomSheetBehavior.from(sheet)
             behavior.state = BottomSheetBehavior.STATE_EXPANDED
         }
+        binding.btnStartLearning.setOnClickListener{
 
+        }
     }
 
     override fun getTheme(): Int {

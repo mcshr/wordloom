@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import com.mcshr.wordloom.databinding.FragmentHomeBinding
 import com.mcshr.wordloom.presentation.homeScreen.selectDictionary.SelectDictionaryBottomSheet
 import com.mcshr.wordloom.presentation.homeScreen.sessionSettings.SessionSettingsFragment
@@ -16,7 +16,7 @@ class HomeFragment : Fragment() {
     private val binding
         get() = _binding ?: throw RuntimeException("FragmentHomeBinding is null")
 
-    private val viewModel by viewModels<HomeViewModel>()
+    private val viewModel by activityViewModels<HomeViewModel>()
     private val selectedDictsAdapter = SelectedDictionariesListAdapter()
 
     override fun onCreateView(
