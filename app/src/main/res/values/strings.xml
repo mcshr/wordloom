@@ -56,4 +56,5 @@
     <string name="to_repeat">To repeat</string>
     <string name="to_learn">To learn</string>
     <string name="word_limit_per_session">Word limit per session</string>
+    <string name="error_wrong_word_limit">The value must be between 10 and 999</string>
 </resources>

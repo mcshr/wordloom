@@ -14,4 +14,12 @@ class AppSettingsRepositoryImpl(application: Application):AppSettingsRepository 
     override fun getLastSelectedDictionaryIdForWord(): Long? {
         return dataSource.getLastSelectedDictionaryId()
     }
+
+    override fun getSessionWordLimit(): Int {
+        return dataSource.getSessionWordLimit()
+    }
+
+    override fun saveSessionWordLimit(wordLimit: Int) {
+        dataSource.saveSessionWordLimit(wordLimit)
+    }
 }
