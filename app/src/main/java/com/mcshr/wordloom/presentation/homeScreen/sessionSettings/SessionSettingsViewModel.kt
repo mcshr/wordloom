@@ -22,10 +22,21 @@ class SessionSettingsViewModel(application: Application):AndroidViewModel(applic
             _wordLimit.value = value
     }
 
-    fun saveSessionWordLimit(wordLimit:Int){
-        saveSessionWordLimitUseCase(wordLimit)
+    fun saveSessionWordLimit(){
+        wordLimit.value?.let {
+            saveSessionWordLimitUseCase(it)
+        }
     }
     fun getSessionWordLimit():Int{
         return getSessionWordLimitUseCase()
+    }
+
+    fun startLearning(){
+        saveSessionWordLimit()
+
+    }
+    fun autoAddCards(){
+        saveSessionWordLimit()
+
     }
 }

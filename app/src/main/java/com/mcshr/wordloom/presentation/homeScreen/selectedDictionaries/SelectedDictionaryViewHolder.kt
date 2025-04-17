@@ -1,4 +1,4 @@
-package com.mcshr.wordloom.presentation.homeScreen
+package com.mcshr.wordloom.presentation.homeScreen.selectedDictionaries
 
 import androidx.recyclerview.widget.RecyclerView
 import com.mcshr.wordloom.databinding.ItemDictionaryActiveBinding

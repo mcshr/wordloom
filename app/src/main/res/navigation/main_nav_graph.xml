@@ -49,4 +49,8 @@
             android:name="dictionaryId"
             app:argType="long" />
     </fragment>
+    <fragment
+        android:id="@+id/wordsSelectionFragment"
+        android:name="com.mcshr.wordloom.presentation.homeScreen.selectedDictionaries.SelectedDictionariesFragment"
+        android:label="WordsSelectionFragment" />
 </navigation>

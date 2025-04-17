@@ -59,7 +59,12 @@ class SessionSettingsFragment : BottomSheetDialogFragment() {
             behavior.state = BottomSheetBehavior.STATE_EXPANDED
         }
         binding.btnStartLearning.setOnClickListener{
-
+            when (binding.radioGroup.checkedRadioButtonId){
+                R.id.option_learn_mode -> {
+                    viewModel.startLearning()
+                }
+                R.id.option_swipe_mode -> {}
+            }
         }
     }
 

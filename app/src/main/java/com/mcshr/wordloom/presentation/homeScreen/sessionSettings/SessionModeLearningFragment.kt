@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.slider.Slider
 import com.mcshr.wordloom.R
 import com.mcshr.wordloom.databinding.FragmentSessionModeLearningBinding
@@ -77,10 +79,13 @@ class SessionModeLearningFragment : Fragment() {
 
 
         binding.btnAutoAdd.setOnClickListener {
+            viewModel.autoAddCards()
 
         }
         binding.btnManageCards.setOnClickListener {
-
+            viewModel.saveSessionWordLimit()
+            findNavController().navigate(R.id.wordsSelectionFragment)
+            (parentFragment as BottomSheetDialogFragment).dismiss()
         }
 
 

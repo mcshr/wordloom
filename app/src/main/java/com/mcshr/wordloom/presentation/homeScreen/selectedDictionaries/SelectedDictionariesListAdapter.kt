@@ -1,4 +1,4 @@
-package com.mcshr.wordloom.presentation.homeScreen
+package com.mcshr.wordloom.presentation.homeScreen.selectedDictionaries
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

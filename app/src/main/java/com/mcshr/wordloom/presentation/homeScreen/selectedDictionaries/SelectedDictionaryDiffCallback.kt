@@ -1,4 +1,4 @@
-package com.mcshr.wordloom.presentation.homeScreen
+package com.mcshr.wordloom.presentation.homeScreen.selectedDictionaries
 
 import androidx.recyclerview.widget.DiffUtil
 import com.mcshr.wordloom.domain.entities.DictionaryWithStats
