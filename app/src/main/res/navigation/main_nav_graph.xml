@@ -9,7 +9,11 @@
         android:id="@+id/homeFragment"
         android:name="com.mcshr.wordloom.presentation.homeScreen.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_manageCardsForSessionFragment"
+            app:destination="@id/manageCardsForSessionFragment" />
+    </fragment>
     <fragment
         android:id="@+id/libraryFragment"
         android:name="com.mcshr.wordloom.presentation.libraryScreen.LibraryFragment"
@@ -50,7 +54,21 @@
             app:argType="long" />
     </fragment>
     <fragment
-        android:id="@+id/wordsSelectionFragment"
+        android:id="@+id/manageCardsForSessionFragment"
+        android:name="com.mcshr.wordloom.presentation.homeScreen.manageCardsForSession.ManageCardsForSessionFragment"
+        android:label="fragment_manage_cards_for_session"
+        tools:layout="@layout/fragment_manage_cards_for_session" >
+        <argument
+            android:name="dictinaryId"
+            app:argType="long" />
+    </fragment>
+    <fragment
+        android:id="@+id/selectedDictionariesFragment"
         android:name="com.mcshr.wordloom.presentation.homeScreen.selectedDictionaries.SelectedDictionariesFragment"
-        android:label="WordsSelectionFragment" />
+        android:label="fragment_selected_dictionaries"
+        tools:layout="@layout/fragment_selected_dictionaries" >
+        <action
+            android:id="@+id/action_selectedDictionariesFragment_to_manageCardsForSessionFragment"
+            app:destination="@id/manageCardsForSessionFragment" />
+    </fragment>
 </navigation>

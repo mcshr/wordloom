@@ -5,6 +5,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Transaction
+import androidx.room.Update
 import com.mcshr.wordloom.data.entities.CardDbModel
 import com.mcshr.wordloom.data.entities.CardTranslationDbModel
 import com.mcshr.wordloom.data.entities.DictionaryCardDbModel
@@ -56,5 +57,8 @@ interface WordCardDao {
 
     @Insert
     suspend fun addCardToDictionary(dictionaryCard:DictionaryCardDbModel)
+
+    @Update
+    suspend fun editCard(cardDbModel: CardDbModel)
 
 }

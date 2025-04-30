@@ -84,7 +84,7 @@ class SessionModeLearningFragment : Fragment() {
         }
         binding.btnManageCards.setOnClickListener {
             viewModel.saveSessionWordLimit()
-            findNavController().navigate(R.id.wordsSelectionFragment)
+            findNavController().navigate(R.id.selectedDictionariesFragment)
             (parentFragment as BottomSheetDialogFragment).dismiss()
         }
 

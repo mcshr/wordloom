@@ -65,8 +65,9 @@ class WordCardRepositoryImpl(application: Application) : WordCardRepository {
         )
     }
 
-    override fun editWordCard(wordCard: WordCard) {
-        TODO("Not yet implemented")
+    override suspend fun editWordCard(wordCard: WordCard) {
+        dao.editCard(wordCard.toCardDomain(wordCard.id))
+        //TODO("Not yet implemented")
     }
 
     override fun deleteWordCard(wordCard: WordCard) {

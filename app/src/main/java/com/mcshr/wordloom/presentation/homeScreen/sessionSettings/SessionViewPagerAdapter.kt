@@ -16,6 +16,6 @@ class SessionViewPagerAdapter(fragment:Fragment):FragmentStateAdapter(fragment) 
 
     }
     companion object{
-        private val PAGES_COUNT = 2
+        private const val PAGES_COUNT = 2
     }
 }

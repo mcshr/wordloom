@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.homeScreen.selectedDictionaries.SelectedDictionariesFragment">
+    tools:context=".presentation.homeScreen.manageCardsForSession.ManageCardsForSessionFragment">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayout6"
+        android:id="@+id/appBarLayout7"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -19,25 +19,19 @@
             style="@style/WordloomToolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:navigationIcon="@drawable/ic_back_24"
-            app:title="@string/selected_dictionaries_title" />
+            app:navigationIcon="@drawable/ic_back_24" />
+
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_selected_dictionaries_list"
+        android:id="@+id/rv_word_cards_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:clipToPadding="false"
-        android:paddingHorizontal="16dp"
+        android:padding="12dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constrainedHeight="true"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout6"
-        tools:itemCount="10"
-        tools:listitem="@layout/item_dictionary_active" />
-
-
-
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout7"
+        tools:listitem="@layout/item_word_listitem" />
 </androidx.constraintlayout.widget.ConstraintLayout>

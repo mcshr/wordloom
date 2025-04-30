@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.mcshr.wordloom.databinding.FragmentHomeBinding
 import com.mcshr.wordloom.presentation.homeScreen.selectDictionary.SelectDictionaryBottomSheet
 import com.mcshr.wordloom.presentation.homeScreen.selectedDictionaries.SelectedDictionariesListAdapter
@@ -50,6 +51,11 @@ class HomeFragment : Fragment() {
         }
         viewModel.repeatCount.observe(viewLifecycleOwner){
             binding.tvCard2Repeat.text = it.toString()
+        }
+        selectedDictsAdapter.onDictionaryClick = { dictId ->
+            val action =
+                HomeFragmentDirections.actionHomeFragmentToManageCardsForSessionFragment(dictId)
+            findNavController().navigate(action)
         }
         binding.rvSelectedDictionariesList.adapter = selectedDictsAdapter
         binding.tvCard1ReadyToLearn.text

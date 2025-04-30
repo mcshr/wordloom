@@ -37,7 +37,7 @@ fun WordCard.toWordDomain(): WordDbModel {
 
 fun WordCard.toCardDomain(wordId: Long): CardDbModel {
     return CardDbModel(
-        id = 0,
+        id = id,
         status = status,
         reviewsCount = reviewCount,
         nextRevDate = nextReviewTime,

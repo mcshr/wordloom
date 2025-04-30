@@ -11,7 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.mcshr.wordloom.databinding.FragmentSelectedDictionariesBinding
 import com.mcshr.wordloom.presentation.homeScreen.HomeViewModel
 
-class SelectedDictionariesFragment: Fragment() {
+class SelectedDictionariesFragment : Fragment() {
     private var _binding: FragmentSelectedDictionariesBinding? = null
     private val binding
         get() = _binding ?: throw RuntimeException("FragmentSelectedDictionariesBinding is null")
@@ -36,13 +36,21 @@ class SelectedDictionariesFragment: Fragment() {
         binding.toolbar.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
-        viewModel.selectedDictionaries.observe(viewLifecycleOwner){
+        viewModel.selectedDictionaries.observe(viewLifecycleOwner) {
             selectedDictsAdapter.submitList(it)
+        }
+        selectedDictsAdapter.onDictionaryClick = { dictId ->
+            val action =
+                SelectedDictionariesFragmentDirections.actionSelectedDictionariesFragmentToManageCardsForSessionFragment(
+                    dictId
+                )
+            findNavController().navigate(action)
         }
         binding.rvSelectedDictionariesList.adapter = selectedDictsAdapter
 
         super.onViewCreated(view, savedInstanceState)
     }
+
 
     override fun onDestroyView() {
         _binding = null

@@ -1,11 +1,11 @@
 package com.mcshr.wordloom.domain.interactors.wordCard
 
-import com.mcshr.wordloom.domain.repository.WordCardRepository
 import com.mcshr.wordloom.domain.entities.WordCard
 import com.mcshr.wordloom.domain.entities.WordStatus
+import com.mcshr.wordloom.domain.repository.WordCardRepository
 
 class UpdateWordCardStatusUseCase(private val repository: WordCardRepository) {
-    operator fun invoke(wordCardId: Int, isPositiveAction: Boolean) {
+    suspend operator fun invoke(wordCardId: Int, isPositiveAction: Boolean) {
         val wordCard = GetWordCardByIdUseCase(repository)(wordCardId)
         var newWordStatus: WordStatus = wordCard.status
         var newReviewCount: Int = wordCard.reviewCount
