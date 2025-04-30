@@ -53,7 +53,7 @@ abstract class AppDatabase: RoomDatabase() {
                     AppDatabase::class.java,
                     DATABASE_NAME
                 ).addCallback(DatabaseCallback(application))
-                    .fallbackToDestructiveMigration() //TODO delete
+                    .fallbackToDestructiveMigration(false) //TODO delete
                     .build()
                 INSTANCE = db
                 return db
