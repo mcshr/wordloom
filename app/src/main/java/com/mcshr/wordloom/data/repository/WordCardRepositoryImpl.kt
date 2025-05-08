@@ -1,6 +1,5 @@
 package com.mcshr.wordloom.data.repository
 
-import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
 import com.mcshr.wordloom.data.database.AppDatabase
@@ -13,10 +12,11 @@ import com.mcshr.wordloom.data.entities.mappers.toWordCardListDomain
 import com.mcshr.wordloom.data.entities.mappers.toWordDomain
 import com.mcshr.wordloom.domain.entities.WordCard
 import com.mcshr.wordloom.domain.repository.WordCardRepository
+import javax.inject.Inject
 
-class WordCardRepositoryImpl(application: Application) : WordCardRepository {
-
-    private val database = AppDatabase.getInstance(application)
+class WordCardRepositoryImpl @Inject constructor(
+    database: AppDatabase
+) : WordCardRepository {
     private val dao = database.wordCardDao()
 
     override suspend fun createWordCard(wordCard: WordCard):Long? {

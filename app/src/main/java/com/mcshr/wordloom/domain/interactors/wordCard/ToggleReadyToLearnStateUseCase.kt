@@ -3,8 +3,11 @@ package com.mcshr.wordloom.domain.interactors.wordCard
 import com.mcshr.wordloom.domain.entities.WordCard
 import com.mcshr.wordloom.domain.entities.WordStatus
 import com.mcshr.wordloom.domain.repository.WordCardRepository
+import javax.inject.Inject
 
-class ToggleReadyToLearnStateUseCase(private val repository: WordCardRepository) {
+class ToggleReadyToLearnStateUseCase @Inject constructor(
+    private val repository: WordCardRepository
+) {
     suspend operator fun invoke(wordCard: WordCard){
         when(wordCard.status){
             WordStatus.UNKNOWN -> {

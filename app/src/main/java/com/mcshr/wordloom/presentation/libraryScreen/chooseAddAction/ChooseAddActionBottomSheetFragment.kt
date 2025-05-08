@@ -10,7 +10,9 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.snackbar.Snackbar
 import com.mcshr.wordloom.R
 import com.mcshr.wordloom.databinding.FragmentChooseAddActionBottomSheetBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ChooseAddActionBottomSheetFragment : BottomSheetDialogFragment() {
 
     private var _binding: FragmentChooseAddActionBottomSheetBinding? = null
@@ -33,13 +35,13 @@ class ChooseAddActionBottomSheetFragment : BottomSheetDialogFragment() {
         }
         viewModel.isAnyDictionaryExists.observe(viewLifecycleOwner) { isAnyDictExists ->
             binding.btnWordAdd.apply {
-                alpha = if(isAnyDictExists) 1f else 0.5f
+                alpha = if (isAnyDictExists) 1f else 0.5f
                 setOnClickListener {
-                    if(isAnyDictExists){
+                    if (isAnyDictExists) {
                         dismiss()
                         val action = R.id.action_libraryFragment_to_editWordFragment
                         findNavController().navigate(action)
-                    }else{
+                    } else {
                         Snackbar.make(
                             it,
                             context.getString(R.string.warning_no_dictionary),

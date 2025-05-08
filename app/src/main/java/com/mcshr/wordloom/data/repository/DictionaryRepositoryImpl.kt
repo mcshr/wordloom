@@ -1,6 +1,5 @@
 package com.mcshr.wordloom.data.repository
 
-import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
 import com.mcshr.wordloom.data.database.AppDatabase
@@ -11,10 +10,12 @@ import com.mcshr.wordloom.data.entities.mappers.toDomainEntity
 import com.mcshr.wordloom.domain.entities.Dictionary
 import com.mcshr.wordloom.domain.entities.DictionaryWithStats
 import com.mcshr.wordloom.domain.repository.DictionaryRepository
+import javax.inject.Inject
 
-class DictionaryRepositoryImpl(application: Application) : DictionaryRepository {
-    private val db = AppDatabase.getInstance(application)
-    private val dao = db.dictionaryDao()
+class DictionaryRepositoryImpl @Inject constructor(
+    database: AppDatabase
+) : DictionaryRepository {
+    private val dao = database.dictionaryDao()
 
     override suspend fun createDictionary(dictionary: Dictionary): Boolean {
         dao.getDictionaryByName(dictionary.name)?.let {

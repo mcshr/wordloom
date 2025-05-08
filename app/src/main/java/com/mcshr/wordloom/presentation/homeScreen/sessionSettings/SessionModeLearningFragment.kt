@@ -15,9 +15,11 @@ import com.google.android.material.slider.Slider
 import com.mcshr.wordloom.R
 import com.mcshr.wordloom.databinding.FragmentSessionModeLearningBinding
 import com.mcshr.wordloom.presentation.homeScreen.HomeViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
 
 
+@AndroidEntryPoint
 class SessionModeLearningFragment : Fragment() {
 
     private var _binding: FragmentSessionModeLearningBinding? = null

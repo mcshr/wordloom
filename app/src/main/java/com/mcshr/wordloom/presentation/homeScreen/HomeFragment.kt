@@ -11,7 +11,9 @@ import com.mcshr.wordloom.databinding.FragmentHomeBinding
 import com.mcshr.wordloom.presentation.homeScreen.selectDictionary.SelectDictionaryBottomSheet
 import com.mcshr.wordloom.presentation.homeScreen.selectedDictionaries.SelectedDictionariesListAdapter
 import com.mcshr.wordloom.presentation.homeScreen.sessionSettings.SessionSettingsFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null

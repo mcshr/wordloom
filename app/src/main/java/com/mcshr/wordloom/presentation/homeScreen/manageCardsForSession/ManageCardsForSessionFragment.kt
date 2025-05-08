@@ -8,19 +8,18 @@ import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.mcshr.wordloom.databinding.FragmentManageCardsForSessionBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ManageCardsForSessionFragment : Fragment() {
 
     private var _binding: FragmentManageCardsForSessionBinding? = null
     private val binding
         get() = _binding ?: throw RuntimeException(" FragmentManageCardsForSessionBinding is null")
 
-    private val args: ManageCardsForSessionFragmentArgs by navArgs()
-    private val viewModel: ManageCardsForSessionViewModel by viewModels{
-        ManageCardsForSessionViewModel.provideFactory(args.dictinaryId, requireActivity().application)
-    }
+//    private val args: ManageCardsForSessionFragmentArgs by navArgs()
+    private val viewModel by viewModels<ManageCardsForSessionViewModel>()
     private val wordsAdapter = FilteredWordListAdapter()
 
     override fun onCreateView(

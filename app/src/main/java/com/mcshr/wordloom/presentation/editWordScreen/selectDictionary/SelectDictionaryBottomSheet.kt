@@ -5,11 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.mcshr.wordloom.databinding.FragmentSelectDictionaryBottomSheetBinding
 import com.mcshr.wordloom.presentation.editWordScreen.SharedDictionarySelectViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SelectDictionaryBottomSheet : BottomSheetDialogFragment() {
 
     private var _binding: FragmentSelectDictionaryBottomSheetBinding? = null
@@ -17,9 +19,7 @@ class SelectDictionaryBottomSheet : BottomSheetDialogFragment() {
         get() = _binding
             ?: throw RuntimeException(" FragmentSelectDictionaryBottomSheetBinding is null")
 
-    private val viewModel by lazy{
-        ViewModelProvider(this)[SelectDictionaryViewModel::class.java]
-    }
+    private val viewModel by viewModels<SelectDictionaryViewModel>()
     private val sharedViewModel: SharedDictionarySelectViewModel by activityViewModels()
     private val rvAdapter = DictionarySelectableListAdapter()
 

@@ -1,18 +1,18 @@
 package com.mcshr.wordloom.presentation.homeScreen.sessionSettings
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.mcshr.wordloom.data.repository.AppSettingsRepositoryImpl
+import androidx.lifecycle.ViewModel
 import com.mcshr.wordloom.domain.interactors.appSettings.GetSessionWordLimitUseCase
 import com.mcshr.wordloom.domain.interactors.appSettings.SaveSessionWordLimitUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class SessionSettingsViewModel(application: Application):AndroidViewModel(application) {
-    private val settingsRepository = AppSettingsRepositoryImpl(application)
-    private val getSessionWordLimitUseCase = GetSessionWordLimitUseCase(settingsRepository)
-    private val saveSessionWordLimitUseCase = SaveSessionWordLimitUseCase(settingsRepository)
-
+@HiltViewModel
+class SessionSettingsViewModel @Inject constructor(
+    private val getSessionWordLimitUseCase:GetSessionWordLimitUseCase,
+    private val saveSessionWordLimitUseCase: SaveSessionWordLimitUseCase
+): ViewModel() {
     private val _wordLimit = MutableLiveData<Int>()
     val wordLimit : LiveData<Int>
         get() = _wordLimit

@@ -10,7 +10,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.mcshr.wordloom.databinding.FragmentSelectedDictionariesBinding
 import com.mcshr.wordloom.presentation.homeScreen.HomeViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SelectedDictionariesFragment : Fragment() {
     private var _binding: FragmentSelectedDictionariesBinding? = null
     private val binding

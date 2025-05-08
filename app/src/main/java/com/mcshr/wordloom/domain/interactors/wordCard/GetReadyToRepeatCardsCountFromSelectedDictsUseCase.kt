@@ -2,8 +2,9 @@ package com.mcshr.wordloom.domain.interactors.wordCard
 
 import androidx.lifecycle.LiveData
 import com.mcshr.wordloom.domain.repository.WordCardRepository
+import javax.inject.Inject
 
-class GetReadyToRepeatCardsCountFromSelectedDictionariesUseCase(
+class GetReadyToRepeatCardsCountFromSelectedDictsUseCase @Inject constructor(
     private val repository: WordCardRepository
 ) {
     operator fun invoke():LiveData<Int>{

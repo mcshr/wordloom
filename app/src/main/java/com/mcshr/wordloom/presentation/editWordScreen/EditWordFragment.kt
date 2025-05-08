@@ -13,7 +13,9 @@ import com.google.android.material.snackbar.Snackbar
 import com.mcshr.wordloom.R
 import com.mcshr.wordloom.databinding.FragmentEditWordBinding
 import com.mcshr.wordloom.presentation.editWordScreen.selectDictionary.SelectDictionaryBottomSheet
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class EditWordFragment : Fragment() {
 
     private var _binding: FragmentEditWordBinding? = null
@@ -21,7 +23,7 @@ class EditWordFragment : Fragment() {
         get() = _binding ?: throw RuntimeException("FragmentEditWordBinding is null")
 
     private val viewModel: EditWordViewModel by viewModels()
-    private val sharedViewModel: SharedDictionarySelectViewModel by activityViewModels()
+    private val sharedViewModel: SharedDictionarySelectViewModel by activityViewModels() //TODO remove
 
     private val meaningAdapter = MeaningListAdapter()
 

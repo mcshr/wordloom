@@ -1,8 +1,6 @@
 package com.mcshr.wordloom.data.database
 
-import android.app.Application
 import androidx.room.Database
-import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.mcshr.wordloom.data.database.dao.DictionaryDao
 import com.mcshr.wordloom.data.database.dao.LanguageDao
@@ -37,27 +35,4 @@ abstract class AppDatabase: RoomDatabase() {
     abstract fun wordCardDao(): WordCardDao
     abstract fun languageDao(): LanguageDao
     abstract fun dictionaryDao(): DictionaryDao
-
-    companion object{
-        @Volatile
-        private var INSTANCE: AppDatabase? = null
-        private val LOCK = Any()
-        private const val DATABASE_NAME = "wordloom_db"
-        fun getInstance(application: Application): AppDatabase {
-            INSTANCE?.let {
-                return it
-            }
-            synchronized(LOCK) {
-                val db = Room.databaseBuilder(
-                    application,
-                    AppDatabase::class.java,
-                    DATABASE_NAME
-                ).addCallback(DatabaseCallback(application))
-                    .fallbackToDestructiveMigration(false) //TODO delete
-                    .build()
-                INSTANCE = db
-                return db
-            }
-        }
-    }
 }

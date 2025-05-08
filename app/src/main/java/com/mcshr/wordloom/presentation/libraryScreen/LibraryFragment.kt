@@ -9,7 +9,9 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.mcshr.wordloom.databinding.FragmentLibraryBinding
 import com.mcshr.wordloom.presentation.libraryScreen.chooseAddAction.ChooseAddActionBottomSheetFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LibraryFragment : Fragment() {
 
     private var _binding: FragmentLibraryBinding? = null

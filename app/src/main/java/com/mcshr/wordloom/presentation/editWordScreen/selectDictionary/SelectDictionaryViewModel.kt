@@ -1,13 +1,13 @@
 package com.mcshr.wordloom.presentation.editWordScreen.selectDictionary
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import com.mcshr.wordloom.data.repository.DictionaryRepositoryImpl
+import androidx.lifecycle.ViewModel
 import com.mcshr.wordloom.domain.interactors.dictionary.GetAllDictionariesUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class SelectDictionaryViewModel(application: Application) : AndroidViewModel(application) {
-    private val dictRepository = DictionaryRepositoryImpl(application)
-    private val getAllDictionariesUseCase = GetAllDictionariesUseCase(dictRepository)
-
+@HiltViewModel
+class SelectDictionaryViewModel @Inject constructor(
+    getAllDictionariesUseCase: GetAllDictionariesUseCase
+) : ViewModel() {
     val allDictionaries = getAllDictionariesUseCase()
 }

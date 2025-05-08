@@ -13,7 +13,9 @@ import com.google.android.material.snackbar.Snackbar
 import com.mcshr.wordloom.R
 import com.mcshr.wordloom.databinding.FragmentEditDictionaryBinding
 import com.mcshr.wordloom.domain.entities.Language
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class EditDictionaryFragment : Fragment() {
 
     private var _binding: FragmentEditDictionaryBinding? = null
@@ -23,8 +25,7 @@ class EditDictionaryFragment : Fragment() {
     private val viewModel: EditDictionaryViewModel by viewModels()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentEditDictionaryBinding.inflate(inflater, container, false)
         return binding.root
@@ -44,6 +45,7 @@ class EditDictionaryFragment : Fragment() {
                     saveDictionary()
                     true
                 }
+
                 else -> false
             }
         }
@@ -55,12 +57,11 @@ class EditDictionaryFragment : Fragment() {
                 showErrorSnackBar(getString(R.string.error_already_exists_dictionary))
             }
         }
-        viewModel.allLanguages.observe(viewLifecycleOwner) { languages->
+        viewModel.allLanguages.observe(viewLifecycleOwner) { languages ->
             val adapter = ArrayAdapter(
                 requireContext(),
                 android.R.layout.simple_dropdown_item_1line,
-                languages.map { it.name }
-            )
+                languages.map { it.name })
             binding.autocompleteDictWordLanguage.setAdapter(adapter)
             binding.autocompleteDictMeaningLanguage.setAdapter(adapter)
         }
@@ -94,11 +95,10 @@ class EditDictionaryFragment : Fragment() {
     private fun getLanguageByName(name: String): Language? {
         return viewModel.allLanguages.value?.find { it.name == name }
     }
-    private fun showErrorSnackBar(errorText:String){
+
+    private fun showErrorSnackBar(errorText: String) {
         Snackbar.make(
-            binding.root,
-            errorText,
-            Snackbar.LENGTH_SHORT
+            binding.root, errorText, Snackbar.LENGTH_SHORT
         ).show()
     }
 

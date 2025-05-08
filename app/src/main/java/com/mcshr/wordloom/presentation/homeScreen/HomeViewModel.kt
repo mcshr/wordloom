@@ -1,28 +1,24 @@
 package com.mcshr.wordloom.presentation.homeScreen
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
-import com.mcshr.wordloom.data.repository.DictionaryRepositoryImpl
-import com.mcshr.wordloom.data.repository.WordCardRepositoryImpl
 import com.mcshr.wordloom.domain.interactors.dictionary.GetSelectedDictionariesWithStatsUseCase
-import com.mcshr.wordloom.domain.interactors.wordCard.GetReadyToRepeatCardsCountFromSelectedDictionariesUseCase
+import com.mcshr.wordloom.domain.interactors.wordCard.GetReadyToRepeatCardsCountFromSelectedDictsUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class HomeViewModel(application: Application) : AndroidViewModel(application) {
-    private val dictionaryRepository = DictionaryRepositoryImpl(application)
-    private val wordCardRepository = WordCardRepositoryImpl(application)
-    private val getSelectedDictionariesWithStatsUseCase =
-        GetSelectedDictionariesWithStatsUseCase(dictionaryRepository)
-    private val getReadyToRepeatCardsCountFromSelectedDictionariesUseCase =
-        GetReadyToRepeatCardsCountFromSelectedDictionariesUseCase(wordCardRepository)
-
-    val repeatCount = getReadyToRepeatCardsCountFromSelectedDictionariesUseCase()
+@HiltViewModel
+class HomeViewModel @Inject constructor(
+    getSelectedDictionariesWithStatsUseCase: GetSelectedDictionariesWithStatsUseCase,
+    getReadyToRepeatCardsCountFromSelectedDictsUseCase: GetReadyToRepeatCardsCountFromSelectedDictsUseCase
+) : ViewModel() {
+    val repeatCount = getReadyToRepeatCardsCountFromSelectedDictsUseCase()
     val selectedDictionaries = getSelectedDictionariesWithStatsUseCase()
 
-    val stats: LiveData<Stats> = selectedDictionaries.map{ list->
+    val stats: LiveData<Stats> = selectedDictionaries.map { list ->
         Stats(
-            readyToLearn = list.sumOf { it.readyToLearnCountCards},
+            readyToLearn = list.sumOf { it.readyToLearnCountCards },
             total = list.sumOf { it.totalCountCards },
             learned = list.sumOf { it.learnedCountCards },
             unknown = list.sumOf { it.unknownCountCards },

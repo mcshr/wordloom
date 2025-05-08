@@ -9,8 +9,9 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.mcshr.wordloom.R
 import com.mcshr.wordloom.databinding.FragmentSessionSettingsBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class SessionSettingsFragment : BottomSheetDialogFragment() {
 
     private var _binding : FragmentSessionSettingsBinding? = null

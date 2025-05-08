@@ -1,24 +1,23 @@
 package com.mcshr.wordloom.presentation.editWordScreen
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mcshr.wordloom.data.repository.WordCardRepositoryImpl
 import com.mcshr.wordloom.domain.entities.Dictionary
 import com.mcshr.wordloom.domain.interactors.wordCard.CreateWordCardUseCase
 import com.mcshr.wordloom.domain.interactors.wordCard.SaveWordCardToDictionaryUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class EditWordViewModel(application: Application) : AndroidViewModel(application) {
-    private val wordCardRepository = WordCardRepositoryImpl(application)
-
-    private val createWordCardUseCase = CreateWordCardUseCase(wordCardRepository)
-    private val saveWordCardToDictionaryUseCase = SaveWordCardToDictionaryUseCase(wordCardRepository)
-
+@HiltViewModel
+class EditWordViewModel @Inject constructor(
+    private val createWordCardUseCase :CreateWordCardUseCase,
+    private val saveWordCardToDictionaryUseCase : SaveWordCardToDictionaryUseCase
+) : ViewModel() {
 
     private val _meaningList: MutableLiveData<List<String>> = MutableLiveData(emptyList())
     val meaningList: LiveData<List<String>>

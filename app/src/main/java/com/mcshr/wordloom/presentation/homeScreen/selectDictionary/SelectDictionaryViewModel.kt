@@ -1,26 +1,27 @@
 package com.mcshr.wordloom.presentation.homeScreen.selectDictionary
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mcshr.wordloom.data.repository.DictionaryRepositoryImpl
 import com.mcshr.wordloom.domain.entities.Dictionary
 import com.mcshr.wordloom.domain.interactors.dictionary.EditDictionaryUseCase
 import com.mcshr.wordloom.domain.interactors.dictionary.GetAllDictionariesUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class SelectDictionaryViewModel(application: Application):AndroidViewModel(application) {
-    private val repository = DictionaryRepositoryImpl(application)
-    private val getAllDictionariesUseCase = GetAllDictionariesUseCase(repository)
-    private val editDictionaryUseCase = EditDictionaryUseCase(repository)
+@HiltViewModel
+class SelectDictionaryViewModel @Inject constructor(
+    getAllDictionariesUseCase: GetAllDictionariesUseCase,
+    private val editDictionaryUseCase: EditDictionaryUseCase
+) : ViewModel() {
 
-    val  allDictionaries = getAllDictionariesUseCase()
+    val allDictionaries = getAllDictionariesUseCase()
 
-    fun selectDictionary(dictionary: Dictionary){
+    fun selectDictionary(dictionary: Dictionary) {
         viewModelScope.launch {
-            withContext(Dispatchers.IO){
+            withContext(Dispatchers.IO) {
                 editDictionaryUseCase(dictionary.copy(isSelected = !dictionary.isSelected))
             }
         }

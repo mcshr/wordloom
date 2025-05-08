@@ -3,8 +3,11 @@ package com.mcshr.wordloom.domain.interactors.wordCard
 import com.mcshr.wordloom.domain.entities.WordCard
 import com.mcshr.wordloom.domain.entities.WordStatus
 import com.mcshr.wordloom.domain.repository.WordCardRepository
+import javax.inject.Inject
 
-class UpdateWordCardStatusUseCase(private val repository: WordCardRepository) {
+class UpdateWordCardStatusUseCase @Inject constructor(
+    private val repository: WordCardRepository
+) {
     suspend operator fun invoke(wordCardId: Int, isPositiveAction: Boolean) {
         val wordCard = GetWordCardByIdUseCase(repository)(wordCardId)
         var newWordStatus: WordStatus = wordCard.status

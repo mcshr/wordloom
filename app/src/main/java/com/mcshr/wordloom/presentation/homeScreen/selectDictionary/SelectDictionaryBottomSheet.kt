@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.mcshr.wordloom.databinding.FragmentSelectDictionaryBottomSheetBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SelectDictionaryBottomSheet:BottomSheetDialogFragment() {
     private var _binding: FragmentSelectDictionaryBottomSheetBinding? = null
     private val binding

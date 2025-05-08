@@ -1,18 +1,18 @@
 package com.mcshr.wordloom.presentation.libraryScreen.chooseAddAction
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mcshr.wordloom.data.repository.DictionaryRepositoryImpl
 import com.mcshr.wordloom.domain.interactors.dictionary.CheckIfAnyDictionaryExistsUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ChooseAddActionViewModel(application: Application):AndroidViewModel(application) {
-    private val repository = DictionaryRepositoryImpl(application)
-    private val checkIfAnyDictionaryExists = CheckIfAnyDictionaryExistsUseCase(repository)
-
+@HiltViewModel
+class ChooseAddActionViewModel @Inject constructor(
+    private val checkIfAnyDictionaryExists: CheckIfAnyDictionaryExistsUseCase
+) : ViewModel() {
     private val _isAnyDictExists = MutableLiveData<Boolean>()
     val isAnyDictionaryExists: LiveData<Boolean>
         get() = _isAnyDictExists

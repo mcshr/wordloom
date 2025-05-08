@@ -4,9 +4,11 @@ import com.mcshr.wordloom.domain.entities.Language
 import com.mcshr.wordloom.domain.entities.WordCard
 import com.mcshr.wordloom.domain.entities.WordStatus
 import com.mcshr.wordloom.domain.repository.WordCardRepository
+import javax.inject.Inject
 
-class CreateWordCardUseCase
-    (private val repository: WordCardRepository) {
+class CreateWordCardUseCase @Inject constructor(
+    private val repository: WordCardRepository
+) {
     suspend operator fun invoke(
         word: String,
         translations: List<String>,
