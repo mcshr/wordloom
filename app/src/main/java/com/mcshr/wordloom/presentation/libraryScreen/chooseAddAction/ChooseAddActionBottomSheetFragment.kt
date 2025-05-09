@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.android.material.snackbar.Snackbar
 import com.mcshr.wordloom.R
 import com.mcshr.wordloom.databinding.FragmentChooseAddActionBottomSheetBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -42,10 +42,10 @@ class ChooseAddActionBottomSheetFragment : BottomSheetDialogFragment() {
                         val action = R.id.action_libraryFragment_to_editWordFragment
                         findNavController().navigate(action)
                     } else {
-                        Snackbar.make(
-                            it,
+                        Toast.makeText(
+                            context,
                             context.getString(R.string.warning_no_dictionary),
-                            Snackbar.LENGTH_SHORT
+                            Toast.LENGTH_SHORT
                         ).show()
                     }
                 }

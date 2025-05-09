@@ -14,4 +14,8 @@ class PrepopulateDataRepositoryImpl @Inject constructor(
     override suspend fun prepopulateLanguages(languages: List<Language>) {
         dao.insertLanguageList(languages.toLanguageListDbModel())
     }
+
+    override suspend fun hasLanguages(): Boolean {
+        return dao.getLanguagesCount()>0
+    }
 }

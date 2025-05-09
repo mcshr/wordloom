@@ -14,4 +14,7 @@ interface LanguageDao {
 
     @Query("SELECT * FROM language")
     fun getAllLanguages(): LiveData<List<LanguageDbModel>>
+
+    @Query("SELECT COUNT(*) FROM language")
+    fun getLanguagesCount():Int
 }
