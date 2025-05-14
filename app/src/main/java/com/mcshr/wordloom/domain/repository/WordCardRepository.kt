@@ -8,10 +8,12 @@ interface WordCardRepository {
     suspend fun createWordCard(wordCard: WordCard):Long?
     suspend fun saveWordCardToDictionary(dictionaryId: Long, wordCardId: Long)
     suspend fun editWordCard(wordCard: WordCard)
+    suspend fun editWordCardList(list: List<WordCard>)
     fun deleteWordCard(wordCard:WordCard)
     fun getWordCardById(wordCardId: Int):WordCard
     fun getWordCardListByDictId(dictionaryId:Long): LiveData<List<WordCard>>
     fun getWordsForReview(currentTime: Long):List<WordCard>
     fun getReadyToRepeatCardsCountFromSelectedDictionaries(currentTimeUnix: Long):LiveData<Int>
+    suspend fun getUnknownWordCarsFromSelectedDictionaries(): List<WordCard>
 
 }

@@ -33,5 +33,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout7"
+        app:layout_constraintBottom_toBottomOf="parent"
         tools:listitem="@layout/item_word_listitem" />
 </androidx.constraintlayout.widget.ConstraintLayout>

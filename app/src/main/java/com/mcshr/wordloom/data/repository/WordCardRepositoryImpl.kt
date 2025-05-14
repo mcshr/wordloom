@@ -7,6 +7,7 @@ import com.mcshr.wordloom.data.entities.CardTranslationDbModel
 import com.mcshr.wordloom.data.entities.DictionaryCardDbModel
 import com.mcshr.wordloom.data.entities.TranslationDbModel
 import com.mcshr.wordloom.data.entities.mappers.toCardDomain
+import com.mcshr.wordloom.data.entities.mappers.toDomainEntity
 import com.mcshr.wordloom.data.entities.mappers.toTranslationsList
 import com.mcshr.wordloom.data.entities.mappers.toWordCardListDomain
 import com.mcshr.wordloom.data.entities.mappers.toWordDomain
@@ -70,6 +71,14 @@ class WordCardRepositoryImpl @Inject constructor(
         //TODO("Not yet implemented")
     }
 
+    override suspend fun editWordCardList(list: List<WordCard>) {
+        dao.editCardsList(
+            list.map{ wordCard->
+                wordCard.toCardDomain(wordCard.id)
+            }
+        )
+    }
+
     override fun deleteWordCard(wordCard: WordCard) {
         TODO("Not yet implemented")
     }
@@ -90,5 +99,9 @@ class WordCardRepositoryImpl @Inject constructor(
 
     override fun getReadyToRepeatCardsCountFromSelectedDictionaries(currentTimeUnix: Long): LiveData<Int> {
         return dao.getCardRepeatCountFromSelectedDictionaries(currentTimeUnix)
+    }
+
+    override suspend fun getUnknownWordCarsFromSelectedDictionaries(): List<WordCard> {
+        return dao.getUnknownWordCarsFromSelectedDicts().map{it.toDomainEntity()}
     }
 }

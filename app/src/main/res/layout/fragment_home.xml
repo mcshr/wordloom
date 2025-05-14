@@ -18,9 +18,8 @@
             style="@style/WordloomToolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:title="Wordloom"
             app:menu="@menu/toolbar_settings_menu"
-            />
+            app:title="Wordloom" />
     </com.google.android.material.appbar.AppBarLayout>
 
 
@@ -278,19 +277,20 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
     <androidx.recyclerview.widget.RecyclerView
-        android:paddingHorizontal="16dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:id="@+id/rv_selected_dictionaries_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:paddingHorizontal="16dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constrainedHeight="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraint2title"
-        android:clipToPadding="false"
         tools:itemCount="10"
-        app:layout_constrainedHeight="true"
         tools:listitem="@layout/item_dictionary_active" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -305,10 +305,10 @@
 
         <TextView
             android:id="@+id/tvTitle2"
+            style="@style/text.title.main"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/selected_dictionaries_title"
-            style="@style/text.title.main"
             app:layout_constraintBottom_toBottomOf="@+id/btn_add_more_dicts"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -332,11 +332,11 @@
 
     <Button
         android:id="@+id/btn_main_learn"
+        style="@style/WordloomButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
 
-        style="@style/WordloomButton"
+        android:layout_marginBottom="16dp"
         android:text="@string/learn_title"
         app:icon="@drawable/ic_travel_explore_24"
         app:iconGravity="end"

@@ -15,6 +15,7 @@ import com.google.android.material.slider.Slider
 import com.mcshr.wordloom.R
 import com.mcshr.wordloom.databinding.FragmentSessionModeLearningBinding
 import com.mcshr.wordloom.presentation.homeScreen.HomeViewModel
+import com.mcshr.wordloom.presentation.utils.setDebounceOnClickListener
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
 
@@ -55,6 +56,7 @@ class SessionModeLearningFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         sharedViewModel.stats.observe(viewLifecycleOwner) {
             val total = it.readyToLearn + (sharedViewModel.repeatCount.value ?: 0)
             binding.tvTotalCountAvailable.text = total.toString()
@@ -73,17 +75,18 @@ class SessionModeLearningFragment : Fragment() {
         binding.slider.addOnChangeListener(sliderListener)
         binding.editTextWordLimit.addTextChangedListener(editTextWordLimitListener)
 
-        updateWordLimit(viewModel.getSessionWordLimit())
-
         viewModel.wordLimit.observe(viewLifecycleOwner) {
             updateWordLimit(it)
         }
 
 
-        binding.btnAutoAdd.setOnClickListener {
-            viewModel.autoAddCards()
-
+        binding.btnAutoAdd.setDebounceOnClickListener {
+            val readyToLearn = sharedViewModel.stats.value?.readyToLearn ?: 0
+            val repeat = sharedViewModel.repeatCount.value ?: 0
+            val total = readyToLearn + repeat
+            viewModel.autoAddCards(total)
         }
+
         binding.btnManageCards.setOnClickListener {
             viewModel.saveSessionWordLimit()
             findNavController().navigate(R.id.selectedDictionariesFragment)

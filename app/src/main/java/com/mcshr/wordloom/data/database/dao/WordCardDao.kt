@@ -37,11 +37,20 @@ interface WordCardDao {
 
     @Query("SELECT COUNT(card.id) FROM card " +
             "INNER JOIN dictionary_card dc ON card.id = dc.card_id " +
-            "INNER JOIN dictionary ON dc.dictionary_id == dictionary.id " +
+            "INNER JOIN dictionary ON dc.dictionary_id = dictionary.id " +
             "WHERE dictionary.is_selected = 1 AND next_rev_date <= :currentTime")
     fun getCardRepeatCountFromSelectedDictionaries(
         currentTime: Long
     ):LiveData<Int>
+
+    @Transaction
+    @Query("SELECT * FROM card " +
+            "INNER JOIN dictionary_card dc ON card.id = dc.card_id " +
+            "INNER JOIN dictionary ON dc.dictionary_id = dictionary.id " +
+            "WHERE dictionary.is_selected = 1 AND card.status  = :wordStatus")
+    fun getUnknownWordCarsFromSelectedDicts(
+        wordStatus: WordStatus = WordStatus.UNKNOWN
+    ):List<WordCardRelation>
 
     @Insert
     suspend fun createCard(cardDbModel: CardDbModel): Long
@@ -60,5 +69,8 @@ interface WordCardDao {
 
     @Update
     suspend fun editCard(cardDbModel: CardDbModel)
+
+    @Update
+    suspend fun editCardsList(list: List<CardDbModel>)
 
 }
