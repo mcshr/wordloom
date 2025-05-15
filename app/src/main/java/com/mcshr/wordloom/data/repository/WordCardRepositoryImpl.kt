@@ -12,6 +12,7 @@ import com.mcshr.wordloom.data.entities.mappers.toTranslationsList
 import com.mcshr.wordloom.data.entities.mappers.toWordCardListDomain
 import com.mcshr.wordloom.data.entities.mappers.toWordDomain
 import com.mcshr.wordloom.domain.entities.WordCard
+import com.mcshr.wordloom.domain.entities.WordStatus
 import com.mcshr.wordloom.domain.repository.WordCardRepository
 import javax.inject.Inject
 
@@ -20,24 +21,24 @@ class WordCardRepositoryImpl @Inject constructor(
 ) : WordCardRepository {
     private val dao = database.wordCardDao()
 
-    override suspend fun createWordCard(wordCard: WordCard):Long? {
+    override suspend fun createWordCard(wordCard: WordCard): Long? {
         val word = wordCard.toWordDomain()
-        dao.getWordId(word.wordText, word.languageId, word.partOfSpeechId)?.let{
+        dao.getWordId(word.wordText, word.languageId, word.partOfSpeechId)?.let {
             return null
         }
 
-        val wordId =  dao.createWord(word)
+        val wordId = dao.createWord(word)
 
         val card = wordCard.toCardDomain(wordId)
         val cardId = dao.createCard(card)
 
         val meaningList = wordCard.toTranslationsList()
-        for (meaning in  meaningList) {
+        for (meaning in meaningList) {
             val translationId = dao.getWordId(
                 meaning.wordText,
                 meaning.languageId,
                 meaning.partOfSpeechId
-            )?: dao.createWord(meaning)
+            ) ?: dao.createWord(meaning)
 
             val translation = dao.createTranslation(
                 TranslationDbModel(
@@ -57,7 +58,7 @@ class WordCardRepositoryImpl @Inject constructor(
         return cardId
     }
 
-    override suspend fun saveWordCardToDictionary(dictionaryId: Long, wordCardId: Long){
+    override suspend fun saveWordCardToDictionary(dictionaryId: Long, wordCardId: Long) {
         dao.addCardToDictionary(
             DictionaryCardDbModel(
                 dictionaryId = dictionaryId,
@@ -73,7 +74,7 @@ class WordCardRepositoryImpl @Inject constructor(
 
     override suspend fun editWordCardList(list: List<WordCard>) {
         dao.editCardsList(
-            list.map{ wordCard->
+            list.map { wordCard ->
                 wordCard.toCardDomain(wordCard.id)
             }
         )
@@ -93,15 +94,25 @@ class WordCardRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun getWordsForReview(currentTime: Long): List<WordCard> {
-        TODO("Not yet implemented")
-    }
-
     override fun getReadyToRepeatCardsCountFromSelectedDictionaries(currentTimeUnix: Long): LiveData<Int> {
         return dao.getCardRepeatCountFromSelectedDictionaries(currentTimeUnix)
     }
 
-    override suspend fun getUnknownWordCarsFromSelectedDictionaries(): List<WordCard> {
-        return dao.getUnknownWordCarsFromSelectedDicts().map{it.toDomainEntity()}
+    override suspend fun getWordCardsForReview(
+        currentTime: Long,
+        limit: Int
+    ): List<WordCard> {
+        return dao.getWordCardsForReview(currentTime, limit).map{it.toDomainEntity()}
+    }
+
+    override suspend fun getWordCardsByStatusFromSelectedDictionaries(
+        wordStatus: WordStatus,
+        limit: Int
+    ): List<WordCard> {
+        return if(limit>0) {
+            dao.getWordCardsByStatusFromSelectedDicts(wordStatus, limit).map { it.toDomainEntity() }
+        } else {
+            dao.getWordCardsByStatusFromSelectedDicts(wordStatus).map { it.toDomainEntity() }
+        }
     }
 }

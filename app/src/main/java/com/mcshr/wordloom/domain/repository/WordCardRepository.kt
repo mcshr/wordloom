@@ -2,6 +2,7 @@ package com.mcshr.wordloom.domain.repository
 
 import androidx.lifecycle.LiveData
 import com.mcshr.wordloom.domain.entities.WordCard
+import com.mcshr.wordloom.domain.entities.WordStatus
 
 interface WordCardRepository {
     //word card
@@ -12,8 +13,9 @@ interface WordCardRepository {
     fun deleteWordCard(wordCard:WordCard)
     fun getWordCardById(wordCardId: Int):WordCard
     fun getWordCardListByDictId(dictionaryId:Long): LiveData<List<WordCard>>
-    fun getWordsForReview(currentTime: Long):List<WordCard>
     fun getReadyToRepeatCardsCountFromSelectedDictionaries(currentTimeUnix: Long):LiveData<Int>
-    suspend fun getUnknownWordCarsFromSelectedDictionaries(): List<WordCard>
+    suspend fun getWordCardsForReview(currentTime: Long, limit:Int):List<WordCard>
+    suspend fun getWordCardsByStatusFromSelectedDictionaries(wordStatus: WordStatus, limit:Int =0): List<WordCard>
+
 
 }

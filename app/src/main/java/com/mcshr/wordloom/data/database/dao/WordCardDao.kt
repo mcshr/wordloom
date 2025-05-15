@@ -26,30 +26,90 @@ interface WordCardDao {
     @Query("SELECT * FROM card WHERE id == :cardId")
     fun getWordCardByCardId(cardId: Long): LiveData<WordCardRelation>
 
-    @Query("SELECT id FROM word WHERE word_text == :wordText " +
-            "AND part_of_speech_id ==:partOfSpeechId " +
-            "AND language_id =:languageId LIMIT 1")
+    @Query(
+        "SELECT id FROM word WHERE word_text == :wordText " +
+                "AND part_of_speech_id ==:partOfSpeechId " +
+                "AND language_id =:languageId LIMIT 1"
+    )
     suspend fun getWordId(wordText: String, languageId: Long, partOfSpeechId: Int?): Long?
 
     @Transaction
     @Query("SELECT * FROM dictionary WHERE id ==:dictionaryId LIMIT 1")
-    fun getWordCardsFromDictionary(dictionaryId: Long):LiveData<DictionaryWithCardsRelation>
+    fun getWordCardsFromDictionary(dictionaryId: Long): LiveData<DictionaryWithCardsRelation>
 
-    @Query("SELECT COUNT(card.id) FROM card " +
-            "INNER JOIN dictionary_card dc ON card.id = dc.card_id " +
-            "INNER JOIN dictionary ON dc.dictionary_id = dictionary.id " +
-            "WHERE dictionary.is_selected = 1 AND next_rev_date <= :currentTime")
+    @Query(
+        "SELECT COUNT(card.id) FROM card " +
+                "INNER JOIN dictionary_card dc ON card.id = dc.card_id " +
+                "INNER JOIN dictionary ON dc.dictionary_id = dictionary.id " +
+                "WHERE dictionary.is_selected = 1 AND next_rev_date <= :currentTime"
+    )
     fun getCardRepeatCountFromSelectedDictionaries(
         currentTime: Long
-    ):LiveData<Int>
+    ): LiveData<Int>
 
     @Transaction
-    @Query("SELECT * FROM card " +
+    @Query(
+        "SELECT * FROM card " +
+                "INNER JOIN dictionary_card dc ON card.id = dc.card_id " +
+                "INNER JOIN dictionary ON dc.dictionary_id = dictionary.id " +
+                "WHERE dictionary.is_selected = 1 AND card.status  = :wordStatus"
+    )
+    fun getWordCardsByStatusFromSelectedDicts(
+        wordStatus: WordStatus
+    ): List<WordCardRelation>
+
+    @Transaction
+    @Query(
+        "SELECT * FROM card " +
+                "INNER JOIN dictionary_card dc ON card.id = dc.card_id " +
+                "INNER JOIN dictionary ON dc.dictionary_id = dictionary.id " +
+                "WHERE dictionary.is_selected = 1 AND card.status  = :wordStatus " +
+                "LIMIT :limit"
+    )
+    fun getWordCardsByStatusFromSelectedDicts(
+        wordStatus: WordStatus,
+        limit: Int
+    ): List<WordCardRelation>
+
+
+    @Transaction
+    @Query(
+        "WITH learningCards AS " +
+                "( SELECT * FROM card " +
+                "INNER JOIN dictionary_card dc ON card.id = dc.card_id " +
+                "INNER JOIN dictionary dict ON dc.dictionary_id = dict.id " +
+                "WHERE dict.is_selected = 1 " +
+                "AND card.status = :learningStatus AND card.next_rev_date <= :currentTime " +
+                "LIMIT :limit ), " + //adding two more limits for optimisation
+                "readyToLearnCards AS (SELECT * FROM card " +
+                "INNER JOIN dictionary_card dc ON card.id = dc.card_id " +
+                "INNER JOIN dictionary dict ON dc.dictionary_id = dict.id " +
+                "WHERE dict.is_selected = 1 " +
+                "AND card.status = :readyToLearnStatus " +
+                "LIMIT :limit ) " +
+                "SELECT * FROM learningCards " +
+                "UNION ALL " +
+                "SELECT * FROM readyToLearnCards " +
+                "LIMIT :limit"
+    )
+    suspend fun getLearningSet(
+        currentTime: Long,
+        learningStatus: WordStatus = WordStatus.LEARNING,
+        readyToLearnStatus: WordStatus = WordStatus.READY_TO_LEARN,
+        limit: Int
+    ): List<WordCardRelation>
+
+    @Transaction
+    @Query( "SELECT * FROM card " +
             "INNER JOIN dictionary_card dc ON card.id = dc.card_id " +
-            "INNER JOIN dictionary ON dc.dictionary_id = dictionary.id " +
-            "WHERE dictionary.is_selected = 1 AND card.status  = :wordStatus")
-    fun getUnknownWordCarsFromSelectedDicts(
-        wordStatus: WordStatus = WordStatus.UNKNOWN
+            "INNER JOIN dictionary dict ON dc.dictionary_id = dict.id " +
+            "WHERE dict.is_selected = 1 " +
+            "AND card.status = :learningStatus AND card.next_rev_date <= :currentTime " +
+            "LIMIT :limit")
+    suspend fun getWordCardsForReview(
+        currentTime: Long,
+        limit: Int,
+        learningStatus: WordStatus = WordStatus.LEARNING,
     ):List<WordCardRelation>
 
     @Insert
@@ -65,7 +125,7 @@ interface WordCardDao {
     suspend fun createCardTranslation(cardTranslationDbModel: CardTranslationDbModel)
 
     @Insert
-    suspend fun addCardToDictionary(dictionaryCard:DictionaryCardDbModel)
+    suspend fun addCardToDictionary(dictionaryCard: DictionaryCardDbModel)
 
     @Update
     suspend fun editCard(cardDbModel: CardDbModel)

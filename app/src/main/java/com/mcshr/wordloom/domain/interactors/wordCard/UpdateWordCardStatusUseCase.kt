@@ -2,14 +2,12 @@ package com.mcshr.wordloom.domain.interactors.wordCard
 
 import com.mcshr.wordloom.domain.entities.WordCard
 import com.mcshr.wordloom.domain.entities.WordStatus
-import com.mcshr.wordloom.domain.repository.WordCardRepository
 import javax.inject.Inject
 
 class UpdateWordCardStatusUseCase @Inject constructor(
-    private val repository: WordCardRepository
+    private val editWordCardUseCase: EditWordCardUseCase
 ) {
-    suspend operator fun invoke(wordCardId: Int, isPositiveAction: Boolean) {
-        val wordCard = GetWordCardByIdUseCase(repository)(wordCardId)
+    suspend operator fun invoke( wordCard: WordCard, isPositiveAction: Boolean) {
         var newWordStatus: WordStatus = wordCard.status
         var newReviewCount: Int = wordCard.reviewCount
         if (isPositiveAction) {
@@ -41,7 +39,7 @@ class UpdateWordCardStatusUseCase @Inject constructor(
             }
         }
         val newReviewTime = CalculateNextReviewTimeUseCase()(newReviewCount)
-        EditWordCardUseCase(repository)(
+        editWordCardUseCase(
             wordCard.copy(
                 status = newWordStatus,
                 reviewCount = newReviewCount,

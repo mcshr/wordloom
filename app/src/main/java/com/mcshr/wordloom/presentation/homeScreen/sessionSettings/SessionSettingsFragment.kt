@@ -5,10 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.mcshr.wordloom.R
 import com.mcshr.wordloom.databinding.FragmentSessionSettingsBinding
+import com.mcshr.wordloom.presentation.homeScreen.HomeFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -63,9 +65,12 @@ class SessionSettingsFragment : BottomSheetDialogFragment() {
             when (binding.radioGroup.checkedRadioButtonId){
                 R.id.option_learn_mode -> {
                     viewModel.startLearning()
+                    val action = HomeFragmentDirections.actionHomeFragmentToLearningFragment()
+                    findNavController().navigate(action)
                 }
                 R.id.option_swipe_mode -> {}
             }
+            dismiss()
         }
     }
 

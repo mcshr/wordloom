@@ -9,7 +9,8 @@ class AutoAddCardToLearnUseCase @Inject constructor(
 ) {
     suspend operator fun invoke(wordsToAddCount:Int){
         if(wordsToAddCount<=0) return
-        val cardsToUpdate = wordCardRepository.getUnknownWordCarsFromSelectedDictionaries()
+        val cardsToUpdate = wordCardRepository
+            .getWordCardsByStatusFromSelectedDictionaries(WordStatus.UNKNOWN)
             .sortedBy { it.id }
             .take(wordsToAddCount)
             .map{it.copy(status = WordStatus.READY_TO_LEARN)}
