@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.mcshr.wordloom.databinding.FragmentLearningBinding
+import com.yuyakaido.android.cardstackview.CardStackLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -20,7 +21,6 @@ class LearningFragment : Fragment() {
         get() = _binding ?: throw RuntimeException("Fragment Learning binding is null")
 
     private val viewModel: LearningViewModel by viewModels()
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,9 +37,18 @@ class LearningFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val cardStackLayoutManager = CardStackLayoutManager(
+            context
+        ).apply {
+            setVisibleCount(2)
+        }
+        binding.cardStack.itemAnimator = null
+        binding.cardStack.layoutManager = cardStackLayoutManager
 
         viewModel.learningSet.observe(viewLifecycleOwner) {
-            Log.d("LISTTTT", it.toString())
+            Log.d("LIST", it.toString())
+            val cardAdapter = CardStackAdapter(it)
+            binding.cardStack.adapter = cardAdapter
         }
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){

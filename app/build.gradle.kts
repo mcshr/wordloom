@@ -53,6 +53,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.fragment.ktx)
+    implementation(libs.androidx.core.animation)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -69,4 +70,6 @@ dependencies {
     //DI
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
+    //CardsView
+    implementation("com.github.yuyakaido:CardStackView:2.3.4")
 }
