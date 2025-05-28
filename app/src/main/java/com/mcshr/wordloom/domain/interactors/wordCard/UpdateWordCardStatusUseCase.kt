@@ -7,15 +7,16 @@ import javax.inject.Inject
 class UpdateWordCardStatusUseCase @Inject constructor(
     private val editWordCardUseCase: EditWordCardUseCase
 ) {
-    suspend operator fun invoke( wordCard: WordCard, isPositiveAction: Boolean) {
-        var newWordStatus: WordStatus = wordCard.status
-        var newReviewCount: Int = wordCard.reviewCount
+    suspend operator fun invoke( wordCard: WordCard, isPositiveAction: Boolean): Boolean {
+        var newWordStatus = wordCard.status
+        var newReviewCount = wordCard.reviewCount
+        var moveCardToEnd = false
         if (isPositiveAction) {
             when (wordCard.status) {
-                WordStatus.UNKNOWN -> newWordStatus = WordStatus.READY_TO_LEARN
+                //WordStatus.UNKNOWN -> newWordStatus = WordStatus.READY_TO_LEARN
                 WordStatus.READY_TO_LEARN -> newWordStatus = WordStatus.LEARNING
                 WordStatus.LEARNING ->
-                    if (wordCard.reviewCount < WordCard.MAX_REVIEW_COUNT - 1) {
+                    if (wordCard.reviewCount < WordCard.MAX_REVIEW_COUNT) {
                         newReviewCount = wordCard.reviewCount + 1
                     } else {
                         newWordStatus = WordStatus.LEARNED
@@ -25,13 +26,14 @@ class UpdateWordCardStatusUseCase @Inject constructor(
                 else -> throw RuntimeException("card with status ${wordCard.status}")
             }
         } else {
+            moveCardToEnd = true
             when (wordCard.status) {
-                WordStatus.UNKNOWN -> newWordStatus = WordStatus.KNOWN
+                //WordStatus.UNKNOWN -> newWordStatus = WordStatus.KNOWN
                 WordStatus.READY_TO_LEARN -> {}
                 WordStatus.LEARNING ->
-                    if (wordCard.reviewCount in 4..5) {
+                    if (wordCard.reviewCount in 3..4) {
                         newReviewCount = wordCard.reviewCount - 1
-                    } else if (wordCard.reviewCount in 6..8) {
+                    } else if (wordCard.reviewCount in 5..8) {
                         newReviewCount = wordCard.reviewCount - 2
                     }
 
@@ -46,6 +48,7 @@ class UpdateWordCardStatusUseCase @Inject constructor(
                 nextReviewTime = newReviewTime
             )
         )
+        return moveCardToEnd
     }
 
 }

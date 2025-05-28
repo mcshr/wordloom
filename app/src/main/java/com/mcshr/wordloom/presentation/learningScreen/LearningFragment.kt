@@ -1,7 +1,6 @@
 package com.mcshr.wordloom.presentation.learningScreen
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +10,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.mcshr.wordloom.databinding.FragmentLearningBinding
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager
+import com.yuyakaido.android.cardstackview.CardStackListener
+import com.yuyakaido.android.cardstackview.Direction
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -21,6 +22,8 @@ class LearningFragment : Fragment() {
         get() = _binding ?: throw RuntimeException("Fragment Learning binding is null")
 
     private val viewModel: LearningViewModel by viewModels()
+    private val cardAdapter = CardStackAdapter()
+    private lateinit var cardStackLayoutManager: CardStackLayoutManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,8 +40,25 @@ class LearningFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val cardStackLayoutManager = CardStackLayoutManager(
-            context
+
+        val cardStackListener = object : CardStackListener {
+            override fun onCardSwiped(direction: Direction?) {
+                if (direction == null )
+                    return
+                val position = cardStackLayoutManager.topPosition - 1
+                val wordCard = cardAdapter.cardList[position]
+                viewModel.onCardSwipe(wordCard, direction)
+            }
+            override fun onCardDragging(direction: Direction?, ratio: Float) {}
+            override fun onCardRewound() {}
+            override fun onCardCanceled() {}
+            override fun onCardAppeared(view: View?, position: Int) {            }
+            override fun onCardDisappeared(view: View?, position: Int) {}
+
+        } as CardStackListener
+        cardStackLayoutManager = CardStackLayoutManager(
+            context,
+            cardStackListener
         ).apply {
             setVisibleCount(2)
         }
@@ -46,10 +66,10 @@ class LearningFragment : Fragment() {
         binding.cardStack.layoutManager = cardStackLayoutManager
 
         viewModel.learningSet.observe(viewLifecycleOwner) {
-            Log.d("LIST", it.toString())
-            val cardAdapter = CardStackAdapter(it)
-            binding.cardStack.adapter = cardAdapter
+            cardAdapter.cardList = it
         }
+        binding.cardStack.adapter = cardAdapter
+
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){
             findNavController().popBackStack()

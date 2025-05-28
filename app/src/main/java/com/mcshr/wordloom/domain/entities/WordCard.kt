@@ -16,6 +16,6 @@ data class WordCard(
 //    val usageExamples:List<UsageExample>,
 ){
     companion object{
-        const val MAX_REVIEW_COUNT = 9
+        const val MAX_REVIEW_COUNT = 8
     }
 }
