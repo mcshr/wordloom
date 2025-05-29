@@ -1,23 +1,24 @@
 package com.mcshr.wordloom.presentation.learningScreen
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.mcshr.wordloom.databinding.ItemCardBinding
 import com.mcshr.wordloom.domain.entities.WordCard
 
-class CardStackAdapter(
-) : RecyclerView.Adapter<CardViewHolder>() {
+class CardStackAdapter() : RecyclerView.Adapter<CardViewHolder>() {
 
     var cardList = listOf<WordCard>()
-        set(value){
+        set(value) {
             val callback = CardListDiffCallback(cardList, value)
             val diffResult = DiffUtil.calculateDiff(callback)
             diffResult.dispatchUpdatesTo(this)
             field = value
         }
+
+    private val activeHolders = mutableListOf<CardViewHolder>()
+    private var currentHolder : CardViewHolder? = null
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -35,15 +36,35 @@ class CardStackAdapter(
         holder: CardViewHolder,
         position: Int
     ) {
-        holder.binding.frontSide.rotationY = 0f
-        holder.binding.backSide.rotationY = 180f
-        holder.binding.frontSide.visibility = View.VISIBLE
-        holder.binding.backSide.visibility = View.INVISIBLE
         val wordCard = cardList[position]
-        holder.binding.tvWordText.text = wordCard.wordText
-        holder.binding.tvWordTranslation.text = wordCard.wordTranslations.joinToString(", ") {
-            it
+        with(holder.binding) {
+            tvWordText.text = wordCard.wordText
+            tvWordTranslation.text = wordCard.wordTranslations.joinToString(", ") {
+                it
+            }
+
         }
+        if (!activeHolders.contains(holder)) {
+            activeHolders.add(holder)
+        }
+        currentHolder = holder
+
+        holder.controller.onFlipStart = {
+            activeHolders.forEach {
+                if (it != holder)
+                    it.hideFrontSideContent()
+            }
+        }
+        holder.controller.onFlipEnd = {
+            activeHolders.forEach {
+                it.showFrontSideContent()
+            }
+        }
+
+    }
+
+    fun cancelFlip(){
+        currentHolder?.controller?.cancelFlip()
     }
 
     override fun getItemCount(): Int {

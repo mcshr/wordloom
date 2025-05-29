@@ -12,6 +12,7 @@ import com.mcshr.wordloom.databinding.FragmentLearningBinding
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager
 import com.yuyakaido.android.cardstackview.CardStackListener
 import com.yuyakaido.android.cardstackview.Direction
+import com.yuyakaido.android.cardstackview.StackFrom
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -23,6 +24,7 @@ class LearningFragment : Fragment() {
 
     private val viewModel: LearningViewModel by viewModels()
     private val cardAdapter = CardStackAdapter()
+
     private lateinit var cardStackLayoutManager: CardStackLayoutManager
 
     override fun onCreateView(
@@ -40,7 +42,6 @@ class LearningFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         val cardStackListener = object : CardStackListener {
             override fun onCardSwiped(direction: Direction?) {
                 if (direction == null )
@@ -48,19 +49,24 @@ class LearningFragment : Fragment() {
                 val position = cardStackLayoutManager.topPosition - 1
                 val wordCard = cardAdapter.cardList[position]
                 viewModel.onCardSwipe(wordCard, direction)
+                cardAdapter.cancelFlip()
             }
             override fun onCardDragging(direction: Direction?, ratio: Float) {}
             override fun onCardRewound() {}
             override fun onCardCanceled() {}
-            override fun onCardAppeared(view: View?, position: Int) {            }
+            override fun onCardAppeared(view: View?, position: Int) {}
             override fun onCardDisappeared(view: View?, position: Int) {}
 
-        } as CardStackListener
+        }
         cardStackLayoutManager = CardStackLayoutManager(
             context,
             cardStackListener
         ).apply {
-            setVisibleCount(2)
+            setVisibleCount(3)
+            setStackFrom(StackFrom.Top)
+            setTranslationInterval(10f)
+            setMaxDegree(15f)
+            setScaleInterval(0.95f)
         }
         binding.cardStack.itemAnimator = null
         binding.cardStack.layoutManager = cardStackLayoutManager
