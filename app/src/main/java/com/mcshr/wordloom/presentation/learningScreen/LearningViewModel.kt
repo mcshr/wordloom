@@ -12,6 +12,7 @@ import com.yuyakaido.android.cardstackview.Direction
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -21,30 +22,33 @@ class LearningViewModel @Inject constructor(
     getSessionWordLimitUseCase: GetSessionWordLimitUseCase,
 ) : ViewModel() {
 
-    private val _learningSet =  MutableLiveData<List<WordCard>>()
-    val learningSet : LiveData<List<WordCard>>
+    var position = 0
+        private set
+
+    private val _learningSet = MutableLiveData<List<WordCard>>()
+    val learningSet: LiveData<List<WordCard>>
         get() = _learningSet
 
-    init{
+    init {
         viewModelScope.launch(Dispatchers.IO) {
             val wordLimit = getSessionWordLimitUseCase()
             _learningSet.postValue(getLearningSetUseCase(wordLimit))
         }
     }
 
-    fun onCardSwipe(card: WordCard, direction: Direction){
-        val newList = mutableListOf<WordCard>()
-        _learningSet.value?.let {
-            newList.addAll(it)
-            //newList.removeAt(0)
-            val isPositiveAction = direction == Direction.Right
-            viewModelScope.launch(Dispatchers.IO) {
-                val moveCardToEnd = updateWordCardStatusUseCase.invoke(card, isPositiveAction)
-                if (moveCardToEnd){
-                    newList.add(card)
-                }
-                _learningSet.postValue(newList)
+    fun onCardSwipe(direction: Direction) {
+        val updatedList = learningSet.value?.toMutableList()
+        val card: WordCard = updatedList?.getOrNull(position)?:return
+        val isPositiveAction = direction == Direction.Right
+        viewModelScope.launch{
+            val moveCardToEnd = withContext(Dispatchers.IO) {
+                updateWordCardStatusUseCase.invoke(card, isPositiveAction)
             }
+            if (moveCardToEnd) {
+                updatedList.add(card)
+            }
+            position += 1
+            _learningSet.value = updatedList.toList()
         }
     }
 }

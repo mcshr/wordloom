@@ -13,6 +13,8 @@ import com.yuyakaido.android.cardstackview.CardStackLayoutManager
 import com.yuyakaido.android.cardstackview.CardStackListener
 import com.yuyakaido.android.cardstackview.Direction
 import com.yuyakaido.android.cardstackview.StackFrom
+import com.yuyakaido.android.cardstackview.SwipeAnimationSetting
+import com.yuyakaido.android.cardstackview.SwipeableMethod
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -44,17 +46,20 @@ class LearningFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val cardStackListener = object : CardStackListener {
             override fun onCardSwiped(direction: Direction?) {
-                if (direction == null )
-                    return
-                val position = cardStackLayoutManager.topPosition - 1
-                val wordCard = cardAdapter.cardList[position]
-                viewModel.onCardSwipe(wordCard, direction)
-                cardAdapter.cancelFlip()
+                direction?:return
+                viewModel.onCardSwipe(direction)
             }
+
             override fun onCardDragging(direction: Direction?, ratio: Float) {}
             override fun onCardRewound() {}
             override fun onCardCanceled() {}
-            override fun onCardAppeared(view: View?, position: Int) {}
+            override fun onCardAppeared(view: View?, position: Int) {
+                val viewHolder = binding.cardStack.findViewHolderForAdapterPosition(
+                    cardStackLayoutManager.topPosition
+                ) as? CardViewHolder
+                viewHolder?.fadeInContent()
+                cardAdapter.cancelFlip()
+            }
             override fun onCardDisappeared(view: View?, position: Int) {}
 
         }
@@ -65,20 +70,53 @@ class LearningFragment : Fragment() {
             setVisibleCount(3)
             setStackFrom(StackFrom.Top)
             setTranslationInterval(10f)
-            setMaxDegree(15f)
+            setMaxDegree(30f)
             setScaleInterval(0.95f)
+            setCanScrollVertical(false)
         }
+        //Disable default element animations in RV
         binding.cardStack.itemAnimator = null
-        binding.cardStack.layoutManager = cardStackLayoutManager
 
+        binding.cardStack.layoutManager = cardStackLayoutManager
+        var isFirstTime = true
         viewModel.learningSet.observe(viewLifecycleOwner) {
+            val topPosition = viewModel.position
             cardAdapter.cardList = it
+            cardAdapter.topPosition = topPosition
+            if(isFirstTime) {
+                cardStackLayoutManager.scrollToPosition(topPosition)
+                isFirstTime = false
+            }
         }
+
+        cardAdapter.toggleCardStackSwipe = { canSwipe ->
+            val swipeableMethod =
+                if (canSwipe) SwipeableMethod.AutomaticAndManual else SwipeableMethod.None
+            cardStackLayoutManager.setSwipeableMethod(swipeableMethod)
+        }
+
         binding.cardStack.adapter = cardAdapter
 
+        binding.btnSwipeLeft.setOnClickListener {
+            val setting = SwipeAnimationSetting.Builder()
+                .setDirection(Direction.Left)
+                .setDuration(200)
+                .build()
+            cardStackLayoutManager.setSwipeAnimationSetting(setting)
+            binding.cardStack.swipe()
+        }
+        binding.btnSwipeRight.setOnClickListener {
+            val setting = SwipeAnimationSetting.Builder()
+                .setDirection(Direction.Right)
+                .setDuration(200)
+                .build()
+            cardStackLayoutManager.setSwipeAnimationSetting(setting)
+            binding.cardStack.swipe()
+        }
 
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().popBackStack()
         }
     }
+
 }

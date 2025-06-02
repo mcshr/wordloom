@@ -8,6 +8,7 @@ import com.mcshr.wordloom.databinding.ItemCardBinding
 import com.mcshr.wordloom.domain.entities.WordCard
 
 class CardStackAdapter() : RecyclerView.Adapter<CardViewHolder>() {
+    var topPosition = 0
 
     var cardList = listOf<WordCard>()
         set(value) {
@@ -17,8 +18,8 @@ class CardStackAdapter() : RecyclerView.Adapter<CardViewHolder>() {
             field = value
         }
 
-    private val activeHolders = mutableListOf<CardViewHolder>()
-    private var currentHolder : CardViewHolder? = null
+    var toggleCardStackSwipe: ((canSwipe: Boolean) -> Unit)? = null
+    private var currentHolder: CardViewHolder? = null
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -44,26 +45,21 @@ class CardStackAdapter() : RecyclerView.Adapter<CardViewHolder>() {
             }
 
         }
-        if (!activeHolders.contains(holder)) {
-            activeHolders.add(holder)
-        }
         currentHolder = holder
+        if (position != topPosition) {
+            holder.hideFrontSideContent()
+        }
 
         holder.controller.onFlipStart = {
-            activeHolders.forEach {
-                if (it != holder)
-                    it.hideFrontSideContent()
-            }
+            //toggleCardStackSwipe?.invoke(false)
         }
         holder.controller.onFlipEnd = {
-            activeHolders.forEach {
-                it.showFrontSideContent()
-            }
+            //toggleCardStackSwipe?.invoke(true)
         }
 
     }
 
-    fun cancelFlip(){
+    fun cancelFlip() {
         currentHolder?.controller?.cancelFlip()
     }
 

@@ -55,7 +55,7 @@ class CardFlipController(
             playSequentially(
                 animator1, animator2
             )
-            duration = 1000
+            duration = 200
         }
         currentAnimator?.start()
 
