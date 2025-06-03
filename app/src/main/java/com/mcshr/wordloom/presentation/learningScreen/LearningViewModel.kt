@@ -29,6 +29,10 @@ class LearningViewModel @Inject constructor(
     val learningSet: LiveData<List<WordCard>>
         get() = _learningSet
 
+    private val _readyToClose = MutableLiveData<Boolean>()
+    val readyToClose: LiveData<Boolean>
+        get() = _readyToClose
+
     init {
         viewModelScope.launch(Dispatchers.IO) {
             val wordLimit = getSessionWordLimitUseCase()
@@ -49,6 +53,9 @@ class LearningViewModel @Inject constructor(
             }
             position += 1
             _learningSet.value = updatedList.toList()
+            if (position >= updatedList.size) {
+                _readyToClose.value = true
+            }
         }
     }
 }

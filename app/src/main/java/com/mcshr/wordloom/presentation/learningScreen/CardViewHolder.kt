@@ -16,6 +16,7 @@ class CardViewHolder(val binding: ItemCardBinding): RecyclerView.ViewHolder(bind
         binding.frontSide.children.forEach {
             it.alpha = 0f
         }
+        controller.cancelFlip()
     }
     fun fadeInContent() {
         binding.frontSide.children.forEach {

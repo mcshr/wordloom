@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.mcshr.wordloom.databinding.FragmentLearningBinding
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager
@@ -16,6 +17,8 @@ import com.yuyakaido.android.cardstackview.StackFrom
 import com.yuyakaido.android.cardstackview.SwipeAnimationSetting
 import com.yuyakaido.android.cardstackview.SwipeableMethod
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class LearningFragment : Fragment() {
@@ -44,12 +47,12 @@ class LearningFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         val cardStackListener = object : CardStackListener {
             override fun onCardSwiped(direction: Direction?) {
                 direction?:return
                 viewModel.onCardSwipe(direction)
             }
-
             override fun onCardDragging(direction: Direction?, ratio: Float) {}
             override fun onCardRewound() {}
             override fun onCardCanceled() {}
@@ -58,10 +61,8 @@ class LearningFragment : Fragment() {
                     cardStackLayoutManager.topPosition
                 ) as? CardViewHolder
                 viewHolder?.fadeInContent()
-                cardAdapter.cancelFlip()
             }
             override fun onCardDisappeared(view: View?, position: Int) {}
-
         }
         cardStackLayoutManager = CardStackLayoutManager(
             context,
@@ -70,7 +71,7 @@ class LearningFragment : Fragment() {
             setVisibleCount(3)
             setStackFrom(StackFrom.Top)
             setTranslationInterval(10f)
-            setMaxDegree(30f)
+            setMaxDegree(25f)
             setScaleInterval(0.95f)
             setCanScrollVertical(false)
         }
@@ -112,6 +113,12 @@ class LearningFragment : Fragment() {
                 .build()
             cardStackLayoutManager.setSwipeAnimationSetting(setting)
             binding.cardStack.swipe()
+        }
+        viewModel.readyToClose.observe(viewLifecycleOwner) {
+            viewLifecycleOwner.lifecycleScope.launch {
+                delay(400)
+                findNavController().popBackStack()
+            }
         }
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {

@@ -30,10 +30,6 @@
     <style name="text.title.large">
         <item name="android:textSize">24sp</item>
     </style>
-    <style name="text.title.main">
-        <item name="fontFamily">sans-serif</item>
-        <item name="android:textStyle">bold</item>
-    </style>
 
     <style name="text.title.medium">
         <item name="android:textSize">16sp</item>

@@ -30,6 +30,8 @@ class MainActivity : AppCompatActivity() {
         val navController = navHostFragment.navController
         binding.bottomNavigationView.setupWithNavController(navController)
 
+        var isBottomNavVisible = false
+
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             if (destination.id == R.id.homeFragment ||
@@ -37,14 +39,21 @@ class MainActivity : AppCompatActivity() {
                 destination.id == R.id.progressFragment
             ) {
                 binding.bottomNavigationView.visibility = VISIBLE
+                isBottomNavVisible = true
             } else {
                 binding.bottomNavigationView.visibility = GONE
+                isBottomNavVisible = false
             }
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.mainContainer) { view, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            view.setPadding(systemBars.left, systemBars.top, systemBars.right, 0)
+            view.setPadding(
+                systemBars.left,
+                systemBars.top,
+                systemBars.right,
+                if (isBottomNavVisible) 0 else systemBars.bottom
+            )
             insets
         }
 

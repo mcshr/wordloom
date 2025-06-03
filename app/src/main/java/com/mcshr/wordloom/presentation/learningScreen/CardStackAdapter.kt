@@ -59,10 +59,6 @@ class CardStackAdapter() : RecyclerView.Adapter<CardViewHolder>() {
 
     }
 
-    fun cancelFlip() {
-        currentHolder?.controller?.cancelFlip()
-    }
-
     override fun getItemCount(): Int {
         return cardList.size
     }

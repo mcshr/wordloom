@@ -58,4 +58,6 @@
     <string name="word_limit_per_session">Word limit per session</string>
     <string name="error_wrong_word_limit">The value must be between 10 and 999</string>
     <string name="word_limit_hint_text">\tThe session will include all cards for review + cards ready for study, but no more than %d</string>
+    <string name="swipe_left">Repeat</string>
+    <string name="swipe_right">Got it</string>
 </resources>

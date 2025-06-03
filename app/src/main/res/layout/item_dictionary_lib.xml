@@ -128,7 +128,8 @@
             app:layout_constraintEnd_toEndOf="@+id/progress_indicator"
             app:layout_constraintStart_toStartOf="@+id/progress_indicator"
             app:layout_constraintTop_toTopOf="@+id/progress_indicator"
-            tools:text="30%" />
+            android:textSize="12sp"
+            tools:text="100%" />
 
         <Button
             style="@style/Widget.Material3.Button.IconButton"

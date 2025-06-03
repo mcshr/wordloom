@@ -36,7 +36,7 @@
 
         <TextView
             android:id="@+id/tvTitle1"
-            style="@style/text.title.main"
+            style="@style/text.title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/statistics_dicts_title"
@@ -305,7 +305,7 @@
 
         <TextView
             android:id="@+id/tvTitle2"
-            style="@style/text.title.main"
+            style="@style/text.title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/selected_dictionaries_title"
