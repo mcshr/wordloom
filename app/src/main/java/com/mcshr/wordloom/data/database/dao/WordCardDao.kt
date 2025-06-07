@@ -41,11 +41,28 @@ interface WordCardDao {
         "SELECT COUNT(card.id) FROM card " +
                 "INNER JOIN dictionary_card dc ON card.id = dc.card_id " +
                 "INNER JOIN dictionary ON dc.dictionary_id = dictionary.id " +
-                "WHERE dictionary.is_selected = 1 AND next_rev_date <= :currentTime"
+                "WHERE dictionary.is_selected = 1 " +
+                "AND next_rev_date <= :currentTime " +
+                "AND status = :statusLearning"
     )
-    fun getCardRepeatCountFromSelectedDictionaries(
-        currentTime: Long
-    ): LiveData<Int>
+    suspend fun getCardRepeatCountFromSelectedDictionaries(
+        currentTime: Long,
+        statusLearning: WordStatus = WordStatus.LEARNING
+    ): Int
+
+    @Query("SELECT card.next_rev_date FROM card " +
+            "INNER JOIN dictionary_card dc ON card.id = dc.card_id " +
+            "INNER JOIN dictionary ON dc.dictionary_id = dictionary.id " +
+            "WHERE dictionary.is_selected = 1 " +
+            "AND next_rev_date > :currentTime " +
+            "AND status = :statusLearning " +
+            "ORDER BY card.next_rev_date " +
+            "LIMIT :limit")
+    suspend fun getNextRepeatTime(
+        currentTime: Long,
+        limit: Int,
+        statusLearning: WordStatus = WordStatus.LEARNING
+    ):List<Long>?
 
     @Transaction
     @Query(
@@ -100,17 +117,19 @@ interface WordCardDao {
     ): List<WordCardRelation>
 
     @Transaction
-    @Query( "SELECT * FROM card " +
-            "INNER JOIN dictionary_card dc ON card.id = dc.card_id " +
-            "INNER JOIN dictionary dict ON dc.dictionary_id = dict.id " +
-            "WHERE dict.is_selected = 1 " +
-            "AND card.status = :learningStatus AND card.next_rev_date <= :currentTime " +
-            "LIMIT :limit")
+    @Query(
+        "SELECT * FROM card " +
+                "INNER JOIN dictionary_card dc ON card.id = dc.card_id " +
+                "INNER JOIN dictionary dict ON dc.dictionary_id = dict.id " +
+                "WHERE dict.is_selected = 1 " +
+                "AND card.status = :learningStatus AND card.next_rev_date <= :currentTime " +
+                "LIMIT :limit"
+    )
     suspend fun getWordCardsForReview(
         currentTime: Long,
         limit: Int,
         learningStatus: WordStatus = WordStatus.LEARNING,
-    ):List<WordCardRelation>
+    ): List<WordCardRelation>
 
     @Insert
     suspend fun createCard(cardDbModel: CardDbModel): Long

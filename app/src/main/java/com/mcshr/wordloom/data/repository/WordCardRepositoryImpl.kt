@@ -94,8 +94,12 @@ class WordCardRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun getReadyToRepeatCardsCountFromSelectedDictionaries(currentTimeUnix: Long): LiveData<Int> {
+    override suspend fun getRepeatCardsCountFromSelectedDictionaries(currentTimeUnix: Long): Int {
         return dao.getCardRepeatCountFromSelectedDictionaries(currentTimeUnix)
+    }
+
+    override suspend fun getNextRepeatTime(currentTimeUnix: Long, limit:Int): List<Long>? {
+        return dao.getNextRepeatTime(currentTimeUnix, limit)
     }
 
     override suspend fun getWordCardsForReview(

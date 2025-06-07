@@ -13,8 +13,9 @@ interface WordCardRepository {
     fun deleteWordCard(wordCard:WordCard)
     fun getWordCardById(wordCardId: Int):WordCard
     fun getWordCardListByDictId(dictionaryId:Long): LiveData<List<WordCard>>
-    fun getReadyToRepeatCardsCountFromSelectedDictionaries(currentTimeUnix: Long):LiveData<Int>
-    suspend fun getWordCardsForReview(currentTime: Long, limit:Int):List<WordCard>
+    suspend fun getRepeatCardsCountFromSelectedDictionaries(currentTimeUnix: Long):Int
+    suspend fun getNextRepeatTime(currentTimeUnix: Long, limit: Int): List<Long>?
+    suspend fun getWordCardsForReview(currentTimeUnix: Long, limit:Int):List<WordCard>
     suspend fun getWordCardsByStatusFromSelectedDictionaries(wordStatus: WordStatus, limit:Int =0): List<WordCard>
 
 
