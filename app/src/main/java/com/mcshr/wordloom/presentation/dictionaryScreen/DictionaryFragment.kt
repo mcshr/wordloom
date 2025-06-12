@@ -8,7 +8,9 @@ import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.mcshr.wordloom.R
 import com.mcshr.wordloom.databinding.FragmentDictionaryBinding
+import com.mcshr.wordloom.presentation.utils.setDebounceOnClickListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -48,6 +50,12 @@ class DictionaryFragment : Fragment() {
 
         viewModel.wordList.observe(viewLifecycleOwner) {
             wordListAdapter.submitList(it)
+        }
+
+        binding.btnAddNewWord.setDebounceOnClickListener{
+            viewModel.selectDictionaryToAddWord()
+            val action = R.id.action_dictionaryFragment_to_editWordFragment
+            findNavController().navigate(action)
         }
 
         super.onViewCreated(view, savedInstanceState)

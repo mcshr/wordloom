@@ -40,6 +40,7 @@ class HomeFragment : Fragment() {
 
 
         binding.btnMainLearn.setDebounceOnClickListener {
+            viewModel.restartObserver()
             SessionSettingsFragment().show(parentFragmentManager, "SessionSettingsTag")
         }
         binding.btnAddMoreDicts.setDebounceOnClickListener {

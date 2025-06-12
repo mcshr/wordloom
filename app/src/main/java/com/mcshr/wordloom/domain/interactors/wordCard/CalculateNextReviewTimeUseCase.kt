@@ -8,14 +8,14 @@ class CalculateNextReviewTimeUseCase {
     operator fun invoke(countOfReviews: Int): Long {
         val now = LocalDateTime.now()
         val nextReviewTime = when (countOfReviews) {
-            0 -> now.plusSeconds(1).also { Log.d("REVIEW", "0") }
-            1 -> now.plusSeconds(2).also { Log.d("REVIEW", "1") }
-            2 -> now.plusSeconds(5).also { Log.d("REVIEW", "2") }
-            3 -> now.plusSeconds(5).also { Log.d("REVIEW", "3") }
-            4 -> now.plusSeconds(5).also { Log.d("REVIEW", "4") }
+            0 -> now.plusSeconds(10).also { Log.d("REVIEW", "0") }
+            1 -> now.plusSeconds(20).also { Log.d("REVIEW", "1") }
+            2 -> now.plusSeconds(10).also { Log.d("REVIEW", "2") }
+            3 -> now.plusSeconds(10).also { Log.d("REVIEW", "3") }
+            4 -> now.plusSeconds(10).also { Log.d("REVIEW", "4") }
             5 -> now.plusSeconds(10).also { Log.d("REVIEW", "5") }
             6 -> now.plusSeconds(10).also { Log.d("REVIEW", "6") }
-            7 -> now.plusSeconds(5).also { Log.d("REVIEW", "7") }
+            7 -> now.plusSeconds(10).also { Log.d("REVIEW", "7") }
             8 -> now.plusSeconds(10).also { Log.d("REVIEW", "8") }
  
 //            0 -> now.plusMinutes(30)

@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
@@ -23,7 +22,7 @@ class EditWordFragment : Fragment() {
         get() = _binding ?: throw RuntimeException("FragmentEditWordBinding is null")
 
     private val viewModel: EditWordViewModel by viewModels()
-    private val sharedViewModel: SharedDictionarySelectViewModel by activityViewModels() //TODO remove
+    private val sharedViewModel: SharedDictionarySelectViewModel by viewModels()
 
     private val meaningAdapter = MeaningListAdapter()
 

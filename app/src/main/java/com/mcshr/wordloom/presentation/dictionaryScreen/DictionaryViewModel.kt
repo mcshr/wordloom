@@ -6,6 +6,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mcshr.wordloom.domain.entities.Dictionary
+import com.mcshr.wordloom.domain.interactors.appSettings.SaveSelectedDictionaryForWordUseCase
 import com.mcshr.wordloom.domain.interactors.dictionary.GetDictionaryUseCase
 import com.mcshr.wordloom.domain.interactors.wordCard.GetWordCardListByDictIdUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,7 +19,8 @@ import javax.inject.Inject
 class DictionaryViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val getDictionaryUseCase: GetDictionaryUseCase,
-    getWordCardListByDictIdUseCase: GetWordCardListByDictIdUseCase
+    private val saveSelectedDictionaryForWordUseCase: SaveSelectedDictionaryForWordUseCase,
+    private val getWordCardListByDictIdUseCase: GetWordCardListByDictIdUseCase
 ) : ViewModel() {
 
     private val dictionaryId: Long = savedStateHandle["dictionaryId"]
@@ -41,4 +43,8 @@ class DictionaryViewModel @Inject constructor(
         }
 
     }
+    fun selectDictionaryToAddWord(){
+        saveSelectedDictionaryForWordUseCase.invoke(dictionaryId)
+    }
+
 }

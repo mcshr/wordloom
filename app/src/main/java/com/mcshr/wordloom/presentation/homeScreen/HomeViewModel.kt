@@ -51,56 +51,58 @@ class HomeViewModel @Inject constructor(
         val unknown: Int,
         val learning: Int
     )
+
     init {
         viewModelScope.launch(Dispatchers.IO) {
             prepopulateLanguagesUseCase()
         }
-        refreshRepeatCount()
         observeRepeatCount()
     }
 
-    suspend fun checkIfAnyDictionaryExist():Boolean{
+    suspend fun checkIfAnyDictionaryExist(): Boolean {
         return withContext(Dispatchers.IO) {
-             checkIfAnyDictionaryExistsUseCase()
+            checkIfAnyDictionaryExistsUseCase()
         }
     }
 
-    private fun observeRepeatCount(){
+    private fun observeRepeatCount() {
         nextCheckTimer?.cancel()
         nextCheckTimer = viewModelScope.launch {
-            while (isActive){
-                val nextReviewTime = getNextReviewTimeUseCase(2)
+            while (isActive) {
+                refreshRepeatCount()
+
                 val now = System.currentTimeMillis()
-                nextReviewTime?: continue
-                if( nextReviewTime.firstOrNull() == null
-                    || nextReviewTime.first() > now+ONE_MINUTE) {
-                    refreshRepeatCount()
-                    delay(ONE_MINUTE)
-                    continue
+                val nextReviewTime = getNextReviewTimeUseCase(1)?.firstOrNull()
+
+                val delayMillis = when {
+                    nextReviewTime == null -> DEFAULT_DELAY
+                    nextReviewTime > now + DEFAULT_DELAY -> DEFAULT_DELAY
+                    nextReviewTime < now + MIN_DELAY -> MIN_DELAY
+                    else -> nextReviewTime - now
                 }
-                if (nextReviewTime.first() - nextReviewTime.last() < 10*ONE_SECOND){
-                    delay(10*ONE_SECOND)
-                    refreshRepeatCount()
-                }
-                val delayMillis = (nextReviewTime.first() - now).coerceAtLeast(0)
+
                 delay(delayMillis)
             }
         }
     }
 
-    private fun refreshRepeatCount(){
-        viewModelScope.launch {
-            _repeatCount.postValue(getReadyToRepeatCardsCountFromSelectedDictsUseCase())
-        }
+    fun restartObserver() {
+        observeRepeatCount()
     }
+
+    private suspend fun refreshRepeatCount() {
+        _repeatCount.postValue(getReadyToRepeatCardsCountFromSelectedDictsUseCase())
+    }
+
     override fun onCleared() {
         super.onCleared()
         nextCheckTimer?.cancel()
     }
 
-    companion object{
-        const val ONE_SECOND = 1000L
-        const val ONE_MINUTE = 60L * ONE_SECOND
-        const val ONE_HOUR = 60L * ONE_MINUTE
+    companion object {
+        private const val ONE_SECOND = 1000L
+        private const val ONE_MINUTE = 60L * ONE_SECOND
+        private const val DEFAULT_DELAY = 5 * ONE_MINUTE
+        private const val MIN_DELAY = 5 * ONE_SECOND
     }
 }

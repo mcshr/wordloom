@@ -6,10 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.mcshr.wordloom.databinding.FragmentLearningBinding
+import com.mcshr.wordloom.presentation.homeScreen.HomeViewModel
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager
 import com.yuyakaido.android.cardstackview.CardStackListener
 import com.yuyakaido.android.cardstackview.Direction
@@ -28,6 +30,7 @@ class LearningFragment : Fragment() {
         get() = _binding ?: throw RuntimeException("Fragment Learning binding is null")
 
     private val viewModel: LearningViewModel by viewModels()
+    private val homeViewModel: HomeViewModel by activityViewModels()
     private val cardAdapter = CardStackAdapter()
 
     private lateinit var cardStackLayoutManager: CardStackLayoutManager
@@ -117,11 +120,12 @@ class LearningFragment : Fragment() {
         viewModel.readyToClose.observe(viewLifecycleOwner) {
             viewLifecycleOwner.lifecycleScope.launch {
                 delay(400)
-                findNavController().popBackStack()
+                requireActivity().onBackPressedDispatcher.onBackPressed()
             }
         }
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            homeViewModel.restartObserver()
             findNavController().popBackStack()
         }
     }

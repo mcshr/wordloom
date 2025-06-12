@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.mcshr.wordloom.databinding.FragmentSelectDictionaryBottomSheetBinding
@@ -20,7 +19,8 @@ class SelectDictionaryBottomSheet : BottomSheetDialogFragment() {
             ?: throw RuntimeException(" FragmentSelectDictionaryBottomSheetBinding is null")
 
     private val viewModel by viewModels<SelectDictionaryViewModel>()
-    private val sharedViewModel: SharedDictionarySelectViewModel by activityViewModels()
+    private val sharedViewModel: SharedDictionarySelectViewModel by viewModels({requireParentFragment()})
+
     private val rvAdapter = DictionarySelectableListAdapter()
 
     override fun onCreateView(

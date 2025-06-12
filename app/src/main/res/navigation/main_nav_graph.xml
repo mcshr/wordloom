@@ -55,6 +55,9 @@
         <argument
             android:name="dictionaryId"
             app:argType="long" />
+        <action
+            android:id="@+id/action_dictionaryFragment_to_editWordFragment"
+            app:destination="@id/editWordFragment" />
     </fragment>
     <fragment
         android:id="@+id/manageCardsForSessionFragment"
