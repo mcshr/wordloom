@@ -27,7 +27,8 @@ class CreateWordCardUseCase @Inject constructor(
             imagePath = imagePath,
             partOfSpeech = partOfSpeech,
             languageOriginal = languageOriginal,
-            languageTranslation = languageTranslation
+            languageTranslation = languageTranslation,
+            wordId = -1 //Default value
         )
 
         return repository.createWordCard(wordCard)

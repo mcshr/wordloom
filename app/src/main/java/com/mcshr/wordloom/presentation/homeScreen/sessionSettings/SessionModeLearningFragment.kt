@@ -29,7 +29,7 @@ class SessionModeLearningFragment : Fragment() {
 
     private val sharedViewModel: HomeViewModel by activityViewModels()
     private val viewModel: SessionSettingsViewModel by viewModels(
-        { requireParentFragment() }
+        ownerProducer =  { requireParentFragment() }
     )
 
     private val sliderListener = Slider.OnChangeListener { _, value, _ ->

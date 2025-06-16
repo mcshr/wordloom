@@ -54,7 +54,7 @@ class EditWordFragment : Fragment() {
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }
         binding.toolbar.setOnClickListener {
-            SelectDictionaryBottomSheet().show(parentFragmentManager, "SelectDictionaryTag")
+            SelectDictionaryBottomSheet().show(childFragmentManager, "SelectDictionaryTag")
         }
         binding.toolbar.setOnMenuItemClickListener { option ->
             when (option.itemId) {

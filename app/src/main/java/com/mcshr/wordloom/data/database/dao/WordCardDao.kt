@@ -2,6 +2,7 @@ package com.mcshr.wordloom.data.database.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Transaction
@@ -131,6 +132,11 @@ interface WordCardDao {
         learningStatus: WordStatus = WordStatus.LEARNING,
     ): List<WordCardRelation>
 
+    @Query("SELECT * FROM card " +
+            "INNER JOIN word ON card.word_id = word.id " +
+            "WHERE word_id = :wordId")
+    suspend fun getCardByWordId(wordId:Long): CardDbModel?
+
     @Insert
     suspend fun createCard(cardDbModel: CardDbModel): Long
 
@@ -151,5 +157,10 @@ interface WordCardDao {
 
     @Update
     suspend fun editCardsList(list: List<CardDbModel>)
+
+
+    @Delete
+    suspend fun deleteCard(cardDbModel: CardDbModel)
+
 
 }

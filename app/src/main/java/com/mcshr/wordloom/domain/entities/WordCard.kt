@@ -10,7 +10,8 @@ data class WordCard(
     val reviewCount:Int,
     val nextReviewTime: Long?, //Unix timestamp
     val imagePath: String?,
-    val id: Long
+    val id: Long,
+    val wordId:Long
 //    val definitions:List<String>?,
 //    val belongsToDictionaries: List<Dictionary>,
 //    val usageExamples:List<UsageExample>,

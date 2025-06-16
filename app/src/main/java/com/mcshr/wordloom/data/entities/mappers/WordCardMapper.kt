@@ -18,7 +18,8 @@ fun WordCardRelation.toDomainEntity(): WordCard {
         reviewCount = card.reviewsCount,
         nextReviewTime = card.nextRevDate,
         imagePath = card.imagePath,
-        id = card.id
+        id = card.id,
+        wordId = card.wordId
     )
 }
 
@@ -26,7 +27,7 @@ fun DictionaryWithCardsRelation.toWordCardListDomain(): List<WordCard> {
     return wordCardList.map { it.toDomainEntity() }
 }
 
-fun WordCard.toWordDomain(): WordDbModel {
+fun WordCard.toWordDBModel(): WordDbModel {
     return WordDbModel(
         id = 0,
         wordText = wordText,
@@ -35,7 +36,7 @@ fun WordCard.toWordDomain(): WordDbModel {
     )
 }
 
-fun WordCard.toCardDomain(wordId: Long): CardDbModel {
+fun WordCard.toCardDBModel(wordId: Long): CardDbModel {
     return CardDbModel(
         id = id,
         status = status,
