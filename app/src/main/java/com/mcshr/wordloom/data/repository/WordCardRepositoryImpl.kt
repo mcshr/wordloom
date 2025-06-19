@@ -1,5 +1,6 @@
 package com.mcshr.wordloom.data.repository
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
 import androidx.room.withTransaction
@@ -7,6 +8,7 @@ import com.mcshr.wordloom.data.database.AppDatabase
 import com.mcshr.wordloom.data.entities.CardTranslationDbModel
 import com.mcshr.wordloom.data.entities.DictionaryCardDbModel
 import com.mcshr.wordloom.data.entities.TranslationDbModel
+import com.mcshr.wordloom.data.entities.WordDbModel
 import com.mcshr.wordloom.data.entities.mappers.toCardDBModel
 import com.mcshr.wordloom.data.entities.mappers.toDomainEntity
 import com.mcshr.wordloom.data.entities.mappers.toTranslationsList
@@ -85,12 +87,46 @@ class WordCardRepositoryImpl @Inject constructor(
         )
     }
 
-    override suspend fun deleteWordCard(wordCard: WordCard) {
-        dao.deleteCard(wordCard.toCardDBModel(wordCard.wordId))
+    override suspend fun removeWordCardFromDictionary(
+        wordCardId: Long,
+        dictionaryId: Long
+    ) {
+        dao.removeCardFromDictionary(DictionaryCardDbModel(
+            cardId = wordCardId,
+            dictionaryId = dictionaryId
+        ))
     }
 
-    override fun getWordCardById(wordCardId: Int): WordCard {
-        TODO("Not yet implemented")
+    override suspend fun getDictionaryCountForWordCard(wordCardId: Long):Int {
+        return dao.getDictionaryCountForCard(cardId = wordCardId)
+    }
+
+    override suspend fun deleteWordCard(wordCard: WordCard) {
+        database.withTransaction {
+            val wordCardRelation = dao.getWordCardByCardId(wordCard.id)
+            dao.deleteCard(wordCard.toCardDBModel(wordCard.wordId))
+            val unusedTranslations = wordCardRelation.translations.filter{
+                dao.getCardTranslationsCountForTranslation(it.translationDbModel.id) == 0
+            }
+            unusedTranslations.forEach {
+                dao.deleteTranslation(it.translationDbModel)
+            }
+
+            val unusedWords = mutableListOf<WordDbModel>()
+            unusedTranslations.forEach {
+                val word = it.wordTranslation.word
+                if(dao.getWordCountInTranslations(word.id) == 0)
+                    unusedWords.add(word)
+            }
+            if(dao.getWordCountInTranslations(wordCardRelation.card.wordId)==0)
+                unusedWords.add(wordCardRelation.translations.first().wordOriginal.word)
+
+            unusedWords.toSet().forEach {
+                dao.deleteWord(it)
+                Log.d("DELETE", "$it")
+            }
+
+        }
     }
 
     override fun getWordCardListByDictId(dictionaryId: Long): LiveData<List<WordCard>> {

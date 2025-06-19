@@ -25,7 +25,11 @@ interface WordCardDao {
 
     @Transaction
     @Query("SELECT * FROM card WHERE id == :cardId")
-    fun getWordCardByCardId(cardId: Long): LiveData<WordCardRelation>
+    fun getWordCardLiveDataByCardId(cardId: Long): LiveData<WordCardRelation>
+
+    @Transaction
+    @Query("SELECT * FROM card WHERE id == :cardId")
+    suspend fun getWordCardByCardId(cardId: Long): WordCardRelation
 
     @Query(
         "SELECT id FROM word WHERE word_text == :wordText " +
@@ -51,19 +55,21 @@ interface WordCardDao {
         statusLearning: WordStatus = WordStatus.LEARNING
     ): Int
 
-    @Query("SELECT card.next_rev_date FROM card " +
-            "INNER JOIN dictionary_card dc ON card.id = dc.card_id " +
-            "INNER JOIN dictionary ON dc.dictionary_id = dictionary.id " +
-            "WHERE dictionary.is_selected = 1 " +
-            "AND next_rev_date > :currentTime " +
-            "AND status = :statusLearning " +
-            "ORDER BY card.next_rev_date " +
-            "LIMIT :limit")
+    @Query(
+        "SELECT card.next_rev_date FROM card " +
+                "INNER JOIN dictionary_card dc ON card.id = dc.card_id " +
+                "INNER JOIN dictionary ON dc.dictionary_id = dictionary.id " +
+                "WHERE dictionary.is_selected = 1 " +
+                "AND next_rev_date > :currentTime " +
+                "AND status = :statusLearning " +
+                "ORDER BY card.next_rev_date " +
+                "LIMIT :limit"
+    )
     suspend fun getNextRepeatTime(
         currentTime: Long,
         limit: Int,
         statusLearning: WordStatus = WordStatus.LEARNING
-    ):List<Long>?
+    ): List<Long>?
 
     @Transaction
     @Query(
@@ -132,10 +138,12 @@ interface WordCardDao {
         learningStatus: WordStatus = WordStatus.LEARNING,
     ): List<WordCardRelation>
 
-    @Query("SELECT * FROM card " +
-            "INNER JOIN word ON card.word_id = word.id " +
-            "WHERE word_id = :wordId")
-    suspend fun getCardByWordId(wordId:Long): CardDbModel?
+    @Query(
+        "SELECT * FROM card " +
+                "INNER JOIN word ON card.word_id = word.id " +
+                "WHERE word_id = :wordId"
+    )
+    suspend fun getCardByWordId(wordId: Long): CardDbModel?
 
     @Insert
     suspend fun createCard(cardDbModel: CardDbModel): Long
@@ -158,9 +166,31 @@ interface WordCardDao {
     @Update
     suspend fun editCardsList(list: List<CardDbModel>)
 
+    @Query(
+        "SELECT COUNT(*) FROM dictionary d " +
+                "LEFT JOIN dictionary_card dc ON d.id = dc.dictionary_id " +
+                "LEFT JOIN card c ON dc.card_id = c.id " +
+                "WHERE c.id = :cardId"
+    )
+    suspend fun getDictionaryCountForCard(cardId: Long): Int
+
+
+    @Query("SELECT COUNT(*) FROM card_translation WHERE translation_id = :translationId")
+    suspend fun getCardTranslationsCountForTranslation(translationId:Long):Int
+
+    @Query("SELECT COUNT(*) FROM translation " +
+            "WHERE word_id_original = :wordId OR word_id_translation = :wordId")
+    suspend fun getWordCountInTranslations(wordId: Long):Int
+
+    @Delete
+    suspend fun removeCardFromDictionary(dictionaryCard: DictionaryCardDbModel)
 
     @Delete
     suspend fun deleteCard(cardDbModel: CardDbModel)
 
+    @Delete
+    suspend fun deleteTranslation(translation: TranslationDbModel)
 
+    @Delete
+    suspend fun deleteWord(wordDbModel: WordDbModel)
 }

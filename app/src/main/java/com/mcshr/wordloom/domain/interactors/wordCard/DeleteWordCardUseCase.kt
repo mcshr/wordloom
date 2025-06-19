@@ -7,7 +7,12 @@ import javax.inject.Inject
 class DeleteWordCardUseCase @Inject constructor(
     private val repository: WordCardRepository
 ) {
-    operator fun invoke(wordCard: WordCard) {
-        repository.deleteWordCard(wordCard)
+    suspend operator fun invoke(wordCard: WordCard, dictionaryId:Long) {
+        val dictsCount = repository.getDictionaryCountForWordCard(wordCard.id)
+        if(dictsCount>1){
+            repository.removeWordCardFromDictionary(wordCard.id, dictionaryId)
+        } else {
+            repository.deleteWordCard(wordCard)
+        }
     }
 }
