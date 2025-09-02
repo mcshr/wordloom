@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.mcshr.wordloom.R
@@ -25,12 +26,16 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(binding.root)
 
+        setupBottomNavigation()
+
+        addInsets()
+    }
+
+    private fun setupBottomNavigation() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.main_container) as NavHostFragment
         val navController = navHostFragment.navController
         binding.bottomNavigationView.setupWithNavController(navController)
-
-        var isBottomNavVisible = false
 
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
@@ -39,28 +44,22 @@ class MainActivity : AppCompatActivity() {
                 destination.id == R.id.progressFragment
             ) {
                 binding.bottomNavigationView.visibility = VISIBLE
-                isBottomNavVisible = true
             } else {
                 binding.bottomNavigationView.visibility = GONE
-                isBottomNavVisible = false
             }
         }
+    }
 
+    private fun addInsets() {
         ViewCompat.setOnApplyWindowInsetsListener(binding.mainContainer) { view, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             view.setPadding(
                 systemBars.left,
                 systemBars.top,
                 systemBars.right,
-                if (isBottomNavVisible) 0 else systemBars.bottom
+                if (binding.bottomNavigationView.isVisible) 0 else systemBars.bottom
             )
             insets
         }
-
-//        ViewCompat.setOnApplyWindowInsetsListener(binding.bottomNavigationView) { view, insets ->
-//            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-//            view.setPadding(0, 0, 0, systemBars.bottom)
-//            insets
-//        }
     }
 }
