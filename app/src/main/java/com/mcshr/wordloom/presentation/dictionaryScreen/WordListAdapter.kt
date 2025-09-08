@@ -1,4 +1,5 @@
 package com.mcshr.wordloom.presentation.dictionaryScreen
+
 import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,25 +9,32 @@ import com.mcshr.wordloom.domain.entities.WordCard
 import com.mcshr.wordloom.presentation.utils.getColor
 import com.mcshr.wordloom.presentation.utils.getText
 
-class WordListAdapter:ListAdapter<WordCard,WordViewHolder>(WordDiffCallback()) {
+class WordListAdapter(
+    private val onMenuClick: (WordCard) -> Unit
+) : ListAdapter<WordCard, WordViewHolder>(WordDiffCallback()) {
     override fun onBindViewHolder(holder: WordViewHolder, position: Int) {
-        val word = getItem(position)
-        val statusColor = word.status.getColor(holder.binding.root.context)
-        holder.binding.tvWordText.text = word.wordText
-        holder.binding.tvMeaningList.text = word.wordTranslations.joinToString(", ") {
-            it
+        val wordCard = getItem(position)
+        val statusColor = wordCard.status.getColor(holder.binding.root.context)
+        with(holder.binding){
+            tvWordText.text = wordCard.wordText
+            tvMeaningList.text = wordCard.wordTranslations.joinToString(", ") {
+                it
+            }
+            tvWordStatus.text = wordCard.status.getText()
+            tvWordStatus.setTextColor(statusColor)
+            statusIndicatorLong.backgroundTintList = ColorStateList.valueOf(statusColor)
+
+            btnMore.setOnClickListener {
+                onMenuClick(wordCard)
+            }
         }
-        holder.binding.tvWordStatus.text = word.status.getText()
-        holder.binding.tvWordStatus.setTextColor(statusColor)
-        holder.binding.statusIndicatorLong.backgroundTintList = ColorStateList.valueOf(statusColor)
+
     }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WordViewHolder {
         val binding = ItemWordListitemBinding.inflate(
-            LayoutInflater.from(parent.context),
-            parent,
-            false
+            LayoutInflater.from(parent.context), parent, false
         )
         return WordViewHolder(binding)
     }

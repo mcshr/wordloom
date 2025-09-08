@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.mcshr.wordloom.R
 import com.mcshr.wordloom.databinding.FragmentDictionaryBinding
+import com.mcshr.wordloom.presentation.dictionaryMenuDialog.WordCardMenuDialogFragment
 import com.mcshr.wordloom.presentation.utils.setDebounceOnClickListener
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -23,7 +24,15 @@ class DictionaryFragment : Fragment() {
 //    private val args: DictionaryFragmentArgs by navArgs()
     private val viewModel by viewModels<DictionaryViewModel>()
 
-    private val wordListAdapter = WordListAdapter()
+    private val wordListAdapter = WordListAdapter(
+        {
+            wordCard ->
+            WordCardMenuDialogFragment().show(
+                childFragmentManager,
+                "DictMenu"
+            )
+        }
+    )
 
 
     override fun onCreateView(

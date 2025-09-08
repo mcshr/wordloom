@@ -206,5 +206,9 @@
 
     </style>
 
+    <!-- DIALOG_FRAGMENT -->
+    <style name="WordloomDialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+        <item name="android:windowBackground"> @drawable/card_without_border </item>
+    </style>
 
 </resources>
