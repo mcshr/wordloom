@@ -6,8 +6,10 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mcshr.wordloom.domain.entities.Dictionary
+import com.mcshr.wordloom.domain.entities.WordCard
 import com.mcshr.wordloom.domain.interactors.appSettings.SaveSelectedDictionaryForWordUseCase
 import com.mcshr.wordloom.domain.interactors.dictionary.GetDictionaryUseCase
+import com.mcshr.wordloom.domain.interactors.wordCard.DeleteWordCardUseCase
 import com.mcshr.wordloom.domain.interactors.wordCard.GetWordCardListByDictIdUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -20,7 +22,8 @@ class DictionaryViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val getDictionaryUseCase: GetDictionaryUseCase,
     private val saveSelectedDictionaryForWordUseCase: SaveSelectedDictionaryForWordUseCase,
-    private val getWordCardListByDictIdUseCase: GetWordCardListByDictIdUseCase
+    getWordCardListByDictIdUseCase: GetWordCardListByDictIdUseCase,
+    private val deleteWordCardUseCase: DeleteWordCardUseCase
 ) : ViewModel() {
 
     private val dictionaryId: Long = savedStateHandle["dictionaryId"]
@@ -46,5 +49,9 @@ class DictionaryViewModel @Inject constructor(
     fun selectDictionaryToAddWord(){
         saveSelectedDictionaryForWordUseCase.invoke(dictionaryId)
     }
-
+    fun deleteWordCard(wordCard: WordCard){
+        viewModelScope.launch(Dispatchers.IO) {
+            deleteWordCardUseCase(wordCard, dictionaryId)
+        }
+    }
 }

@@ -8,6 +8,7 @@ import com.mcshr.wordloom.databinding.ItemWordListitemBinding
 import com.mcshr.wordloom.domain.entities.WordCard
 import com.mcshr.wordloom.presentation.utils.getColor
 import com.mcshr.wordloom.presentation.utils.getText
+import com.mcshr.wordloom.presentation.utils.setDebounceOnClickListener
 
 class WordListAdapter(
     private val onMenuClick: (WordCard) -> Unit
@@ -24,7 +25,7 @@ class WordListAdapter(
             tvWordStatus.setTextColor(statusColor)
             statusIndicatorLong.backgroundTintList = ColorStateList.valueOf(statusColor)
 
-            btnMore.setOnClickListener {
+            btnMore.setDebounceOnClickListener {
                 onMenuClick(wordCard)
             }
         }

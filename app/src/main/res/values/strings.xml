@@ -60,4 +60,5 @@
     <string name="word_limit_hint_text">\tThe session will include all cards for review + cards ready for study, but no more than %d</string>
     <string name="swipe_left">Repeat</string>
     <string name="swipe_right">Got it</string>
+    <string name="delete">Delete</string>
 </resources>
