@@ -1,4 +1,4 @@
-package com.mcshr.wordloom.presentation.dictionaryMenuDialog
+package com.mcshr.wordloom.presentation.dictionaryScreen
 
 import android.os.Build
 import android.os.Bundle
@@ -8,22 +8,20 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import com.mcshr.wordloom.R
-
-import com.mcshr.wordloom.databinding.FragmentWordCardMenuDialogBinding
+import com.mcshr.wordloom.databinding.FragmentWordMenuDialogBinding
 import com.mcshr.wordloom.domain.entities.WordCard
-import com.mcshr.wordloom.presentation.dictionaryScreen.DictionaryViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class WordCardMenuDialogFragment : DialogFragment() {
+class WordMenuDialogFragment : DialogFragment() {
     private val viewModel: DictionaryViewModel by viewModels(
         { requireParentFragment() }
     )
 
-    private var _binding: FragmentWordCardMenuDialogBinding? = null
+    private var _binding: FragmentWordMenuDialogBinding? = null
     private val binding
         get() = _binding ?: throw RuntimeException(
-            "FragmentWordCardMenuMenuDialogBinding is null"
+            "FragmentWordMenuMenuDialogBinding is null"
         )
 
 
@@ -37,7 +35,7 @@ class WordCardMenuDialogFragment : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentWordCardMenuDialogBinding.inflate(
+        _binding = FragmentWordMenuDialogBinding.inflate(
             inflater,
             container,
             false
@@ -76,8 +74,8 @@ class WordCardMenuDialogFragment : DialogFragment() {
     }
 
     companion object {
-        fun newInstance(wordCard: WordCard): WordCardMenuDialogFragment{
-            return WordCardMenuDialogFragment().apply {
+        fun newInstance(wordCard: WordCard): WordMenuDialogFragment{
+            return WordMenuDialogFragment().apply {
                 arguments = Bundle().apply {
                     putParcelable(WORD_CARD_KEY, wordCard)
                 }
