@@ -28,10 +28,11 @@ class WordCardRepositoryImpl @Inject constructor(
         return withContext(Dispatchers.IO) {
             database.withTransaction {
                 val word = wordCard.toWordDBModel()
-                val wordId =
-                    dao.getWordId(word.wordText, word.languageId, word.partOfSpeechId)
-                        //?.also { dao.getCardByWordId(it)?.let { return@withTransaction null } }
-                            ?: dao.createWord(word)
+                val wordId = dao.getWordId(
+                    word.wordText,
+                    word.languageId,
+                    word.partOfSpeechId
+                ) ?: dao.createWord(word)
 
                 val card = wordCard.toCardDBModel()
                 val cardId = dao.createCard(card)
@@ -44,7 +45,6 @@ class WordCardRepositoryImpl @Inject constructor(
                         meaning.partOfSpeechId
                     ) ?: dao.createWord(meaning)
 
-                    //dao.findTranslation
                     val translation = dao.createTranslation(
                         TranslationDbModel(
                             id = 0,
@@ -62,6 +62,32 @@ class WordCardRepositoryImpl @Inject constructor(
                 cardId
             }
         }
+    }
+
+    override suspend fun getWordCardIfTranslationsExists(wordCard: WordCard): WordCard? {
+        val word = wordCard.toWordDBModel()
+        val wordId = dao.getWordId(
+            word.wordText,
+            word.languageId,
+            word.partOfSpeechId
+        ) ?: return null
+
+        val translations = wordCard.toTranslationsList()
+        for (translation in translations) {
+            dao.getWordId(
+                translation.wordText,
+                translation.languageId,
+                translation.partOfSpeechId
+            )?.let { translationId ->
+                dao.getWordCardByTranslation(
+                    wordId,
+                    translationId
+                )?.let {
+                    return it.toDomainEntity()
+                }
+            }
+        }
+        return null
     }
 
     override suspend fun saveWordCardToDictionary(dictionaryId: Long, wordCardId: Long) {
@@ -90,13 +116,15 @@ class WordCardRepositoryImpl @Inject constructor(
         wordCardId: Long,
         dictionaryId: Long
     ) {
-        dao.removeCardFromDictionary(DictionaryCardDbModel(
-            cardId = wordCardId,
-            dictionaryId = dictionaryId
-        ))
+        dao.removeCardFromDictionary(
+            DictionaryCardDbModel(
+                cardId = wordCardId,
+                dictionaryId = dictionaryId
+            )
+        )
     }
 
-    override suspend fun getDictionaryCountForWordCard(wordCardId: Long):Int {
+    override suspend fun getDictionaryCountForWordCard(wordCardId: Long): Int {
         return dao.getDictionaryCountForCard(cardId = wordCardId)
     }
 

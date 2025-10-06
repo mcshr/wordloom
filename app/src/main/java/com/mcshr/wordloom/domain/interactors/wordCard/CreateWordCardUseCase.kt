@@ -4,6 +4,10 @@ import com.mcshr.wordloom.domain.entities.Language
 import com.mcshr.wordloom.domain.entities.WordCard
 import com.mcshr.wordloom.domain.entities.WordStatus
 import com.mcshr.wordloom.domain.repository.WordCardRepository
+import com.mcshr.wordloom.domain.wrappers.DataOperationState
+import com.mcshr.wordloom.domain.wrappers.DataOperationState.Failure
+import com.mcshr.wordloom.domain.wrappers.DataOperationState.Success
+import com.mcshr.wordloom.domain.wrappers.errors.WordCardCreationFailure
 import javax.inject.Inject
 
 class CreateWordCardUseCase @Inject constructor(
@@ -16,7 +20,7 @@ class CreateWordCardUseCase @Inject constructor(
         imagePath: String?,
         languageOriginal: Language,
         languageTranslation: Language
-    ): Long? {
+    ): DataOperationState<Long, WordCardCreationFailure> {
         val wordCard = WordCard(
             id = 0,
             wordText = word,
@@ -30,6 +34,17 @@ class CreateWordCardUseCase @Inject constructor(
             languageTranslation = languageTranslation
         )
 
-        return repository.createWordCard(wordCard)
+        repository.getWordCardIfTranslationsExists(wordCard)?.let {
+            return Failure(
+                WordCardCreationFailure.DuplicateTranslation(it)
+            )
+        }
+        val result = repository.createWordCard(wordCard)
+
+        return if (result!=null){
+            Success(result)
+        } else {
+            Failure(WordCardCreationFailure.Unknown)
+        }
     }
 }

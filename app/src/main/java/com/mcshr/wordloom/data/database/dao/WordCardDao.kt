@@ -168,6 +168,16 @@ interface WordCardDao {
     )
     suspend fun getDictionaryCountForCard(cardId: Long): Int
 
+    @Query("SELECT * FROM card c " +
+            "INNER JOIN card_translation ct ON c.id = ct.card_id " +
+            "INNER JOIN translation t ON ct.translation_id = t.id " +
+            "WHERE t.word_id_original = :wordIdOriginal " +
+            "AND t.word_id_translation = :wordIdTranslation " +
+            "LIMIT 1")
+    suspend fun getWordCardByTranslation(
+        wordIdOriginal:Long,
+        wordIdTranslation:Long
+    ): WordCardRelation?
 
     @Delete
     suspend fun removeCardFromDictionary(dictionaryCard: DictionaryCardDbModel)

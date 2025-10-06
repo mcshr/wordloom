@@ -7,6 +7,7 @@ import com.mcshr.wordloom.domain.entities.WordStatus
 interface WordCardRepository {
     //word card
     suspend fun createWordCard(wordCard: WordCard):Long?
+    suspend fun getWordCardIfTranslationsExists(wordCard: WordCard): WordCard?
     suspend fun saveWordCardToDictionary(dictionaryId: Long, wordCardId: Long)
     suspend fun editWordCard(wordCard: WordCard)
     suspend fun editWordCardList(list: List<WordCard>)

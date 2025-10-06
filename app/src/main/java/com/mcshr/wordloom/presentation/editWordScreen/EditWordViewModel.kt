@@ -7,16 +7,16 @@ import androidx.lifecycle.viewModelScope
 import com.mcshr.wordloom.domain.entities.Dictionary
 import com.mcshr.wordloom.domain.interactors.wordCard.CreateWordCardUseCase
 import com.mcshr.wordloom.domain.interactors.wordCard.SaveWordCardToDictionaryUseCase
+import com.mcshr.wordloom.domain.wrappers.DataOperationState
+import com.mcshr.wordloom.domain.wrappers.errors.WordCardCreationFailure
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
 class EditWordViewModel @Inject constructor(
-    private val createWordCardUseCase :CreateWordCardUseCase,
-    private val saveWordCardToDictionaryUseCase : SaveWordCardToDictionaryUseCase
+    private val createWordCardUseCase: CreateWordCardUseCase,
+    private val saveWordCardToDictionaryUseCase: SaveWordCardToDictionaryUseCase
 ) : ViewModel() {
 
     private val _meaningList: MutableLiveData<List<String>> = MutableLiveData(emptyList())
@@ -40,21 +40,42 @@ class EditWordViewModel @Inject constructor(
         return meaning
     }
 
-    fun createWordCardInDictionary(wordText: String, wordMeaningList: List<String>, dict:Dictionary) {
+    fun createWordCardInDictionary(
+        wordText: String,
+        wordMeaningList: List<String>,
+        dict: Dictionary
+    ) {
         viewModelScope.launch {
-            val isSuccess = withContext(Dispatchers.IO) {
-                val cardId = createWordCardUseCase(
-                    word = wordText,
-                    translations = wordMeaningList,
-                    partOfSpeech = null,
-                    imagePath = null,
-                    languageOriginal = dict.languageOriginal,
-                    languageTranslation = dict.languageTranslation
-                )
-                saveWordCardToDictionaryUseCase(dict.id, cardId)
+            val result = createWordCardUseCase(
+                word = wordText,
+                translations = wordMeaningList,
+                partOfSpeech = null,
+                imagePath = null,
+                languageOriginal = dict.languageOriginal,
+                languageTranslation = dict.languageTranslation
+            )
+            when (result) {
+                is DataOperationState.Success<Long> -> {
+                    saveWordCardToDictionaryUseCase(dict.id, result.data)
+                    _saveAndClose.postValue(true)
+                }
+
+                is DataOperationState.Failure<WordCardCreationFailure> -> {
+                    handleError(result.errorData)
+                    _saveAndClose.postValue(false)
+                }
             }
-            _saveAndClose.postValue(isSuccess)
         }
+
+
+    }
+
+    private fun handleError(error: WordCardCreationFailure) {
+        /*
+        TODO Show the error to the user
+         and suggest editing the existing word
+         or copying it if it is in another dictionary.
+        */
     }
 
 }
