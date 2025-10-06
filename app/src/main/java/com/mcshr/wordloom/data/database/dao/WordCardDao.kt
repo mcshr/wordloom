@@ -20,10 +20,13 @@ import com.mcshr.wordloom.domain.entities.WordStatus
 @Dao
 interface WordCardDao {
 
-    @Query("SELECT * FROM selected_dictionary_with_cards WHERE status == :wordStatus")
-    fun getWordCardsListWithStatus(wordStatus: WordStatus): LiveData<List<SelectedDictionaryCardView>>
+//    @Query("SELECT * FROM selected_dictionary_with_cards WHERE status == :wordStatus")
+//    fun getWordCardsListWithStatus(wordStatus: WordStatus): LiveData<List<SelectedDictionaryCardView>>
 
-    @Transaction
+//    @Transaction
+//    @Query("SELECT * FROM card WHERE id == :cardId")
+//    fun getWordCardLiveDataByCardId(cardId: Long): LiveData<WordCardRelation>
+
     @Query("SELECT * FROM card WHERE id == :cardId")
     fun getWordCardLiveDataByCardId(cardId: Long): LiveData<WordCardRelation>
 
@@ -137,13 +140,6 @@ interface WordCardDao {
         limit: Int,
         learningStatus: WordStatus = WordStatus.LEARNING,
     ): List<WordCardRelation>
-
-    @Query(
-        "SELECT * FROM card " +
-                "INNER JOIN word ON card.word_id = word.id " +
-                "WHERE word_id = :wordId"
-    )
-    suspend fun getCardByWordId(wordId: Long): CardDbModel?
 
     @Insert
     suspend fun createCard(cardDbModel: CardDbModel): Long

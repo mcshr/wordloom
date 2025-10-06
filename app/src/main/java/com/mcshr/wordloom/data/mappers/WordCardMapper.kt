@@ -1,4 +1,4 @@
-package com.mcshr.wordloom.data.entities.mappers
+package com.mcshr.wordloom.data.mappers
 
 import com.mcshr.wordloom.data.entities.CardDbModel
 import com.mcshr.wordloom.data.entities.WordDbModel
@@ -18,8 +18,7 @@ fun WordCardRelation.toDomainEntity(): WordCard {
         reviewCount = card.reviewsCount,
         nextReviewTime = card.nextRevDate,
         imagePath = card.imagePath,
-        id = card.id,
-        wordId = card.wordId
+        id = card.id
     )
 }
 
@@ -36,14 +35,13 @@ fun WordCard.toWordDBModel(): WordDbModel {
     )
 }
 
-fun WordCard.toCardDBModel(wordId: Long): CardDbModel {
+fun WordCard.toCardDBModel(): CardDbModel {
     return CardDbModel(
         id = id,
         status = status,
         reviewsCount = reviewCount,
         nextRevDate = nextReviewTime,
-        imagePath = imagePath,
-        wordId = wordId
+        imagePath = imagePath
     )
 }
 

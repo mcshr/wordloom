@@ -1,6 +1,5 @@
 package com.mcshr.wordloom.data.repository
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
 import androidx.room.withTransaction
@@ -8,12 +7,11 @@ import com.mcshr.wordloom.data.database.AppDatabase
 import com.mcshr.wordloom.data.entities.CardTranslationDbModel
 import com.mcshr.wordloom.data.entities.DictionaryCardDbModel
 import com.mcshr.wordloom.data.entities.TranslationDbModel
-import com.mcshr.wordloom.data.entities.WordDbModel
-import com.mcshr.wordloom.data.entities.mappers.toCardDBModel
-import com.mcshr.wordloom.data.entities.mappers.toDomainEntity
-import com.mcshr.wordloom.data.entities.mappers.toTranslationsList
-import com.mcshr.wordloom.data.entities.mappers.toWordCardListDomain
-import com.mcshr.wordloom.data.entities.mappers.toWordDBModel
+import com.mcshr.wordloom.data.mappers.toCardDBModel
+import com.mcshr.wordloom.data.mappers.toDomainEntity
+import com.mcshr.wordloom.data.mappers.toTranslationsList
+import com.mcshr.wordloom.data.mappers.toWordCardListDomain
+import com.mcshr.wordloom.data.mappers.toWordDBModel
 import com.mcshr.wordloom.domain.entities.WordCard
 import com.mcshr.wordloom.domain.entities.WordStatus
 import com.mcshr.wordloom.domain.repository.WordCardRepository
@@ -31,11 +29,11 @@ class WordCardRepositoryImpl @Inject constructor(
             database.withTransaction {
                 val word = wordCard.toWordDBModel()
                 val wordId =
-                    dao.getWordId(word.wordText, word.languageId, word.partOfSpeechId)?.also {
-                        dao.getCardByWordId(it)?.let { return@withTransaction null }
-                    } ?: dao.createWord(word)
+                    dao.getWordId(word.wordText, word.languageId, word.partOfSpeechId)
+                        //?.also { dao.getCardByWordId(it)?.let { return@withTransaction null } }
+                            ?: dao.createWord(word)
 
-                val card = wordCard.toCardDBModel(wordId)
+                val card = wordCard.toCardDBModel()
                 val cardId = dao.createCard(card)
 
                 val meaningList = wordCard.toTranslationsList()
@@ -46,6 +44,7 @@ class WordCardRepositoryImpl @Inject constructor(
                         meaning.partOfSpeechId
                     ) ?: dao.createWord(meaning)
 
+                    //dao.findTranslation
                     val translation = dao.createTranslation(
                         TranslationDbModel(
                             id = 0,
@@ -75,14 +74,14 @@ class WordCardRepositoryImpl @Inject constructor(
     }
 
     override suspend fun editWordCard(wordCard: WordCard) {
-        dao.editCard(wordCard.toCardDBModel(wordCard.id))
+        dao.editCard(wordCard.toCardDBModel())
         //TODO("Not yet implemented")
     }
 
     override suspend fun editWordCardList(list: List<WordCard>) {
         dao.editCardsList(
             list.map { wordCard ->
-                wordCard.toCardDBModel(wordCard.id)
+                wordCard.toCardDBModel()
             }
         )
     }

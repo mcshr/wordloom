@@ -1,4 +1,4 @@
-package com.mcshr.wordloom.data.entities.mappers
+package com.mcshr.wordloom.data.mappers
 
 import com.mcshr.wordloom.data.entities.LanguageDbModel
 import com.mcshr.wordloom.domain.entities.Language

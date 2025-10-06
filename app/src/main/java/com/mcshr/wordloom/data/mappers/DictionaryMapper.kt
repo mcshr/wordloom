@@ -1,4 +1,4 @@
-package com.mcshr.wordloom.data.entities.mappers
+package com.mcshr.wordloom.data.mappers
 
 import com.mcshr.wordloom.data.entities.DictionaryDbModel
 import com.mcshr.wordloom.data.entities.tuples.DictionaryRelation

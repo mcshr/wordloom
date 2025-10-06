@@ -14,11 +14,7 @@ data class WordCard(
     val reviewCount:Int,
     val nextReviewTime: Long?, //Unix timestamp
     val imagePath: String?,
-    val id: Long,
-    val wordId:Long
-//    val definitions:List<String>?,
-//    val belongsToDictionaries: List<Dictionary>,
-//    val usageExamples:List<UsageExample>,
+    val id: Long
 ) : Parcelable
 {
     companion object{
