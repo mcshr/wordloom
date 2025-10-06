@@ -102,29 +102,11 @@ class WordCardRepositoryImpl @Inject constructor(
 
     override suspend fun deleteWordCard(wordCard: WordCard) {
         database.withTransaction {
-            val wordCardRelation = dao.getWordCardByCardId(wordCard.id)
-            dao.deleteCard(wordCard.toCardDBModel(wordCard.wordId))
-            val unusedTranslations = wordCardRelation.translations.filter{
-                dao.getCardTranslationsCountForTranslation(it.translationDbModel.id) == 0
-            }
-            unusedTranslations.forEach {
-                dao.deleteTranslation(it.translationDbModel)
-            }
+            dao.deleteCard(wordCard.toCardDBModel())
 
-            val unusedWords = mutableListOf<WordDbModel>()
-            unusedTranslations.forEach {
-                val word = it.wordTranslation.word
-                if(dao.getWordCountInTranslations(word.id) == 0)
-                    unusedWords.add(word)
-            }
-            if(dao.getWordCountInTranslations(wordCardRelation.card.wordId)==0)
-                unusedWords.add(wordCardRelation.translations.first().wordOriginal.word)
+            dao.deleteUnusedTranslations()
 
-            unusedWords.toSet().forEach {
-                dao.deleteWord(it)
-                Log.d("DELETE", "$it")
-            }
-
+            dao.deleteUnusedWords()
         }
     }
 
@@ -143,10 +125,10 @@ class WordCardRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getWordCardsForReview(
-        currentTime: Long,
+        currentTimeUnix: Long,
         limit: Int
     ): List<WordCard> {
-        return dao.getWordCardsForReview(currentTime, limit).map { it.toDomainEntity() }
+        return dao.getWordCardsForReview(currentTimeUnix, limit).map { it.toDomainEntity() }
     }
 
     override suspend fun getWordCardsByStatusFromSelectedDictionaries(

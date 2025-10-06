@@ -13,7 +13,6 @@ import com.mcshr.wordloom.data.entities.DictionaryCardDbModel
 import com.mcshr.wordloom.data.entities.TranslationDbModel
 import com.mcshr.wordloom.data.entities.WordDbModel
 import com.mcshr.wordloom.data.entities.tuples.DictionaryWithCardsRelation
-import com.mcshr.wordloom.data.entities.tuples.SelectedDictionaryCardView
 import com.mcshr.wordloom.data.entities.tuples.WordCardRelation
 import com.mcshr.wordloom.domain.entities.WordStatus
 
@@ -28,8 +27,7 @@ interface WordCardDao {
 //    fun getWordCardLiveDataByCardId(cardId: Long): LiveData<WordCardRelation>
 
     @Query("SELECT * FROM card WHERE id == :cardId")
-    fun getWordCardLiveDataByCardId(cardId: Long): LiveData<WordCardRelation>
-
+    suspend fun getCardById(cardId: Long): CardDbModel
     @Transaction
     @Query("SELECT * FROM card WHERE id == :cardId")
     suspend fun getWordCardByCardId(cardId: Long): WordCardRelation
@@ -171,13 +169,6 @@ interface WordCardDao {
     suspend fun getDictionaryCountForCard(cardId: Long): Int
 
 
-    @Query("SELECT COUNT(*) FROM card_translation WHERE translation_id = :translationId")
-    suspend fun getCardTranslationsCountForTranslation(translationId:Long):Int
-
-    @Query("SELECT COUNT(*) FROM translation " +
-            "WHERE word_id_original = :wordId OR word_id_translation = :wordId")
-    suspend fun getWordCountInTranslations(wordId: Long):Int
-
     @Delete
     suspend fun removeCardFromDictionary(dictionaryCard: DictionaryCardDbModel)
 
@@ -187,6 +178,21 @@ interface WordCardDao {
     @Delete
     suspend fun deleteTranslation(translation: TranslationDbModel)
 
+    @Query(
+        "DELETE FROM translation " +
+                "WHERE NOT EXISTS " +
+                "( SELECT 1 FROM card_translation ct " +
+                "WHERE ct.translation_id = translation.id )"
+    )
+    suspend fun deleteUnusedTranslations()
+
     @Delete
     suspend fun deleteWord(wordDbModel: WordDbModel)
+
+    @Query(
+        "DELETE FROM word WHERE " +
+                "NOT EXISTS (SELECT 1 FROM translation t WHERE t.word_id_original = word.id) " +
+                "AND NOT EXISTS (SELECT 1 FROM translation t WHERE t.word_id_translation = word.id) "
+    )
+    suspend fun deleteUnusedWords()
 }

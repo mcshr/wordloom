@@ -25,8 +25,9 @@ import androidx.room.PrimaryKey
         )
     ],
     indices = [
+        Index("word_id_original"),
+        Index("word_id_translation"),
         Index(value = ["word_id_original", "word_id_translation"], unique = true),
-        Index("word_id_translation")
     ]
 )
 data class TranslationDbModel(
