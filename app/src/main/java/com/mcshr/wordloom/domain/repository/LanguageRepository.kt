@@ -5,4 +5,5 @@ import com.mcshr.wordloom.domain.entities.Language
 
 interface LanguageRepository {
     fun getAllLanguages():LiveData<List<Language>>
+    suspend fun getLanguagesCount():Int
 }

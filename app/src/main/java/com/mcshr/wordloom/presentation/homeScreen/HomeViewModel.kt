@@ -7,7 +7,6 @@ import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import com.mcshr.wordloom.domain.interactors.dictionary.CheckIfAnyDictionaryExistsUseCase
 import com.mcshr.wordloom.domain.interactors.dictionary.GetSelectedDictionariesWithStatsUseCase
-import com.mcshr.wordloom.domain.interactors.prepopulateData.PrepopulateLanguagesUseCase
 import com.mcshr.wordloom.domain.interactors.wordCard.GetCardNextRepeatTimeUseCase
 import com.mcshr.wordloom.domain.interactors.wordCard.GetReadyToRepeatCardsCountFromSelectedDictsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -25,7 +24,6 @@ class HomeViewModel @Inject constructor(
     private val getReadyToRepeatCardsCountFromSelectedDictsUseCase: GetReadyToRepeatCardsCountFromSelectedDictsUseCase,
     private val checkIfAnyDictionaryExistsUseCase: CheckIfAnyDictionaryExistsUseCase,
     private val getNextReviewTimeUseCase: GetCardNextRepeatTimeUseCase,
-    prepopulateLanguagesUseCase: PrepopulateLanguagesUseCase
 ) : ViewModel() {
 
     private val _repeatCount = MutableLiveData<Int>()
@@ -53,9 +51,6 @@ class HomeViewModel @Inject constructor(
     )
 
     init {
-        viewModelScope.launch(Dispatchers.IO) {
-            prepopulateLanguagesUseCase()
-        }
         observeRepeatCount()
     }
 
