@@ -61,4 +61,7 @@
     <string name="swipe_left">Repeat</string>
     <string name="swipe_right">Got it</string>
     <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm_dict_deletion_title">Delete dictionary?</string>
+    <string name="confirm_dict_deletion_message">This action will delete the dictionary and all associated cards. It cannot be undone.</string>
 </resources>

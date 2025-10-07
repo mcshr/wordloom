@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import com.mcshr.wordloom.R
 import com.mcshr.wordloom.databinding.FragmentDictionaryMenuDialogBinding
 import com.mcshr.wordloom.domain.entities.Dictionary
+import com.mcshr.wordloom.presentation.common.ConfirmDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -45,12 +46,27 @@ class DictionaryMenuDialogFragment : DialogFragment() {
             @Suppress("DEPRECATION")
             arguments?.getParcelable(DICTIONARY_KEY)
         }
-        dictionary?.let{
+        dictionary?.let {
             binding.tvDictionaryName.text = dictionary.name
 
             binding.btnDelete.setOnClickListener {
-                libraryViewModel.deleteDictionary(dictionary)
-                dismiss()
+                val dialog = ConfirmDialogFragment.newInstance(
+                    title = getString(R.string.confirm_dict_deletion_title),
+                    message = getString(R.string.confirm_dict_deletion_message),
+                    confirmText = getString(R.string.delete),
+                    requestKey = REQUEST_KEY,
+                )
+                dialog.show(parentFragmentManager, "confirm_delete")
+            }
+
+            parentFragmentManager.setFragmentResultListener(
+                REQUEST_KEY,
+                viewLifecycleOwner
+            ){ _,result ->
+                if(result.getBoolean(ConfirmDialogFragment.KEY_CONFIRMED)){
+                    libraryViewModel.deleteDictionary(dictionary)
+                    dismiss()
+                }
             }
         }
 
@@ -61,6 +77,7 @@ class DictionaryMenuDialogFragment : DialogFragment() {
     }
 
     companion object {
+        private const val REQUEST_KEY = "delete_dictionary"
         fun newInstance(dictionary: Dictionary): DictionaryMenuDialogFragment {
             return DictionaryMenuDialogFragment().apply {
                 arguments = Bundle().apply {
