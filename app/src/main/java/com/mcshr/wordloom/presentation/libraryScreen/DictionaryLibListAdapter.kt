@@ -4,13 +4,15 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.mcshr.wordloom.databinding.ItemDictionaryLibBinding
+import com.mcshr.wordloom.domain.entities.Dictionary
 import com.mcshr.wordloom.domain.entities.DictionaryWithStats
+import com.mcshr.wordloom.presentation.utils.setDebounceOnClickListener
 
-class DictionaryLibListAdapter :
+class DictionaryLibListAdapter(
+    private val onItemClick: (dictionaryId: Long) -> Unit,
+    private val onMenuClick: (dictionary: Dictionary) -> Unit
+) :
     ListAdapter<DictionaryWithStats, DictionaryLibViewHolder>(DictionaryLibDiffCallback()) {
-
-    var openDictionary: ((dictionaryId: Long) -> Unit)? = null
-
     override fun onBindViewHolder(holder: DictionaryLibViewHolder, position: Int) {
         val dictionaryWithStats = getItem(position)
         val dictionary = dictionaryWithStats.dictionary
@@ -29,7 +31,10 @@ class DictionaryLibListAdapter :
         holder.binding.progressText.text = "$progress%"
 
         holder.binding.root.setOnClickListener {
-            openDictionary?.invoke(dictionary.id)
+            onItemClick(dictionary.id)
+        }
+        holder.binding.btnMenu.setDebounceOnClickListener {
+            onMenuClick(dictionary)
         }
     }
 

@@ -9,34 +9,44 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:gravity="center"
-        >
+        android:orientation="horizontal">
+
         <TextView
-            android:layout_weight="1"
-            style="@style/text"
-            android:id="@+id/tv_word"
+            android:id="@+id/tv_dictionary_name"
+            style="@style/text.title"
+            android:textStyle="bold"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:padding="16dp"
-            tools:text="Some word" />
+            tools:text="Dict name" />
+
         <ImageButton
-            style="@style/WordloomIcon"
             android:id="@+id/btn_close"
+            style="@style/WordloomIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_close_24"/>
+            android:contentDescription="@string/close_bottom_sheet"
+            android:src="@drawable/ic_close_24" />
     </LinearLayout>
-
-
-
     <Button
+        android:id="@+id/btn_edit"
+        style="@style/WordloomTextButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:text="@string/edit"
+        android:textSize="16sp" />
+    <Button
         android:id="@+id/btn_delete"
         style="@style/WordloomTextButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:text="@string/delete" />
+        android:layout_marginTop="4dp"
+        android:text="@string/delete"
+        android:textSize="16sp" />
+
+
 
 </LinearLayout>

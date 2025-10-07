@@ -23,7 +23,7 @@ class DictionaryFragment : Fragment() {
     private val wordListAdapter = WordListAdapter { wordCard ->
         WordMenuDialogFragment.newInstance(wordCard).show(
             childFragmentManager,
-            "DictMenu"
+            "wordCardMenu"
         )
     }
 

@@ -74,7 +74,7 @@ interface DictionaryDao {
     suspend fun getDictionaryById(id: Long): DictionaryRelation
 
     @Delete
-    fun deleteDictionary(dictionary: DictionaryDbModel)
+    suspend fun deleteDictionary(dictionary: DictionaryDbModel)
 
     @Transaction
     @Query("SELECT * FROM dictionary ORDER BY creation_date_time LIMIT 1")

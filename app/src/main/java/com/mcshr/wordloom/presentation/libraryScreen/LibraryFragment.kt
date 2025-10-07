@@ -20,7 +20,19 @@ class LibraryFragment : Fragment() {
         get() = _binding ?: throw RuntimeException("FragmentLibraryBinding is null")
 
     private val viewModel by viewModels<LibraryViewModel>()
-    private val dictionaryAdapter = DictionaryLibListAdapter()
+
+
+    private val dictionaryAdapter = DictionaryLibListAdapter(
+        { dictionaryId ->
+            val action =
+                LibraryFragmentDirections.actionLibraryFragmentToDictionaryFragment(dictionaryId)
+            findNavController().navigate(action)
+        },
+        {
+            DictionaryMenuDialogFragment.newInstance(it)
+                .show(childFragmentManager, "dictionaryMenu")
+        }
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,16 +43,11 @@ class LibraryFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.btnOpenSelectAdd.setDebounceOnClickListener{
+        binding.btnOpenSelectAdd.setDebounceOnClickListener {
             ChooseAddActionBottomSheetFragment().show(parentFragmentManager, "SelectAddTag")
         }
         binding.rvDictionaryWithStatsList.adapter = dictionaryAdapter
-        dictionaryAdapter.openDictionary = {
-            dictionaryId ->
-                val action = LibraryFragmentDirections.actionLibraryFragmentToDictionaryFragment(dictionaryId)
-                findNavController().navigate(action)
-        }
-        viewModel.allDictionariesWithStats.observe(viewLifecycleOwner){
+        viewModel.allDictionariesWithStats.observe(viewLifecycleOwner) {
             dictionaryAdapter.submitList(it)
         }
 

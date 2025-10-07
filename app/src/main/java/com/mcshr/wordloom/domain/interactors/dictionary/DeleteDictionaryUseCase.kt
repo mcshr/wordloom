@@ -7,7 +7,7 @@ import javax.inject.Inject
 class DeleteDictionaryUseCase @Inject constructor(
     private val repository: DictionaryRepository
 ) {
-    operator fun invoke(dictionary: Dictionary) {
+    suspend operator fun invoke(dictionary: Dictionary) {
         repository.deleteDictionary(dictionary)
     }
 }
