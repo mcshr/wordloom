@@ -35,10 +35,10 @@ interface WordCardDao {
 
     @Query(
         "SELECT id FROM word WHERE word_text == :wordText " +
-                "AND part_of_speech_id ==:partOfSpeechId " +
+                "AND part_of_speech_code ==:partOfSpeechCode " +
                 "AND language_id =:languageId LIMIT 1"
     )
-    suspend fun getWordId(wordText: String, languageId: Long, partOfSpeechId: Int?): Long?
+    suspend fun getWordId(wordText: String, languageId: Long, partOfSpeechCode:String): Long?
 
     @Transaction
     @Query("SELECT * FROM dictionary WHERE id ==:dictionaryId LIMIT 1")

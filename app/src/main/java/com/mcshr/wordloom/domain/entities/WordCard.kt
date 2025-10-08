@@ -7,7 +7,7 @@ import kotlinx.parcelize.Parcelize
 data class WordCard(
     val wordText:String,
     val wordTranslations: List<String>,
-    val partOfSpeech: String?,
+    val partOfSpeech: PartOfSpeech,
     val status: WordStatus,
     val languageOriginal: Language,
     val languageTranslation: Language,

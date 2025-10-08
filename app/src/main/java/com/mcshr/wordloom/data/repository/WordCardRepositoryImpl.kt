@@ -31,7 +31,7 @@ class WordCardRepositoryImpl @Inject constructor(
                 val wordId = dao.getWordId(
                     word.wordText,
                     word.languageId,
-                    word.partOfSpeechId
+                    word.partOfSpeechCode
                 ) ?: dao.createWord(word)
 
                 val card = wordCard.toCardDBModel()
@@ -42,7 +42,7 @@ class WordCardRepositoryImpl @Inject constructor(
                     val translationId = dao.getWordId(
                         meaning.wordText,
                         meaning.languageId,
-                        meaning.partOfSpeechId
+                        meaning.partOfSpeechCode
                     ) ?: dao.createWord(meaning)
 
                     val translation = dao.createTranslation(
@@ -69,7 +69,7 @@ class WordCardRepositoryImpl @Inject constructor(
         val wordId = dao.getWordId(
             word.wordText,
             word.languageId,
-            word.partOfSpeechId
+            word.partOfSpeechCode
         ) ?: return null
 
         val translations = wordCard.toTranslationsList()
@@ -77,7 +77,7 @@ class WordCardRepositoryImpl @Inject constructor(
             dao.getWordId(
                 translation.wordText,
                 translation.languageId,
-                translation.partOfSpeechId
+                translation.partOfSpeechCode
             )?.let { translationId ->
                 dao.getWordCardByTranslation(
                     wordId,

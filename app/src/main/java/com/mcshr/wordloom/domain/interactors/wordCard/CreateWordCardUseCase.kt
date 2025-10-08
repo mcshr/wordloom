@@ -1,6 +1,7 @@
 package com.mcshr.wordloom.domain.interactors.wordCard
 
 import com.mcshr.wordloom.domain.entities.Language
+import com.mcshr.wordloom.domain.entities.PartOfSpeech
 import com.mcshr.wordloom.domain.entities.WordCard
 import com.mcshr.wordloom.domain.entities.WordStatus
 import com.mcshr.wordloom.domain.repository.WordCardRepository
@@ -16,7 +17,7 @@ class CreateWordCardUseCase @Inject constructor(
     suspend operator fun invoke(
         word: String,
         translations: List<String>,
-        partOfSpeech: String?,
+        partOfSpeech: PartOfSpeech,
         imagePath: String?,
         languageOriginal: Language,
         languageTranslation: Language

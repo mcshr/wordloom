@@ -16,8 +16,9 @@ import androidx.room.PrimaryKey
         )
     ],
     indices = [
-        Index(value = ["word_text", "language_id", "part_of_speech_id"], unique = true),
-        Index("language_id")
+        Index(value = ["word_text", "language_id", "part_of_speech_code"], unique = true),
+        Index("language_id"),
+        Index("part_of_speech_code"),
     ]
 
 )
@@ -25,5 +26,5 @@ data class WordDbModel(
     @PrimaryKey(autoGenerate = true) val id: Long,
     @ColumnInfo(name = "word_text") val wordText: String,
     @ColumnInfo(name = "language_id") val languageId: Long,
-    @ColumnInfo(name = "part_of_speech_id") val partOfSpeechId: Int? //TODO part_of_speech
+    @ColumnInfo(name = "part_of_speech_code") val partOfSpeechCode: String
 )

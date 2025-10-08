@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mcshr.wordloom.domain.entities.Dictionary
+import com.mcshr.wordloom.domain.entities.PartOfSpeech
 import com.mcshr.wordloom.domain.interactors.wordCard.CreateWordCardUseCase
 import com.mcshr.wordloom.domain.interactors.wordCard.SaveWordCardToDictionaryUseCase
 import com.mcshr.wordloom.domain.wrappers.DataOperationState
@@ -49,7 +50,7 @@ class EditWordViewModel @Inject constructor(
             val result = createWordCardUseCase(
                 word = wordText,
                 translations = wordMeaningList,
-                partOfSpeech = null,
+                partOfSpeech = PartOfSpeech.EMPTY,
                 imagePath = null,
                 languageOriginal = dict.languageOriginal,
                 languageTranslation = dict.languageTranslation

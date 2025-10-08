@@ -4,6 +4,7 @@ import com.mcshr.wordloom.data.entities.CardDbModel
 import com.mcshr.wordloom.data.entities.WordDbModel
 import com.mcshr.wordloom.data.entities.tuples.DictionaryWithCardsRelation
 import com.mcshr.wordloom.data.entities.tuples.WordCardRelation
+import com.mcshr.wordloom.domain.entities.PartOfSpeech
 import com.mcshr.wordloom.domain.entities.WordCard
 
 
@@ -13,7 +14,7 @@ fun WordCardRelation.toDomainEntity(): WordCard {
         wordTranslations = translations.map { it.wordTranslation.word.wordText },
         languageOriginal = translations.first().wordOriginal.language.toDomainEntity(),
         languageTranslation = translations.first().wordTranslation.language.toDomainEntity(),
-        partOfSpeech = translations.first().wordOriginal.word.partOfSpeechId.toString(), //TODO
+        partOfSpeech = PartOfSpeech.fromCode(translations.first().wordOriginal.word.partOfSpeechCode),
         status = card.status,
         reviewCount = card.reviewsCount,
         nextReviewTime = card.nextRevDate,
@@ -31,7 +32,7 @@ fun WordCard.toWordDBModel(): WordDbModel {
         id = 0,
         wordText = wordText,
         languageId = languageOriginal.id,
-        partOfSpeechId = 0 //TODO pos
+        partOfSpeechCode = partOfSpeech.code
     )
 }
 
@@ -51,7 +52,7 @@ fun WordCard.toTranslationsList(): List<WordDbModel> {
             id = 0,
             wordText = it,
             languageId = languageTranslation.id,
-            partOfSpeechId = 0 //TODO pos
+            partOfSpeechCode = partOfSpeech.code
         )
     }
 }
