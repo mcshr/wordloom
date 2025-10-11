@@ -1,4 +1,4 @@
-package com.mcshr.wordloom.presentation.editWordScreen.selectDictionary
+package com.mcshr.wordloom.presentation.createWordScreen.selectDictionary
 
 import androidx.lifecycle.ViewModel
 import com.mcshr.wordloom.domain.interactors.dictionary.GetAllDictionariesUseCase

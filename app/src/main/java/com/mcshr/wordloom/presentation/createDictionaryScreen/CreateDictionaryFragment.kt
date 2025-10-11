@@ -1,11 +1,10 @@
-package com.mcshr.wordloom.presentation.editDictionaryScreen
+package com.mcshr.wordloom.presentation.createDictionaryScreen
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -16,13 +15,13 @@ import com.mcshr.wordloom.domain.entities.Language
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class EditDictionaryFragment : Fragment() {
+class CreateDictionaryFragment : Fragment() {
 
     private var _binding: FragmentEditDictionaryBinding? = null
     private val binding
         get() = _binding ?: throw RuntimeException("FragmentEditDictionaryBinding is null")
 
-    private val viewModel: EditDictionaryViewModel by viewModels()
+    private val viewModel: CreateDictionaryViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -32,24 +31,13 @@ class EditDictionaryFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            findNavController().popBackStack()
-        }
-//        (requireActivity() as AppCompatActivity).setSupportActionBar(binding.toolbar)
-        binding.toolbar.setNavigationOnClickListener {
-            requireActivity().onBackPressedDispatcher.onBackPressed()
-        }
-        binding.toolbar.setOnMenuItemClickListener { option ->
-            when (option.itemId) {
-                R.id.menu_item_save -> {
-                    saveDictionary()
-                    true
-                }
+        super.onViewCreated(view, savedInstanceState)
 
-                else -> false
-            }
-        }
+        setupToolbar()
+        observeViewModel()
+    }
 
+    private fun observeViewModel() {
         viewModel.saveAndClose.observe(viewLifecycleOwner) {
             if (it) {
                 findNavController().popBackStack()
@@ -65,8 +53,22 @@ class EditDictionaryFragment : Fragment() {
             binding.autocompleteDictWordLanguage.setAdapter(adapter)
             binding.autocompleteDictMeaningLanguage.setAdapter(adapter)
         }
+    }
 
-        super.onViewCreated(view, savedInstanceState)
+    private fun setupToolbar() {
+        binding.toolbar.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
+        binding.toolbar.setOnMenuItemClickListener { option ->
+            when (option.itemId) {
+                R.id.menu_item_save -> {
+                    saveDictionary()
+                    true
+                }
+
+                else -> false
+            }
+        }
     }
 
     private fun saveDictionary() {

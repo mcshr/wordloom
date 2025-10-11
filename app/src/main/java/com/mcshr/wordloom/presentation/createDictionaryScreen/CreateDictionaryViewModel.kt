@@ -1,4 +1,4 @@
-package com.mcshr.wordloom.presentation.editDictionaryScreen
+package com.mcshr.wordloom.presentation.createDictionaryScreen
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -14,7 +14,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class EditDictionaryViewModel @Inject constructor(
+class CreateDictionaryViewModel @Inject constructor(
     private val createDictionaryUseCase: CreateDictionaryUseCase,
     getAllLanguagesUseCase: GetAllLanguagesUseCase
 ) : ViewModel() {

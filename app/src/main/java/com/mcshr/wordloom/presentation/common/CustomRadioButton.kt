@@ -1,10 +1,11 @@
-package com.mcshr.wordloom.presentation
+package com.mcshr.wordloom.presentation.common
 
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.RadioGroup
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.withStyledAttributes
 import com.mcshr.wordloom.R
 import com.mcshr.wordloom.databinding.ViewCustomRadioButtonBinding
 
@@ -21,10 +22,10 @@ class CustomRadioButton @JvmOverloads constructor(
         binding = ViewCustomRadioButtonBinding.inflate(inflater, this, true)
 
         attrs?.let {
-            val typedArray = context.obtainStyledAttributes(attrs, R.styleable.CustomRadioButton, defStyleAttr, 0)
-            binding.radioButtonTitle.text = typedArray.getString(R.styleable.CustomRadioButton_title)
-            binding.radioButtonSubtitle.text = typedArray.getString(R.styleable.CustomRadioButton_subtitle)
-            typedArray.recycle()
+            context.withStyledAttributes(attrs, R.styleable.CustomRadioButton, defStyleAttr, 0) {
+                binding.radioButtonTitle.text = getString(R.styleable.CustomRadioButton_title)
+                binding.radioButtonSubtitle.text = getString(R.styleable.CustomRadioButton_subtitle)
+            }
         }
 
         setOnClickListener {

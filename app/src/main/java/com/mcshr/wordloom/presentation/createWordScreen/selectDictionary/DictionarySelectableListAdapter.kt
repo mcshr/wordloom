@@ -1,4 +1,4 @@
-package com.mcshr.wordloom.presentation.editWordScreen.selectDictionary
+package com.mcshr.wordloom.presentation.createWordScreen.selectDictionary
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

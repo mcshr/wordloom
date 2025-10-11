@@ -1,4 +1,4 @@
-package com.mcshr.wordloom.presentation.editWordScreen
+package com.mcshr.wordloom.presentation.createWordScreen
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class EditWordViewModel @Inject constructor(
+class CreateWordViewModel @Inject constructor(
     private val createWordCardUseCase: CreateWordCardUseCase,
     private val saveWordCardToDictionaryUseCase: SaveWordCardToDictionaryUseCase
 ) : ViewModel() {

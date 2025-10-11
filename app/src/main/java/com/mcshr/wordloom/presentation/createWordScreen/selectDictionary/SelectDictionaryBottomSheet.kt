@@ -1,4 +1,4 @@
-package com.mcshr.wordloom.presentation.editWordScreen.selectDictionary
+package com.mcshr.wordloom.presentation.createWordScreen.selectDictionary
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.mcshr.wordloom.databinding.FragmentSelectDictionaryBottomSheetBinding
-import com.mcshr.wordloom.presentation.editWordScreen.SharedDictionarySelectViewModel
+import com.mcshr.wordloom.presentation.createWordScreen.SharedDictionarySelectViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

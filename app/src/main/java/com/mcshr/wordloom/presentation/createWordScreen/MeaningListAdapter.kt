@@ -1,4 +1,4 @@
-package com.mcshr.wordloom.presentation.editWordScreen
+package com.mcshr.wordloom.presentation.createWordScreen
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter

@@ -1,4 +1,4 @@
-package com.mcshr.wordloom.presentation.editWordScreen
+package com.mcshr.wordloom.presentation.createWordScreen
 
 import androidx.recyclerview.widget.RecyclerView
 import com.mcshr.wordloom.databinding.ItemEditWordMeaningBinding
