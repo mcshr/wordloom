@@ -11,6 +11,8 @@ import com.google.android.material.snackbar.Snackbar
 import com.mcshr.wordloom.R
 import com.mcshr.wordloom.databinding.FragmentEditWordBinding
 import com.mcshr.wordloom.presentation.createWordScreen.selectDictionary.SelectDictionaryBottomSheet
+import com.mcshr.wordloom.presentation.createWordScreen.selectPartOfSpeech.SelectPartOfSpeechBottomSheet
+import com.mcshr.wordloom.presentation.utils.toResId
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -21,7 +23,7 @@ class CreateWordFragment : Fragment() {
         get() = _binding ?: throw RuntimeException("FragmentEditWordBinding is null")
 
     private val viewModel: CreateWordViewModel by viewModels()
-    private val sharedViewModel: SharedDictionarySelectViewModel by viewModels()
+    private val sharedViewModel: SharedCreateWordViewModel by viewModels()
 
     private val meaningAdapter = MeaningListAdapter()
 
@@ -34,17 +36,24 @@ class CreateWordFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        setupAdapter()
+        setupToolbar()
+        setupButtons()
+        observeViewModel()
+        observeSharedViewModel()
+
+        super.onViewCreated(view, savedInstanceState)
+    }
+
+    private fun observeSharedViewModel() {
         sharedViewModel.selectedDictionary.observe(viewLifecycleOwner) {
             binding.toolbar.title = it.name
             binding.textInputLayout4.hint = it.languageOriginal.name
             binding.textInputLayout6.hint = it.languageTranslation.name
         }
-        setupAdapter()
-        setupToolbar()
-        setupButtons()
-        observeViewModel()
-
-        super.onViewCreated(view, savedInstanceState)
+        sharedViewModel.selectedPartOfSpeech.observe(viewLifecycleOwner) {
+            binding.btnPartOfSpeech.text = getString(it.toResId())
+        }
     }
 
     private fun setupButtons() {
@@ -57,6 +66,9 @@ class CreateWordFragment : Fragment() {
             else {
                 binding.editTextMeaning.editableText.clear()
             }
+        }
+        binding.btnPartOfSpeech.setOnClickListener {
+            SelectPartOfSpeechBottomSheet().show(childFragmentManager,"SelectPartOfSpeechDialogTag")
         }
     }
 

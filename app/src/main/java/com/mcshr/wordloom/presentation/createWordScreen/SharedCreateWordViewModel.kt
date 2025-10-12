@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mcshr.wordloom.domain.entities.Dictionary
+import com.mcshr.wordloom.domain.entities.PartOfSpeech
 import com.mcshr.wordloom.domain.interactors.appSettings.GetSelectedDictionaryForWordUseCase
 import com.mcshr.wordloom.domain.interactors.appSettings.SaveSelectedDictionaryForWordUseCase
 import com.mcshr.wordloom.domain.interactors.dictionary.GetDictionaryUseCase
@@ -13,7 +14,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SharedDictionarySelectViewModel @Inject constructor(
+class SharedCreateWordViewModel @Inject constructor(
     private val getDictionaryByIdUseCase: GetDictionaryUseCase,
     private val getSelectedDictionaryForWordUseCase: GetSelectedDictionaryForWordUseCase,
     private val saveSelectedDictionaryForWordUseCase: SaveSelectedDictionaryForWordUseCase
@@ -22,6 +23,10 @@ class SharedDictionarySelectViewModel @Inject constructor(
     private val _selectedDictionary = MutableLiveData<Dictionary>()
     val selectedDictionary: LiveData<Dictionary>
         get() = _selectedDictionary
+
+    private val _selectedPartOfSpeech = MutableLiveData(PartOfSpeech.EMPTY)
+    val selectedPartOfSpeech:LiveData<PartOfSpeech>
+        get() = _selectedPartOfSpeech
 
     init {
         loadSelectedDictionary()
@@ -38,6 +43,10 @@ class SharedDictionarySelectViewModel @Inject constructor(
     fun selectDictionary(dict: Dictionary) {
         _selectedDictionary.value = dict
         saveSelectedDictionaryForWordUseCase(dict.id)
+    }
+
+    fun selectPartOfSpeech(partOfSpeech: PartOfSpeech){
+        _selectedPartOfSpeech.value = partOfSpeech
     }
 
 }

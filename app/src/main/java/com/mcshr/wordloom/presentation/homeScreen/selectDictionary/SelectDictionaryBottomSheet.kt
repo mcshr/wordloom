@@ -6,14 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.mcshr.wordloom.databinding.FragmentSelectDictionaryBottomSheetBinding
+import com.mcshr.wordloom.R
+import com.mcshr.wordloom.databinding.FragmentSelectItemBottomSheetBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SelectDictionaryBottomSheet:BottomSheetDialogFragment() {
-    private var _binding: FragmentSelectDictionaryBottomSheetBinding? = null
+    private var _binding: FragmentSelectItemBottomSheetBinding? = null
     private val binding
-        get() = _binding ?: throw RuntimeException("Home.FragmentSelectDictionaryBottomSheetBinding is null")
+        get() = _binding ?: throw RuntimeException("Home.FragmentSelectDictionaryBottomSheet Binding is null")
     private val viewModel by viewModels<SelectDictionaryViewModel>()
     private val dictAdapter = SelectableDictListAdapter()
 
@@ -22,13 +23,14 @@ class SelectDictionaryBottomSheet:BottomSheetDialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentSelectDictionaryBottomSheetBinding.inflate(layoutInflater, container, false)
+        _binding = FragmentSelectItemBottomSheetBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.btnCloseSheet.setOnClickListener {
             dismiss()
         }
+        binding.tvTitle.text = getString(R.string.select_dictionaries)
 
         viewModel.allDictionaries.observe(viewLifecycleOwner){
             dictAdapter.submitList(it)
@@ -37,7 +39,7 @@ class SelectDictionaryBottomSheet:BottomSheetDialogFragment() {
             dictionary ->
             viewModel.selectDictionary(dictionary)
         }
-        binding.rvDictionarySelectList.adapter = dictAdapter
+        binding.rvList.adapter = dictAdapter
 
 
         super.onViewCreated(view, savedInstanceState)

@@ -64,4 +64,13 @@
     <string name="cancel">Cancel</string>
     <string name="confirm_dict_deletion_title">Delete dictionary?</string>
     <string name="confirm_dict_deletion_message">This action will delete the dictionary and all associated cards. It cannot be undone.</string>
+    <string name="select_dictionaries">Select dictionaries</string>
+    <string name="select_part_of_speech">Select part of speech</string>
+    <string name="pos_empty">Empty</string>
+    <string name="pos_noun">Noun</string>
+    <string name="pos_verb">Verb</string>
+    <string name="pos_adjective">Adjective</string>
+    <string name="pos_adverb">Adverb</string>
+    <string name="pos_other">Other</string>
+    <string name="part_of_speech">Part of speech</string>
 </resources>

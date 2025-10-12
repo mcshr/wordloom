@@ -1,4 +1,4 @@
-package com.mcshr.wordloom.presentation.createWordScreen.selectDictionary
+package com.mcshr.wordloom.presentation.createWordScreen.selectPartOfSpeech
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,21 +8,23 @@ import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.mcshr.wordloom.R
 import com.mcshr.wordloom.databinding.FragmentSelectItemBottomSheetBinding
+import com.mcshr.wordloom.domain.entities.PartOfSpeech
 import com.mcshr.wordloom.presentation.createWordScreen.SharedCreateWordViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SelectDictionaryBottomSheet : BottomSheetDialogFragment() {
-
+class SelectPartOfSpeechBottomSheet : BottomSheetDialogFragment() {
     private var _binding: FragmentSelectItemBottomSheetBinding? = null
     private val binding
         get() = _binding
-            ?: throw RuntimeException("CreateWord.FragmentSelectDictionaryBottomSheet Binding is null")
+            ?: throw RuntimeException("CreateWord.FragmentSelectPOSBottomSheet Binding is null")
 
-    private val viewModel by viewModels<SelectDictionaryViewModel>()
-    private val sharedViewModel: SharedCreateWordViewModel by viewModels({requireParentFragment()})
+    private val sharedViewModel: SharedCreateWordViewModel by viewModels({ requireParentFragment() })
 
-    private val rvAdapter = DictionarySelectableListAdapter()
+    private val rvAdapter = PartOfSpeechAdapter { pos ->
+        sharedViewModel.selectPartOfSpeech(pos)
+        dismiss()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -39,22 +41,15 @@ class SelectDictionaryBottomSheet : BottomSheetDialogFragment() {
         binding.btnCloseSheet.setOnClickListener {
             dismiss()
         }
-        binding.tvTitle.text = getString(R.string.select_dictionary)
+        binding.tvTitle.text = getString(R.string.select_part_of_speech)
 
-
-        viewModel.allDictionaries.observe(viewLifecycleOwner) {
-            rvAdapter.submitList(it)
+        sharedViewModel.selectedPartOfSpeech.observe(viewLifecycleOwner) {
+            rvAdapter.selectItem(it)
         }
-
-        sharedViewModel.selectedDictionary.observe(viewLifecycleOwner) {
-            rvAdapter.selectDictionary(it.id)
-        }
+        rvAdapter.submitList(PartOfSpeech.entries)
 
         binding.rvList.adapter = rvAdapter
-        rvAdapter.onSelectDictionary = { dictionary ->
-            sharedViewModel.selectDictionary(dictionary)
-            dismiss()
-        }
+
 
         super.onViewCreated(view, savedInstanceState)
     }
@@ -63,5 +58,4 @@ class SelectDictionaryBottomSheet : BottomSheetDialogFragment() {
         _binding = null
         super.onDestroyView()
     }
-
 }
