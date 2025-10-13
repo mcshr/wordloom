@@ -10,7 +10,9 @@ import com.mcshr.wordloom.data.entities.CardTranslationDbModel
 import com.mcshr.wordloom.data.entities.DictionaryCardDbModel
 import com.mcshr.wordloom.data.entities.DictionaryDbModel
 import com.mcshr.wordloom.data.entities.LanguageDbModel
+import com.mcshr.wordloom.data.entities.SynonymDbModel
 import com.mcshr.wordloom.data.entities.TranslationDbModel
+import com.mcshr.wordloom.data.entities.UsageExampleDbModel
 import com.mcshr.wordloom.data.entities.WordDbModel
 import com.mcshr.wordloom.data.entities.tuples.SelectedDictionaryCardView
 
@@ -24,6 +26,8 @@ import com.mcshr.wordloom.data.entities.tuples.SelectedDictionaryCardView
         LanguageDbModel::class,
         TranslationDbModel::class,
         WordDbModel::class
+        WordDbModel::class,
+        UsageExampleDbModel::class,
     ],
     views = [
         SelectedDictionaryCardView::class

@@ -7,6 +7,7 @@ import com.mcshr.wordloom.data.database.AppDatabase
 import com.mcshr.wordloom.data.entities.CardTranslationDbModel
 import com.mcshr.wordloom.data.entities.DictionaryCardDbModel
 import com.mcshr.wordloom.data.entities.TranslationDbModel
+import com.mcshr.wordloom.data.entities.UsageExampleDbModel
 import com.mcshr.wordloom.data.mappers.toCardDBModel
 import com.mcshr.wordloom.data.mappers.toDomainEntity
 import com.mcshr.wordloom.data.mappers.toTranslationsList
@@ -56,6 +57,16 @@ class WordCardRepositoryImpl @Inject constructor(
                         CardTranslationDbModel(
                             cardId = cardId,
                             translationId = translation
+                        )
+                    )
+                }
+                for (example in wordCard.usageExamples){
+                    dao.createUsageExample(
+                        UsageExampleDbModel(
+                            id = 0,
+                            cardId = cardId,
+                            exampleText = example,
+                            exampleTextTranslation = null
                         )
                     )
                 }

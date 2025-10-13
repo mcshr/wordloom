@@ -19,7 +19,8 @@ fun WordCardRelation.toDomainEntity(): WordCard {
         reviewCount = card.reviewsCount,
         nextReviewTime = card.nextRevDate,
         imagePath = card.imagePath,
-        id = card.id
+        id = card.id,
+        usageExamples = usageExamples.map { it.exampleText }
     )
 }
 

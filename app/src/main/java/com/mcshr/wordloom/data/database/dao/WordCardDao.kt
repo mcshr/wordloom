@@ -11,6 +11,7 @@ import com.mcshr.wordloom.data.entities.CardDbModel
 import com.mcshr.wordloom.data.entities.CardTranslationDbModel
 import com.mcshr.wordloom.data.entities.DictionaryCardDbModel
 import com.mcshr.wordloom.data.entities.TranslationDbModel
+import com.mcshr.wordloom.data.entities.UsageExampleDbModel
 import com.mcshr.wordloom.data.entities.WordDbModel
 import com.mcshr.wordloom.data.entities.tuples.DictionaryWithCardsRelation
 import com.mcshr.wordloom.data.entities.tuples.WordCardRelation
@@ -151,6 +152,9 @@ interface WordCardDao {
 
     @Insert
     suspend fun createCardTranslation(cardTranslationDbModel: CardTranslationDbModel)
+
+    @Insert
+    suspend fun createUsageExample(usageExampleDbModel: UsageExampleDbModel)
 
     @Insert
     suspend fun addCardToDictionary(dictionaryCard: DictionaryCardDbModel)

@@ -18,9 +18,10 @@ class CreateWordCardUseCase @Inject constructor(
         word: String,
         translations: List<String>,
         partOfSpeech: PartOfSpeech,
-        imagePath: String?,
         languageOriginal: Language,
-        languageTranslation: Language
+        languageTranslation: Language,
+        usageExamples:List<String> = emptyList(),
+        imagePath: String? = null,
     ): DataOperationState<Long, WordCardCreationFailure> {
         val wordCard = WordCard(
             id = 0,
@@ -32,7 +33,8 @@ class CreateWordCardUseCase @Inject constructor(
             imagePath = imagePath,
             partOfSpeech = partOfSpeech,
             languageOriginal = languageOriginal,
-            languageTranslation = languageTranslation
+            languageTranslation = languageTranslation,
+            usageExamples = usageExamples,
         )
 
         repository.getWordCardIfTranslationsExists(wordCard)?.let {
