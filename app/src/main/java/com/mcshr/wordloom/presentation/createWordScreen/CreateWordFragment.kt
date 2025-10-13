@@ -27,6 +27,15 @@ class CreateWordFragment : Fragment() {
 
     private val meaningAdapter = MeaningListAdapter()
 
+    private val usageExampleAdapter = UsageExampleListAdapter(
+        { example, text ->
+            viewModel.updateExample(example, text)
+        },
+        { example ->
+            viewModel.deleteExample(example)
+        }
+    )
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -36,11 +45,21 @@ class CreateWordFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        setupAdapter()
+        setupAdapters()
         setupToolbar()
         setupButtons()
         observeViewModel()
         observeSharedViewModel()
+
+        binding.btnAddUsageExample.setOnClickListener {
+            viewModel.addExample()
+        }
+
+        binding.rvUsageExampleList.adapter = usageExampleAdapter
+
+        viewModel.examplesList.observe(viewLifecycleOwner){
+            usageExampleAdapter.submitList(it)
+        }
 
         super.onViewCreated(view, savedInstanceState)
     }
@@ -89,7 +108,7 @@ class CreateWordFragment : Fragment() {
         }
     }
 
-    private fun setupAdapter() {
+    private fun setupAdapters() {
         binding.rvMeaningList.adapter = meaningAdapter
         meaningAdapter.deleteMeaning = { meaning -> viewModel.deleteMeaning(meaning) }
         meaningAdapter.updateMeaning = { meaning ->

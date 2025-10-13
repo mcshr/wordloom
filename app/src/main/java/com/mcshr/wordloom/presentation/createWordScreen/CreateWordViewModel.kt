@@ -10,6 +10,7 @@ import com.mcshr.wordloom.domain.interactors.wordCard.CreateWordCardUseCase
 import com.mcshr.wordloom.domain.interactors.wordCard.SaveWordCardToDictionaryUseCase
 import com.mcshr.wordloom.domain.wrappers.DataOperationState
 import com.mcshr.wordloom.domain.wrappers.errors.WordCardCreationFailure
+import com.mcshr.wordloom.presentation.utils.uiModels.UsageExampleUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -23,6 +24,11 @@ class CreateWordViewModel @Inject constructor(
     private val _meaningList: MutableLiveData<List<String>> = MutableLiveData(emptyList())
     val meaningList: LiveData<List<String>>
         get() = _meaningList
+
+    private val _examplesList: MutableLiveData<List<UsageExampleUiModel>> =
+        MutableLiveData(emptyList())
+    val examplesList: LiveData<List<UsageExampleUiModel>>
+        get() = _examplesList
 
     private val _saveAndClose = MutableLiveData<Boolean>()
     val saveAndClose: LiveData<Boolean>
@@ -41,11 +47,31 @@ class CreateWordViewModel @Inject constructor(
         return meaning
     }
 
+    fun addExample() {
+        val currentList = _examplesList.value.orEmpty()
+        _examplesList.value = currentList + UsageExampleUiModel()
+    }
+
+    fun deleteExample(usageExampleUiModel: UsageExampleUiModel) {
+        val currentList = _examplesList.value.orEmpty()
+        _examplesList.value = currentList.filterNot { it.id == usageExampleUiModel.id }
+    }
+
+    fun updateExample(example: UsageExampleUiModel, newText: String) {
+        _examplesList.value?.find { it.id == example.id }?.text = newText
+    }
+
     fun createWordCardInDictionary(
         wordText: String,
         wordMeaningList: List<String>,
         dict: Dictionary
     ) {
+        val usageExamples = examplesList.value?.filterNot {
+            it.text.isEmpty()
+        }?.map {
+            it.text
+        } ?: emptyList()
+
         viewModelScope.launch {
             val result = createWordCardUseCase(
                 word = wordText,
@@ -53,7 +79,8 @@ class CreateWordViewModel @Inject constructor(
                 partOfSpeech = PartOfSpeech.EMPTY,
                 imagePath = null,
                 languageOriginal = dict.languageOriginal,
-                languageTranslation = dict.languageTranslation
+                languageTranslation = dict.languageTranslation,
+                usageExamples = usageExamples
             )
             when (result) {
                 is DataOperationState.Success<Long> -> {

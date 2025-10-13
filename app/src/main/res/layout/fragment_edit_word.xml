@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    
+
     tools:context=".presentation.createWordScreen.CreateWordFragment">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -18,122 +17,170 @@
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
+            style="@style/WordloomToolbar.Centered"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:navigationIcon="@drawable/ic_back_24"
-            style="@style/WordloomToolbar.Centered"
-            tools:title="Dictionary name!@"
-            app:subtitle="@string/selected_dictionary"
             app:menu="@menu/toolbar_save_menu"
-            />
+            app:navigationIcon="@drawable/ic_back_24"
+            app:subtitle="@string/selected_dictionary"
+            tools:title="Dictionary name!@" />
 
     </com.google.android.material.appbar.AppBarLayout>
-    <androidx.constraintlayout.widget.Guideline
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="12dp"
-        android:id="@+id/startGuideline"/>
-    <androidx.constraintlayout.widget.Guideline
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_end="12dp"
-        android:id="@+id/endGuideline"/>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout4"
-        style="@style/WordloomTextInputLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="@string/word"
-
-        app:layout_constraintEnd_toStartOf="@+id/btn_search_word"
-        app:layout_constraintStart_toStartOf="@+id/startGuideline"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout2">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_text_word"
-            style="@style/WordloomTextInputEditText"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:text="j" />
+            android:layout_height="wrap_content">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/startGuideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="12dp" />
 
-    <Button
-        android:id="@+id/btn_search_word"
-        style="@style/WordloomIconOutlined"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:enabled="true"
-        app:icon="@drawable/ic_search_24"
-        android:contentDescription="@string/search_for_words"
-        app:layout_constraintBottom_toBottomOf="@+id/textInputLayout4"
-        app:layout_constraintEnd_toEndOf="@+id/endGuideline"
-        app:layout_constraintTop_toTopOf="@+id/textInputLayout4" />
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/endGuideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="12dp" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout6"
-        style="@style/WordloomTextInputLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:hint="@string/meaning"
-        app:layout_constraintEnd_toStartOf="@+id/btn_add_meaning"
-        app:layout_constraintStart_toStartOf="@+id/startGuideline"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout4">
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout4"
+                style="@style/WordloomTextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/word"
+                app:layout_constraintEnd_toStartOf="@+id/btn_search_word"
+                app:layout_constraintStart_toStartOf="@+id/startGuideline"
+                app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_text_meaning"
-            style="@style/WordloomTextInputEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="asd" />
-    </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_text_word"
+                    style="@style/WordloomTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:text="j" />
 
-    <Button
-        android:id="@+id/btn_add_meaning"
-        style="@style/WordloomIconOutlined"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        app:icon="@drawable/ic_add_24"
-        android:contentDescription="@string/add_new_meaning"
-        app:layout_constraintBottom_toBottomOf="@+id/textInputLayout6"
-        app:layout_constraintEnd_toEndOf="@+id/endGuideline"
-        app:layout_constraintTop_toTopOf="@+id/textInputLayout6" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_meaning_list"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        app:layout_constraintEnd_toEndOf="@+id/endGuideline"
-        app:layout_constraintStart_toStartOf="@+id/startGuideline"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout6"
-        tools:itemCount="3"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/item_edit_word_meaning" />
+            <Button
+                android:id="@+id/btn_search_word"
+                style="@style/WordloomIconOutlined"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:contentDescription="@string/search_for_words"
+                android:enabled="true"
+                app:icon="@drawable/ic_search_24"
+                app:layout_constraintBottom_toBottomOf="@+id/textInputLayout4"
+                app:layout_constraintEnd_toEndOf="@+id/endGuideline"
+                app:layout_constraintTop_toTopOf="@+id/textInputLayout4" />
 
-    <TextView
-        android:id="@+id/textView"
-        style="@style/text.title.medium"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="@string/part_of_speech"
-        app:layout_constraintStart_toStartOf="@id/startGuideline"
-        app:layout_constraintTop_toBottomOf="@id/rv_meaning_list" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout6"
+                style="@style/WordloomTextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:hint="@string/meaning"
+                app:layout_constraintEnd_toStartOf="@+id/btn_add_meaning"
+                app:layout_constraintStart_toStartOf="@+id/startGuideline"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout4">
 
-    <Button
-        android:id="@+id/btnPartOfSpeech"
-        android:textAlignment="textStart"
-        tools:text="Noun"
-        style="@style/WordloomTextButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toStartOf="@+id/endGuideline"
-        app:layout_constraintStart_toStartOf="@+id/startGuideline"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_text_meaning"
+                    style="@style/WordloomTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="asd" />
+            </com.google.android.material.textfield.TextInputLayout>
 
+            <Button
+                android:id="@+id/btn_add_meaning"
+                style="@style/WordloomIconOutlined"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:contentDescription="@string/add_new_meaning"
+                app:icon="@drawable/ic_add_24"
+                app:layout_constraintBottom_toBottomOf="@+id/textInputLayout6"
+                app:layout_constraintEnd_toEndOf="@+id/endGuideline"
+                app:layout_constraintTop_toTopOf="@+id/textInputLayout6" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_meaning_list"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:nestedScrollingEnabled="false"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="@+id/endGuideline"
+                app:layout_constraintStart_toStartOf="@+id/startGuideline"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout6"
+                tools:itemCount="3"
+                tools:listitem="@layout/item_edit_word_meaning" />
+
+            <TextView
+                android:id="@+id/textView"
+                style="@style/text.title.medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/part_of_speech"
+                app:layout_constraintStart_toStartOf="@id/startGuideline"
+                app:layout_constraintTop_toBottomOf="@id/rv_meaning_list" />
+
+            <Button
+                android:id="@+id/btnPartOfSpeech"
+                style="@style/WordloomTextButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textAlignment="textStart"
+                app:layout_constraintEnd_toStartOf="@+id/endGuideline"
+                app:layout_constraintStart_toStartOf="@+id/startGuideline"
+                app:layout_constraintTop_toBottomOf="@+id/textView"
+                tools:text="Noun" />
+
+
+            <TextView
+                android:id="@+id/tvUsageExample"
+                style="@style/text.title.medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/usage_examples"
+                app:layout_constraintStart_toStartOf="@id/startGuideline"
+                app:layout_constraintTop_toBottomOf="@id/btnPartOfSpeech" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_usage_example_list"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:nestedScrollingEnabled="false"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="@+id/endGuideline"
+                app:layout_constraintStart_toStartOf="@+id/startGuideline"
+                app:layout_constraintTop_toBottomOf="@+id/tvUsageExample"
+                tools:itemCount="3"
+                tools:listitem="@layout/item_usage_example" />
+
+            <Button
+                android:id="@+id/btn_add_usage_example"
+                style="@style/WordloomTextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_example"
+                app:layout_constraintStart_toStartOf="@+id/startGuideline"
+                app:layout_constraintTop_toBottomOf="@+id/rv_usage_example_list" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

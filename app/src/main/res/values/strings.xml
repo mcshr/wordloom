@@ -73,4 +73,6 @@
     <string name="pos_adverb">Adverb</string>
     <string name="pos_other">Other</string>
     <string name="part_of_speech">Part of speech</string>
+    <string name="add_example">Add example</string>
+    <string name="usage_examples">Usage examples</string>
 </resources>
