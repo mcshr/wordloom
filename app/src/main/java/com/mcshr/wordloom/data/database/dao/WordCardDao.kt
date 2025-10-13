@@ -36,6 +36,7 @@ interface WordCardDao {
 
     @Query(
         "SELECT id FROM word WHERE word_text == :wordText " +
+//                "COLLATE NOCASE " +
                 "AND part_of_speech_code ==:partOfSpeechCode " +
                 "AND language_id =:languageId LIMIT 1"
     )

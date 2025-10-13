@@ -25,8 +25,8 @@ class CreateWordCardUseCase @Inject constructor(
     ): DataOperationState<Long, WordCardCreationFailure> {
         val wordCard = WordCard(
             id = 0,
-            wordText = word,
-            wordTranslations = translations,
+            wordText = word.trim().lowercase(),
+            wordTranslations = translations.map { it.trim().lowercase() },
             status = WordStatus.UNKNOWN,
             reviewCount = 0,
             nextReviewTime = null,
@@ -34,7 +34,7 @@ class CreateWordCardUseCase @Inject constructor(
             partOfSpeech = partOfSpeech,
             languageOriginal = languageOriginal,
             languageTranslation = languageTranslation,
-            usageExamples = usageExamples,
+            usageExamples = usageExamples.map { it.trim() },
         )
 
         repository.getWordCardIfTranslationsExists(wordCard)?.let {

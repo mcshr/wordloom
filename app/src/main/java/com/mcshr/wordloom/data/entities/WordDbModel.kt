@@ -17,6 +17,7 @@ import androidx.room.PrimaryKey
     ],
     indices = [
         Index(value = ["word_text", "language_id", "part_of_speech_code"], unique = true),
+//        Index(value = ["word_text COLLATE NOCASE", "language_id", "part_of_speech_code"], unique = true),
         Index("language_id"),
         Index("part_of_speech_code"),
     ]
