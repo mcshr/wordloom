@@ -6,6 +6,7 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.mcshr.wordloom.R
 import com.mcshr.wordloom.databinding.ItemUsageExampleBinding
 import com.mcshr.wordloom.presentation.utils.uiModels.UsageExampleUiModel
 
@@ -32,20 +33,25 @@ class UsageExampleListAdapter(
         position: Int
     ) {
         val currentExample = getItem(position)
+        val context = holder.binding.root.context
         holder.binding.btnDeleteExample.setOnClickListener {
             onDelete(currentExample)
         }
 
+
         holder.binding.etExample.setText(currentExample.text)
         holder.binding.etTranslation.setText(currentExample.translation)
-
+        holder.binding.tvTitle.text = context.getString(
+            R.string.usage_example_title,
+            currentExample.position
+        )
 
         holder.binding.etExample.doAfterTextChanged {
-            val newText = it?.toString()?:""
+            val newText = it?.toString() ?: ""
             onTextChangedExample(currentExample, newText)
         }
         holder.binding.etTranslation.doAfterTextChanged {
-            val newText = it?.toString()?:""
+            val newText = it?.toString() ?: ""
             onTextChangedTranslation(currentExample, newText)
         }
     }
@@ -55,7 +61,7 @@ class UsageExampleListAdapter(
 class UsageExampleViewHolder(val binding: ItemUsageExampleBinding) :
     RecyclerView.ViewHolder(binding.root)
 
-class UsageExampleDiffCallback(): DiffUtil.ItemCallback<UsageExampleUiModel>() {
+class UsageExampleDiffCallback() : DiffUtil.ItemCallback<UsageExampleUiModel>() {
     override fun areItemsTheSame(
         oldItem: UsageExampleUiModel,
         newItem: UsageExampleUiModel
@@ -67,6 +73,6 @@ class UsageExampleDiffCallback(): DiffUtil.ItemCallback<UsageExampleUiModel>() {
         oldItem: UsageExampleUiModel,
         newItem: UsageExampleUiModel
     ): Boolean {
-        return true
+        return oldItem.position == newItem.position
     }
 }

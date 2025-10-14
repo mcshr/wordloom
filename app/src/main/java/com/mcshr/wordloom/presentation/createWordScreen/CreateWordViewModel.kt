@@ -35,6 +35,8 @@ class CreateWordViewModel @Inject constructor(
     val saveAndClose: LiveData<Boolean>
         get() = _saveAndClose
 
+    private var exampleIdCounter = 0
+
     fun addMeaning(meaning: String): Boolean {
         if (_meaningList.value?.contains(meaning) == false) {
             _meaningList.value = _meaningList.value?.plus(meaning)
@@ -50,22 +52,31 @@ class CreateWordViewModel @Inject constructor(
 
     fun addExample() {
         val currentList = _examplesList.value.orEmpty()
-        _examplesList.value = currentList + UsageExampleUiModel()
+        _examplesList.value = currentList + UsageExampleUiModel(
+            id = exampleIdCounter++,
+            position = currentList.size + 1
+        )
     }
 
     fun deleteExample(usageExampleUiModel: UsageExampleUiModel) {
         val currentList = _examplesList.value.orEmpty()
-        _examplesList.value = currentList.filterNot { it.id == usageExampleUiModel.id }
+        _examplesList.value = currentList
+            .filterNot {
+                it.id == usageExampleUiModel.id
+            }.mapIndexed { index, it -> //update position
+                it.copy(position = index + 1)
+            }
     }
 
     fun updateExample(example: UsageExampleUiModel, newText: String) {
         _examplesList.value?.find { it.id == example.id }?.text = newText
     }
+
     fun updateTranslation(example: UsageExampleUiModel, newText: String) {
         _examplesList.value?.find { it.id == example.id }?.translation = newText
     }
 
-    private fun getUsageExamplesFromLiveData(): List<UsageExample>{
+    private fun getUsageExamplesFromLiveData(): List<UsageExample> {
         return examplesList.value?.filterNot {
             it.text.isBlank()
         }?.map {
