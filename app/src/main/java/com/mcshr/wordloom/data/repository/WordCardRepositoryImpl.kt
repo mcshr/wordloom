@@ -65,8 +65,8 @@ class WordCardRepositoryImpl @Inject constructor(
                         UsageExampleDbModel(
                             id = 0,
                             cardId = cardId,
-                            exampleText = example,
-                            exampleTextTranslation = null
+                            exampleText = example.text,
+                            exampleTextTranslation = example.translation
                         )
                     )
                 }

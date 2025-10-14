@@ -30,6 +30,8 @@ class CreateWordFragment : Fragment() {
     private val usageExampleAdapter = UsageExampleListAdapter(
         { example, text ->
             viewModel.updateExample(example, text)
+        },        { example, text ->
+            viewModel.updateTranslation(example, text)
         },
         { example ->
             viewModel.deleteExample(example)

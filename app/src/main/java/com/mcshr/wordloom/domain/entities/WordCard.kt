@@ -14,7 +14,7 @@ data class WordCard(
     val reviewCount:Int,
     val nextReviewTime: Long?, //Unix timestamp
     val imagePath: String?,
-    val usageExamples: List<String>,
+    val usageExamples: List<UsageExample>,
     val id: Long
 ) : Parcelable
 {

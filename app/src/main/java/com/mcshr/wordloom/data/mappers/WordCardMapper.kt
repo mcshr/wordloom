@@ -5,6 +5,7 @@ import com.mcshr.wordloom.data.entities.WordDbModel
 import com.mcshr.wordloom.data.entities.tuples.DictionaryWithCardsRelation
 import com.mcshr.wordloom.data.entities.tuples.WordCardRelation
 import com.mcshr.wordloom.domain.entities.PartOfSpeech
+import com.mcshr.wordloom.domain.entities.UsageExample
 import com.mcshr.wordloom.domain.entities.WordCard
 
 
@@ -20,7 +21,10 @@ fun WordCardRelation.toDomainEntity(): WordCard {
         nextReviewTime = card.nextRevDate,
         imagePath = card.imagePath,
         id = card.id,
-        usageExamples = usageExamples.map { it.exampleText }
+        usageExamples = usageExamples.map {
+            UsageExample(text = it.exampleText,
+            translation = it.exampleTextTranslation
+        ) }
     )
 }
 

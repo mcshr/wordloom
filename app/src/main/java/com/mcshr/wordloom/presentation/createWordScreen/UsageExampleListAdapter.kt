@@ -10,7 +10,8 @@ import com.mcshr.wordloom.databinding.ItemUsageExampleBinding
 import com.mcshr.wordloom.presentation.utils.uiModels.UsageExampleUiModel
 
 class UsageExampleListAdapter(
-    private val onTextChanged: (UsageExampleUiModel, String) -> Unit,
+    private val onTextChangedExample: (UsageExampleUiModel, String) -> Unit,
+    private val onTextChangedTranslation: (UsageExampleUiModel, String) -> Unit,
     private val onDelete: (UsageExampleUiModel) -> Unit
 ) : ListAdapter<UsageExampleUiModel, UsageExampleViewHolder>(UsageExampleDiffCallback()) {
 
@@ -36,12 +37,19 @@ class UsageExampleListAdapter(
         }
 
         holder.binding.etExample.setText(currentExample.text)
+        holder.binding.etTranslation.setText(currentExample.translation)
+
 
         holder.binding.etExample.doAfterTextChanged {
             val newText = it?.toString()?:""
-            onTextChanged(currentExample, newText)
+            onTextChangedExample(currentExample, newText)
+        }
+        holder.binding.etTranslation.doAfterTextChanged {
+            val newText = it?.toString()?:""
+            onTextChangedTranslation(currentExample, newText)
         }
     }
+
 }
 
 class UsageExampleViewHolder(val binding: ItemUsageExampleBinding) :

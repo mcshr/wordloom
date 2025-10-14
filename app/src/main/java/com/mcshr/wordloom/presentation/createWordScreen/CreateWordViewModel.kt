@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mcshr.wordloom.domain.entities.Dictionary
 import com.mcshr.wordloom.domain.entities.PartOfSpeech
+import com.mcshr.wordloom.domain.entities.UsageExample
 import com.mcshr.wordloom.domain.interactors.wordCard.CreateWordCardUseCase
 import com.mcshr.wordloom.domain.interactors.wordCard.SaveWordCardToDictionaryUseCase
 import com.mcshr.wordloom.domain.wrappers.DataOperationState
@@ -60,18 +61,30 @@ class CreateWordViewModel @Inject constructor(
     fun updateExample(example: UsageExampleUiModel, newText: String) {
         _examplesList.value?.find { it.id == example.id }?.text = newText
     }
+    fun updateTranslation(example: UsageExampleUiModel, newText: String) {
+        _examplesList.value?.find { it.id == example.id }?.translation = newText
+    }
+
+    private fun getUsageExamplesFromLiveData(): List<UsageExample>{
+        return examplesList.value?.filterNot {
+            it.text.isBlank()
+        }?.map {
+            UsageExample(
+                text = it.text.trim(),
+                translation = if (it.translation.isNotBlank()) {
+                    it.translation.trim()
+                } else {
+                    null
+                }
+            )
+        } ?: emptyList()
+    }
 
     fun createWordCardInDictionary(
         wordText: String,
         wordMeaningList: List<String>,
         dict: Dictionary
     ) {
-        val usageExamples = examplesList.value?.filterNot {
-            it.text.isEmpty()
-        }?.map {
-            it.text
-        } ?: emptyList()
-
         viewModelScope.launch {
             val result = createWordCardUseCase(
                 word = wordText,
@@ -80,7 +93,7 @@ class CreateWordViewModel @Inject constructor(
                 imagePath = null,
                 languageOriginal = dict.languageOriginal,
                 languageTranslation = dict.languageTranslation,
-                usageExamples = usageExamples
+                usageExamples = getUsageExamplesFromLiveData()
             )
             when (result) {
                 is DataOperationState.Success<Long> -> {

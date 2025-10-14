@@ -2,6 +2,7 @@ package com.mcshr.wordloom.domain.interactors.wordCard
 
 import com.mcshr.wordloom.domain.entities.Language
 import com.mcshr.wordloom.domain.entities.PartOfSpeech
+import com.mcshr.wordloom.domain.entities.UsageExample
 import com.mcshr.wordloom.domain.entities.WordCard
 import com.mcshr.wordloom.domain.entities.WordStatus
 import com.mcshr.wordloom.domain.repository.WordCardRepository
@@ -20,7 +21,7 @@ class CreateWordCardUseCase @Inject constructor(
         partOfSpeech: PartOfSpeech,
         languageOriginal: Language,
         languageTranslation: Language,
-        usageExamples:List<String> = emptyList(),
+        usageExamples:List<UsageExample> = emptyList(),
         imagePath: String? = null,
     ): DataOperationState<Long, WordCardCreationFailure> {
         val wordCard = WordCard(
@@ -34,7 +35,7 @@ class CreateWordCardUseCase @Inject constructor(
             partOfSpeech = partOfSpeech,
             languageOriginal = languageOriginal,
             languageTranslation = languageTranslation,
-            usageExamples = usageExamples.map { it.trim() },
+            usageExamples = usageExamples,
         )
 
         repository.getWordCardIfTranslationsExists(wordCard)?.let {
