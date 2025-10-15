@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools">
     <TextView
         android:id="@+id/radio_button_title"
-        style="@style/text.list_item"
+        style="@style/text.body.medium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="Learning mode"
@@ -14,7 +14,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        style="@style/text.body"
+        style="@style/text.caption"
         android:id="@+id/radio_button_subtitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

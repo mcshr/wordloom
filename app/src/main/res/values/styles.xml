@@ -5,66 +5,63 @@
 <!-- TEXT   -->
 
     <style name="text">
-        <item name="android:textSize">16sp</item>
         <item name="fontFamily">sans-serif</item>
         <item name="android:textColor">@color/text87</item>
     </style>
-    <style name="text.large">
-        <item name="android:textSize">18sp</item>
-    </style>
-    <style name="text.hint">
-        <item name="android:textSize">14sp</item>
-    </style>
+
     <style name="text.appbar">
         <item name="android:textSize">22sp</item>
         <item name="fontFamily">sans-serif-medium</item>
     </style>
 
 
-
     <style name="text.title">
         <item name="fontFamily">sans-serif-medium</item>
         <item name="android:textSize">18sp</item>
     </style>
+    <style name="text.title.learning">
+        <item name="android:textColor">@color/learning_status</item>
+    </style>
+    <style name="text.title.learned">
+        <item name="android:textColor">@color/learned_status</item>
+    </style>
+
 
     <style name="text.title.large">
         <item name="android:textSize">24sp</item>
     </style>
 
     <style name="text.title.medium">
-        <item name="android:textSize">16sp</item>
-    </style>
-    <style name="text.title.medium_number">
-        <item name="fontFamily">sans-serif-medium</item>
-        <item name="android:textSize">18sp</item>
-    </style>
-    <style name="text.title.medium_number.learning">
-        <item name="android:textColor">@color/learning_status</item>
-    </style>
-    <style name="text.title.medium_number.learned">
-        <item name="android:textColor">@color/learned_status</item>
+        <item name="android:textSize">20sp</item>
     </style>
 
-    <style name="text.list_item">
-    </style>
-    <style name="text.list_item.bold">
-        <item name="fontFamily">sans-serif-medium</item>
+    <style name="text.title.small">
+        <item name="android:textSize">16sp</item>
     </style>
 
 
     <style name="text.body">
-        <item name="android:textColor">@color/text60</item>
         <item name="android:textSize">14sp</item>
     </style>
+    <style name="text.body.medium">
+        <item name="android:textSize">16sp</item>
+    </style>
+    <style name="text.body.large">
+        <item name="android:textSize">18sp</item>
+    </style>
     <style name="text.body.learning">
-        <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/learning_status</item>
     </style>
     <style name="text.body.learned">
-        <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/learned_status</item>
     </style>
-    <style name="text.body.small">
+
+
+    <style name="text.caption">
+        <item name="android:textColor">@color/text60</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+    <style name="text.caption.small">
         <item name="android:textSize">12sp</item>
     </style>
 
@@ -72,11 +69,18 @@
 <!--BOTTOM NAVIGATION -->
 
     <style name="WordloomBottomNavigationView" parent="Widget.Material3.BottomNavigationView">
+        <item name="backgroundTint">@color/transparent</item>
+        <item name="android:background">@drawable/bottom_nav_background</item>
+
+        <item name="elevation">0dp</item>
+        <item name="android:elevation">0dp</item>
+
         <item name="android:minHeight">64dp</item>
-        <item name="itemActiveIndicatorStyle">@style/ActiveIndicator.transparent</item>
         <item name="itemPaddingTop">12dp</item>
         <item name="itemPaddingBottom">12dp</item>
+        <item name="itemActiveIndicatorStyle">@style/ActiveIndicator.transparent</item>
     </style>
+
     <style name="ActiveIndicator.transparent" parent="Widget.Material3.BottomNavigationView">
         <item name="android:color">@color/transparent</item>
     </style>
@@ -100,7 +104,7 @@
         <item name="boxCornerRadiusTopEnd">10dp</item>
         <item name="boxCornerRadiusBottomStart">10dp</item>
         <item name="boxCornerRadiusBottomEnd">10dp</item>
-        <item name="hintTextAppearance">@style/text.hint</item>
+        <item name="hintTextAppearance">@style/text.body</item>
 <!--        <item name="boxStrokeWidth">0dp</item>-->
     </style>
 
@@ -129,7 +133,8 @@
         <item name="shapeAppearanceOverlay">@style/cardShape</item>
     </style>
     <style name="cardShape" parent="ShapeAppearance.Material3.Corner.Large">
-        <item name="cornerSize">10dp</item>
+        <item name="android:backgroundTint">@color/white</item>
+        <item name="cornerSize">@dimen/corner_radius</item>
     </style>
 
 
@@ -139,11 +144,13 @@
         <item name="iconTint">@color/text87</item>
     </style>
 
-    <style name="WordloomIcon.Big">
+    <style name="WordloomIconBig" parent="Widget.Material3.Button.IconButton.Outlined">
         <item name="android:padding">20dp</item>
-        <item name="backgroundTint">@color/button_light</item>
         <item name="shapeAppearance">@style/cardShape</item>
         <item name="iconSize">30dp</item>
+        <item name="strokeColor">@color/text60</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="iconTint">@color/text87</item>
     </style>
 
     <style name="WordloomIconOutlined" parent ="Widget.Material3.Button.IconButton.Outlined">
@@ -175,7 +182,7 @@
         <item name="android:textSize">14sp</item>
     </style>
     <style name="WordloomButton.Option">
-        <item name="android:textAppearance">@style/text.title.medium</item>
+        <item name="android:textAppearance">@style/text.title.small</item>
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/white</item>
         <item name="backgroundTint">@color/text87</item>
@@ -209,7 +216,7 @@
     <style name="WordloomToolbar" parent="Widget.Material3.Toolbar">
         <item name="titleTextAppearance">@style/text.appbar</item>
         <item name="android:actionMenuTextAppearance">@style/text.title</item>
-        <item name="subtitleTextAppearance">@style/text.body</item>
+        <item name="subtitleTextAppearance">@style/text.caption</item>
     </style>
     <style name="WordloomToolbar.Centered" parent="Widget.Material3.Toolbar">
         <item name="titleTextAppearance">@style/text.title</item>

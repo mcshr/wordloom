@@ -24,7 +24,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/btnDeleteExample"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/btnDeleteExample"
-            tools:text="Usage example 1" />
+            tools:text="Example №1" />
 
         <EditText
             android:layout_marginTop="8dp"

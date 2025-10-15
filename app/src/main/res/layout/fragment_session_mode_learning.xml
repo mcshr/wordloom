@@ -50,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="number"
-            style="@style/text.title.medium_number"
+            style="@style/text.title.small"
             app:layout_constraintBottom_toBottomOf="@+id/slider"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/slider" />
@@ -107,7 +107,7 @@
 
             <TextView
                 android:id="@+id/tv_to_repeat_count_available"
-                style="@style/text.title.medium_number"
+                style="@style/text.title.small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="3dp"
@@ -139,7 +139,7 @@
 
             <TextView
                 android:id="@+id/tv_to_learn_count_available"
-                style="@style/text.title.medium_number"
+                style="@style/text.title.small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="3dp"
@@ -160,7 +160,7 @@
 
             <TextView
                 android:id="@+id/tv_total_count_available"
-                style="@style/text.title.medium_number"
+                style="@style/text.title.small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="@+id/textView14"

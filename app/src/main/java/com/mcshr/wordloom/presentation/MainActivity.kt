@@ -43,9 +43,9 @@ class MainActivity : AppCompatActivity() {
                 destination.id == R.id.libraryFragment ||
                 destination.id == R.id.progressFragment
             ) {
-                binding.bottomNavigationView.visibility = VISIBLE
+                binding.bottomNavContainer.visibility = VISIBLE
             } else {
-                binding.bottomNavigationView.visibility = GONE
+                binding.bottomNavContainer.visibility = GONE
             }
         }
     }
@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
                 systemBars.left,
                 systemBars.top,
                 systemBars.right,
-                if (binding.bottomNavigationView.isVisible) 0 else systemBars.bottom
+                if (binding.bottomNavContainer.isVisible) 0 else systemBars.bottom
             )
             insets
         }

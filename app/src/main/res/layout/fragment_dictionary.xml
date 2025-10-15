@@ -41,7 +41,7 @@
         style="@style/WordloomFAB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="16dp"
         android:contentDescription="@string/add_new"
         android:src="@drawable/ic_add_24"
         app:layout_constraintBottom_toBottomOf="parent"

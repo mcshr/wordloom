@@ -73,7 +73,7 @@
 
                 <TextView
                     android:id="@+id/textView1"
-                    style="@style/text.body"
+                    style="@style/text.caption"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/ready_to_learn"
@@ -136,7 +136,7 @@
 
                 <TextView
                     android:id="@+id/textView2"
-                    style="@style/text.body"
+                    style="@style/text.caption"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/available_for_repeat"
@@ -178,7 +178,7 @@
 
                 <TextView
                     android:id="@+id/textView3"
-                    style="@style/text.body"
+                    style="@style/text.caption"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/total_words"
@@ -221,7 +221,7 @@
 
                 <TextView
                     android:id="@+id/textView4"
-                    style="@style/text.body"
+                    style="@style/text.caption"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/learned"
@@ -263,7 +263,7 @@
 
                 <TextView
                     android:id="@+id/textView5"
-                    style="@style/text.body"
+                    style="@style/text.caption"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/unknown"
@@ -279,11 +279,12 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="-16dp"
         android:id="@+id/rv_selected_dictionaries_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:clipToPadding="false"
-        android:paddingHorizontal="16dp"
+        android:padding="16dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constrainedHeight="true"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -337,7 +338,7 @@
         android:layout_height="wrap_content"
 
         android:layout_marginBottom="16dp"
-        android:text="@string/learn_title"
+        android:text="@string/learn"
         app:icon="@drawable/ic_travel_explore_24"
         app:iconGravity="end"
         app:layout_constraintBottom_toBottomOf="parent"

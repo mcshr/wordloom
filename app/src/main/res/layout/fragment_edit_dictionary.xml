@@ -50,7 +50,7 @@
     <TextView
         android:layout_marginTop="24dp"
         android:layout_marginStart="12dp"
-        style="@style/text.title.medium"
+        style="@style/text.title.small"
         android:id="@+id/textView15"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

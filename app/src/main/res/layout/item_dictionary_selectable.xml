@@ -17,7 +17,7 @@
         >
 
         <TextView
-            style="@style/text.list_item.bold"
+            style="@style/text.title.small"
             android:id="@+id/textView_dictionary_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
         <TextView
             android:id="@+id/textView_languages"
             android:layout_marginTop="2dp"
-            style="@style/text.body"
+            style="@style/text.caption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"

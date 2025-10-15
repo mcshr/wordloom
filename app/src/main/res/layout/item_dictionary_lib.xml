@@ -19,7 +19,7 @@
 
         <TextView
             android:id="@+id/tv_language"
-            style="@style/text.body"
+            style="@style/text.caption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
@@ -48,13 +48,13 @@
 
             <TextView
                 android:id="@+id/tv_total_count"
-                style="@style/text.title.medium_number"
+                style="@style/text.title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="51234" />
 
             <TextView
-                style="@style/text.body"
+                style="@style/text.caption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/total" />
@@ -75,7 +75,7 @@
 
             <TextView
                 android:id="@+id/tv_learning_count"
-                style="@style/text.title.medium_number.learning"
+                style="@style/text.title.learning"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="4123" />
@@ -99,7 +99,7 @@
 
             <TextView
                 android:id="@+id/tv_learned_count"
-                style="@style/text.title.medium_number.learned"
+                style="@style/text.title.learned"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="312" />

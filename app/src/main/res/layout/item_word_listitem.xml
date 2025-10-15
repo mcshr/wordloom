@@ -27,7 +27,7 @@
 
         <TextView
             android:id="@+id/tv_word_status"
-            style="@style/text.body"
+            style="@style/text.caption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
@@ -38,7 +38,7 @@
 
         <TextView
             android:id="@+id/tv_word_text"
-            style="@style/text.list_item.bold"
+            style="@style/text.title.small"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
@@ -49,7 +49,7 @@
 
         <TextView
             android:id="@+id/tv_meaning_list"
-            style="@style/text.list_item"
+            style="@style/text.body.medium"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"

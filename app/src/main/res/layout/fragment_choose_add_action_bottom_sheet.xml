@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/background_hat_bottom_sheet"
     android:padding="16dp"
     tools:context=".presentation.libraryScreen.chooseAddAction.ChooseAddActionBottomSheetFragment">
 
     <TextView
         android:id="@+id/textView18"
-        style="@style/text.title.large"
+        style="@style/text.title.medium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/add_something"
@@ -20,26 +21,25 @@
 
     <Button
         android:id="@+id/btn_close_sheet_add"
-        android:contentDescription="@string/close_bottom_sheet"
         style="@style/WordloomIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/close_bottom_sheet"
         app:icon="@drawable/ic_close_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        app:layout_constraintHorizontal_chainStyle="packed"
-        android:layout_marginTop="16dp"
-        android:layout_marginHorizontal="10dp"
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_word_add"
-        style="@style/WordloomIcon.Big"
-
+        style="@style/WordloomIconBig"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="18dp"
         app:icon="@drawable/ic_word_add_24"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/btn_dictionary_add"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
     <TextView
@@ -51,16 +51,17 @@
         app:layout_constraintTop_toBottomOf="@+id/btn_word_add" />
 
     <Button
-        android:layout_marginHorizontal="10dp"
         android:id="@+id/btn_dictionary_add"
-        style="@style/WordloomIcon.Big"
+        style="@style/WordloomIconBig"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
         app:icon="@drawable/ic_dictionary_add_24"
         app:layout_constraintBottom_toBottomOf="@+id/btn_word_add"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btn_word_add"
         app:layout_constraintTop_toTopOf="@+id/btn_word_add" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

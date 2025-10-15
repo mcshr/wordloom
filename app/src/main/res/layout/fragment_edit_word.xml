@@ -129,7 +129,7 @@
 
             <TextView
                 android:id="@+id/textView"
-                style="@style/text.title.medium"
+                style="@style/text.title.small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
@@ -151,7 +151,7 @@
 
             <TextView
                 android:id="@+id/tvUsageExample"
-                style="@style/text.title.medium"
+                style="@style/text.title.small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
@@ -163,7 +163,7 @@
                 android:id="@+id/rv_usage_example_list"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:paddingTop="16dp"
                 android:nestedScrollingEnabled="false"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="@+id/endGuideline"

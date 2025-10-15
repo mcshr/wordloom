@@ -12,7 +12,7 @@
 
     <TextView
         android:id="@+id/tvPartOfSpeech"
-        style="@style/text.list_item.bold"
+        style="@style/text.title.small"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
