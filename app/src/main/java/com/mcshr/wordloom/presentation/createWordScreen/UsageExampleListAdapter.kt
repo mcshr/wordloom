@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.mcshr.wordloom.R
-import com.mcshr.wordloom.databinding.ItemUsageExampleBinding
+import com.mcshr.wordloom.databinding.ItemUsageExampleEditableBinding
 import com.mcshr.wordloom.presentation.utils.uiModels.UsageExampleUiModel
 
 class UsageExampleListAdapter(
@@ -20,7 +20,7 @@ class UsageExampleListAdapter(
         parent: ViewGroup,
         viewType: Int
     ): UsageExampleViewHolder {
-        val binding = ItemUsageExampleBinding.inflate(
+        val binding = ItemUsageExampleEditableBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
@@ -58,7 +58,7 @@ class UsageExampleListAdapter(
 
 }
 
-class UsageExampleViewHolder(val binding: ItemUsageExampleBinding) :
+class UsageExampleViewHolder(val binding: ItemUsageExampleEditableBinding) :
     RecyclerView.ViewHolder(binding.root)
 
 class UsageExampleDiffCallback() : DiffUtil.ItemCallback<UsageExampleUiModel>() {

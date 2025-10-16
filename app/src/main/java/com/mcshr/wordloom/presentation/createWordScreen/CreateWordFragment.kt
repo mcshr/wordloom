@@ -141,6 +141,7 @@ class CreateWordFragment : Fragment() {
         val wordText = binding.editTextWord.text.toString()
         val meaningsList = viewModel.meaningList.value.orEmpty()
         val dictionary = sharedViewModel.selectedDictionary.value
+        val pos = sharedViewModel.selectedPartOfSpeech.value?:return
         if (wordText.isEmpty()) {
             binding.editTextWord.error = getString(R.string.error_empty_field)
             return
@@ -161,7 +162,12 @@ class CreateWordFragment : Fragment() {
             ).show()
             return
         }
-        viewModel.createWordCardInDictionary(wordText, meaningsList, dictionary)
+        viewModel.createWordCardInDictionary(
+            wordText,
+            meaningsList,
+            dictionary,
+            pos
+        )
     }
 
 

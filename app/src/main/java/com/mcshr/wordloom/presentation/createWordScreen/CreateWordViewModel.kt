@@ -94,13 +94,14 @@ class CreateWordViewModel @Inject constructor(
     fun createWordCardInDictionary(
         wordText: String,
         wordMeaningList: List<String>,
-        dict: Dictionary
+        dict: Dictionary,
+        pos: PartOfSpeech
     ) {
         viewModelScope.launch {
             val result = createWordCardUseCase(
                 word = wordText,
                 translations = wordMeaningList,
-                partOfSpeech = PartOfSpeech.EMPTY,
+                partOfSpeech =pos,
                 imagePath = null,
                 languageOriginal = dict.languageOriginal,
                 languageTranslation = dict.languageTranslation,
