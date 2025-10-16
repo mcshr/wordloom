@@ -101,6 +101,10 @@ class WordCardRepositoryImpl @Inject constructor(
         return null
     }
 
+    override suspend fun getWordCardById(wordCardId: Long): WordCard {
+        return dao.getWordCardByCardId(wordCardId).toDomainEntity()
+    }
+
     override suspend fun saveWordCardToDictionary(dictionaryId: Long, wordCardId: Long) {
         dao.addCardToDictionary(
             DictionaryCardDbModel(
