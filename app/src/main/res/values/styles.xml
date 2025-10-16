@@ -66,6 +66,19 @@
     </style>
 
 
+    <style name="text.partOfSpeech">
+        <item name="android:textSize">12sp</item>
+        <item name="android:background">@drawable/bg_part_of_speech</item>
+        <item name="android:textColor">@color/text60</item>
+    </style>
+
+    <style name="text.status">
+        <item name="android:textSize">12sp</item>
+        <item name="android:background">@drawable/bg_word_status</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="fontFamily">@font/roboto_medium</item>
+    </style>
+
 <!--BOTTOM NAVIGATION -->
 
     <style name="WordloomBottomNavigationView" parent="Widget.Material3.BottomNavigationView">

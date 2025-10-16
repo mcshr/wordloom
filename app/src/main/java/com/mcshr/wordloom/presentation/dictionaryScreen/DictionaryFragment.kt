@@ -20,12 +20,20 @@ class DictionaryFragment : Fragment() {
 
     private val viewModel by viewModels<DictionaryViewModel>()
 
-    private val wordListAdapter = WordListAdapter { wordCard ->
-        WordMenuDialogFragment.newInstance(wordCard).show(
-            childFragmentManager,
-            "wordCardMenu"
-        )
-    }
+    private val wordListAdapter = WordListAdapter(
+        { wordCard ->
+            WordMenuDialogFragment.newInstance(wordCard).show(
+                childFragmentManager,
+                "wordCardMenu"
+            )
+        },
+        { wordCardId ->
+            val action = DictionaryFragmentDirections.actionDictionaryFragmentToWordCardFragment(
+                wordCardId
+            )
+            findNavController().navigate(action)
+        }
+    )
 
 
     override fun onCreateView(
@@ -41,7 +49,7 @@ class DictionaryFragment : Fragment() {
         setupToolbar()
         setupWordListAdapter()
 
-        binding.btnAddNewWord.setDebounceOnClickListener{
+        binding.btnAddNewWord.setDebounceOnClickListener {
             viewModel.selectDictionaryToAddWord()
             val action = DictionaryFragmentDirections
                 .actionDictionaryFragmentToEditWordFragment()

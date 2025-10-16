@@ -75,8 +75,9 @@
     <string name="part_of_speech">Part of speech</string>
     <string name="add_example">Add example</string>
     <string name="usage_examples">Usage examples</string>
-    <string name="usage_example_title">Example №%1$d</string>
+    <string name="usage_example_title">Example %1$d</string>
     <string name="hint_example_translation">Example translation...</string>
     <string name="hint_example_text">Example text...</string>
     <string name="learn">Learn</string>
+    <string name="translations">Translations</string>
 </resources>

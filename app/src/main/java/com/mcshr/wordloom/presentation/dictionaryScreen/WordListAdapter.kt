@@ -11,7 +11,8 @@ import com.mcshr.wordloom.presentation.utils.getText
 import com.mcshr.wordloom.presentation.utils.setDebounceOnClickListener
 
 class WordListAdapter(
-    private val onMenuClick: (WordCard) -> Unit
+    private val onMenuClick: (WordCard) -> Unit,
+    private val onItemClick: (Long) -> Unit
 ) : ListAdapter<WordCard, WordViewHolder>(WordDiffCallback()) {
     override fun onBindViewHolder(holder: WordViewHolder, position: Int) {
         val wordCard = getItem(position)
@@ -27,6 +28,9 @@ class WordListAdapter(
 
             btnMore.setDebounceOnClickListener {
                 onMenuClick(wordCard)
+            }
+            root.setOnClickListener {
+                onItemClick(wordCard.id)
             }
         }
 
