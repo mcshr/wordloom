@@ -10,7 +10,7 @@ interface WordCardRepository {
     suspend fun getWordCardIfTranslationsExists(wordCard: WordCard): WordCard?
     suspend fun getWordCardById(wordCardId: Long): WordCard
     suspend fun saveWordCardToDictionary(dictionaryId: Long, wordCardId: Long)
-    suspend fun editWordCard(wordCard: WordCard)
+    suspend fun editWordCard(newWordCard: WordCard)
     suspend fun editWordCardList(list: List<WordCard>)
     suspend fun removeWordCardFromDictionary(wordCardId: Long, dictionaryId: Long)
     suspend fun getDictionaryCountForWordCard(wordCardId: Long):Int

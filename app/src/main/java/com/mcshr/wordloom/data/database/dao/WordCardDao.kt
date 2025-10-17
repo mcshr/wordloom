@@ -202,6 +202,9 @@ interface WordCardDao {
     suspend fun deleteCard(cardDbModel: CardDbModel)
 
     @Delete
+    suspend fun deleteCardTranslation(cardTranslationDbModel: CardTranslationDbModel)
+
+    @Delete
     suspend fun deleteTranslation(translation: TranslationDbModel)
 
     @Query(
@@ -221,4 +224,8 @@ interface WordCardDao {
                 "AND NOT EXISTS (SELECT 1 FROM translation t WHERE t.word_id_translation = word.id) "
     )
     suspend fun deleteUnusedWords()
+
+
+    @Delete
+    suspend fun deleteUsageExample(usageExample: UsageExampleDbModel)
 }

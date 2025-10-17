@@ -8,6 +8,7 @@ import com.mcshr.wordloom.data.entities.CardTranslationDbModel
 import com.mcshr.wordloom.data.entities.DictionaryCardDbModel
 import com.mcshr.wordloom.data.entities.TranslationDbModel
 import com.mcshr.wordloom.data.entities.UsageExampleDbModel
+import com.mcshr.wordloom.data.entities.WordDbModel
 import com.mcshr.wordloom.data.mappers.toCardDBModel
 import com.mcshr.wordloom.data.mappers.toDomainEntity
 import com.mcshr.wordloom.data.mappers.toTranslationsList
@@ -60,7 +61,7 @@ class WordCardRepositoryImpl @Inject constructor(
                         )
                     )
                 }
-                for (example in wordCard.usageExamples){
+                for (example in wordCard.usageExamples) {
                     dao.createUsageExample(
                         UsageExampleDbModel(
                             id = 0,
@@ -114,9 +115,108 @@ class WordCardRepositoryImpl @Inject constructor(
         )
     }
 
-    override suspend fun editWordCard(wordCard: WordCard) {
-        dao.editCard(wordCard.toCardDBModel())
-        //TODO("Not yet implemented")
+    override suspend fun editWordCard(newWordCard: WordCard) {
+        database.withTransaction {
+
+            dao.editCard(newWordCard.toCardDBModel())
+
+            val translationsLanguageId = newWordCard.languageTranslation.id
+            val oldWordCardRelation = dao.getWordCardByCardId(newWordCard.id)
+            val oldWordCard = oldWordCardRelation.toDomainEntity()
+
+            var wordId: Long
+            var newTranslations: List<String>
+
+            if (oldWordCardRelation.translations.first().wordOriginal.word.wordText == newWordCard.wordText) {
+                wordId = oldWordCardRelation.translations.first().wordOriginal.word.id
+                newTranslations = newWordCard.wordTranslations - oldWordCard.wordTranslations
+                val translationsToDelete = oldWordCard.wordTranslations - newWordCard.wordTranslations
+
+                oldWordCardRelation.translations.forEach { translationRelation ->
+                    if (translationRelation.wordTranslation.word.wordText in translationsToDelete) {
+                        dao.deleteCardTranslation(
+                            CardTranslationDbModel(
+                                newWordCard.id,
+                                translationRelation.translationDbModel.id
+                            )
+                        )
+                    }
+                }
+            } else {
+                val word = newWordCard.toWordDBModel()
+                wordId = dao.getWordId(
+                    word.wordText,
+                    word.languageId,
+                    word.partOfSpeechCode
+                ) ?: dao.createWord(word)
+
+                newTranslations = newWordCard.wordTranslations
+
+                oldWordCardRelation.translations.forEach {
+                    dao.deleteCardTranslation(
+                        CardTranslationDbModel(
+                            newWordCard.id,
+                            it.translationDbModel.id
+                        )
+                    )
+                }
+            }
+
+            newTranslations.forEach { translationText ->
+                val translationWord = WordDbModel(
+                    0,
+                    translationText,
+                    translationsLanguageId,
+                    newWordCard.partOfSpeech.code
+                )
+                val translationId = dao.getWordId(
+                    translationWord.wordText,
+                    translationWord.languageId,
+                    translationWord.partOfSpeechCode
+                ) ?: dao.createWord(translationWord)
+
+                val translation = dao.createTranslation(
+                    TranslationDbModel(
+                        id = 0,
+                        wordIdOriginal = wordId,
+                        wordIdTranslation = translationId
+                    )
+                )
+                dao.createCardTranslation(
+                    CardTranslationDbModel(
+                        cardId = newWordCard.id,
+                        translationId = translation
+                    )
+                )
+            }
+
+            dao.deleteUnusedTranslations()
+            dao.deleteUnusedWords()
+
+            val newExamples = newWordCard.usageExamples - oldWordCard.usageExamples
+            val examplesToDelete =  oldWordCard.usageExamples - newWordCard.usageExamples
+
+            newExamples.forEach {
+                dao.createUsageExample(
+                    UsageExampleDbModel(
+                        id = 0,
+                        cardId = newWordCard.id,
+                        exampleText = it.text,
+                        exampleTextTranslation = it.translation,
+                    )
+                )
+            }
+            oldWordCardRelation.usageExamples.filter { usageExampleDbModel ->
+                (usageExampleDbModel.exampleText in examplesToDelete.map {
+                    it.text
+                }) && (usageExampleDbModel.exampleTextTranslation in examplesToDelete.map {
+                    it.translation
+                })
+            }.forEach {
+                dao.deleteUsageExample(it)
+            }
+
+        }
     }
 
     override suspend fun editWordCardList(list: List<WordCard>) {
