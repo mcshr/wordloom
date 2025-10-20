@@ -169,17 +169,18 @@ class WordCardRepositoryImpl @Inject constructor(
                     translationsLanguageId,
                     newWordCard.partOfSpeech.code
                 )
-                val translationId = dao.getWordId(
+                val translationWordId = dao.getWordId(
                     translationWord.wordText,
                     translationWord.languageId,
                     translationWord.partOfSpeechCode
                 ) ?: dao.createWord(translationWord)
 
+
                 val translation = dao.createTranslation(
                     TranslationDbModel(
                         id = 0,
                         wordIdOriginal = wordId,
-                        wordIdTranslation = translationId
+                        wordIdTranslation = translationWordId
                     )
                 )
                 dao.createCardTranslation(
@@ -189,7 +190,6 @@ class WordCardRepositoryImpl @Inject constructor(
                     )
                 )
             }
-
             dao.deleteUnusedTranslations()
             dao.deleteUnusedWords()
 
@@ -207,11 +207,8 @@ class WordCardRepositoryImpl @Inject constructor(
                 )
             }
             oldWordCardRelation.usageExamples.filter { usageExampleDbModel ->
-                (usageExampleDbModel.exampleText in examplesToDelete.map {
-                    it.text
-                }) && (usageExampleDbModel.exampleTextTranslation in examplesToDelete.map {
-                    it.translation
-                })
+                (usageExampleDbModel.exampleText to usageExampleDbModel.exampleTextTranslation) in
+                        examplesToDelete.map { it.text to it.translation }
             }.forEach {
                 dao.deleteUsageExample(it)
             }
@@ -219,7 +216,11 @@ class WordCardRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun editWordCardList(list: List<WordCard>) {
+    override suspend fun updateInfoWordCard(wordCard: WordCard) {
+        dao.editCard(wordCard.toCardDBModel())
+    }
+
+    override suspend fun updateInfoWordCardList(list: List<WordCard>) {
         dao.editCardsList(
             list.map { wordCard ->
                 wordCard.toCardDBModel()

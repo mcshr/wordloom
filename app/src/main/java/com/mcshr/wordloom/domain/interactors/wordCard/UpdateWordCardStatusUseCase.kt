@@ -5,7 +5,7 @@ import com.mcshr.wordloom.domain.entities.WordStatus
 import javax.inject.Inject
 
 class UpdateWordCardStatusUseCase @Inject constructor(
-    private val editWordCardUseCase: EditWordCardUseCase
+    private val updateWordCardInfoUseCase: UpdateWordCardInfoUseCase
 ) {
     suspend operator fun invoke( wordCard: WordCard, isPositiveAction: Boolean): Boolean {
         var newWordStatus = wordCard.status
@@ -41,7 +41,7 @@ class UpdateWordCardStatusUseCase @Inject constructor(
             }
         }
         val newReviewTime = CalculateNextReviewTimeUseCase()(newReviewCount)
-        editWordCardUseCase(
+        updateWordCardInfoUseCase(
             wordCard.copy(
                 status = newWordStatus,
                 reviewCount = newReviewCount,

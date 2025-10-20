@@ -16,7 +16,7 @@ class AutoAddCardToLearnUseCase @Inject constructor(
             .map{it.copy(status = WordStatus.READY_TO_LEARN)}
 
 
-        wordCardRepository.editWordCardList(cardsToUpdate)
+        wordCardRepository.updateInfoWordCardList(cardsToUpdate)
 
     }
 }

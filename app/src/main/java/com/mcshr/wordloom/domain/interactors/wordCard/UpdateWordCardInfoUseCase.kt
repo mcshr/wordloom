@@ -4,10 +4,10 @@ import com.mcshr.wordloom.domain.entities.WordCard
 import com.mcshr.wordloom.domain.repository.WordCardRepository
 import javax.inject.Inject
 
-class EditWordCardUseCase @Inject constructor(
+class UpdateWordCardInfoUseCase @Inject constructor(
     private val repository: WordCardRepository
 ) {
     suspend operator fun invoke(wordCard: WordCard) {
-        repository.editWordCard(wordCard)
+        repository.updateInfoWordCard(wordCard)
     }
 }

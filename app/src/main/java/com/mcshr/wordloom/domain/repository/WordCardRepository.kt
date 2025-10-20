@@ -11,7 +11,8 @@ interface WordCardRepository {
     suspend fun getWordCardById(wordCardId: Long): WordCard
     suspend fun saveWordCardToDictionary(dictionaryId: Long, wordCardId: Long)
     suspend fun editWordCard(newWordCard: WordCard)
-    suspend fun editWordCardList(list: List<WordCard>)
+    suspend fun updateInfoWordCard(wordCard: WordCard)
+    suspend fun updateInfoWordCardList(list: List<WordCard>)
     suspend fun removeWordCardFromDictionary(wordCardId: Long, dictionaryId: Long)
     suspend fun getDictionaryCountForWordCard(wordCardId: Long):Int
     suspend fun deleteWordCard(wordCard:WordCard)
