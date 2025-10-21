@@ -63,12 +63,13 @@ class CreateWordFragment : Fragment() {
             usageExampleAdapter.submitList(it)
         }
 
+
         super.onViewCreated(view, savedInstanceState)
     }
 
     private fun observeSharedViewModel() {
         sharedViewModel.selectedDictionary.observe(viewLifecycleOwner) {
-            binding.toolbar.title = it.name
+            if (viewModel.isCreationMode) binding.toolbar.title = it.name
             binding.textInputLayout4.hint = it.languageOriginal.name
             binding.textInputLayout6.hint = it.languageTranslation.name
         }
@@ -82,7 +83,7 @@ class CreateWordFragment : Fragment() {
             val meaning = binding.editTextMeaning.text.toString()
             if (meaning.isEmpty()) {
                 binding.editTextMeaning.error = getString(R.string.error_empty_field)
-            } else if (!viewModel.addMeaning(meaning))
+            } else if (!viewModel.addTranslation(meaning))
                 binding.editTextMeaning.error = getString(R.string.error_already_exists_meaning)
             else {
                 binding.editTextMeaning.editableText.clear()
@@ -94,8 +95,12 @@ class CreateWordFragment : Fragment() {
     }
 
     private fun observeViewModel() {
-        viewModel.meaningList.observe(viewLifecycleOwner) {
+        viewModel.translationList.observe(viewLifecycleOwner) {
             meaningAdapter.submitList(it)
+        }
+        viewModel.oldWordCard.observe(viewLifecycleOwner){
+            binding.editTextWord.setText(it.wordText)
+            sharedViewModel.selectPartOfSpeech(it.partOfSpeech)
         }
         viewModel.saveAndClose.observe(viewLifecycleOwner) {
             if (it) {
@@ -112,9 +117,9 @@ class CreateWordFragment : Fragment() {
 
     private fun setupAdapters() {
         binding.rvMeaningList.adapter = meaningAdapter
-        meaningAdapter.deleteMeaning = { meaning -> viewModel.deleteMeaning(meaning) }
+        meaningAdapter.deleteMeaning = { meaning -> viewModel.deleteTranslation(meaning) }
         meaningAdapter.updateMeaning = { meaning ->
-            binding.editTextMeaning.setText(viewModel.deleteMeaning(meaning))
+            binding.editTextMeaning.setText(viewModel.deleteTranslation(meaning))
         }
     }
 
@@ -122,9 +127,14 @@ class CreateWordFragment : Fragment() {
         binding.toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
-        binding.toolbar.setOnClickListener {
-            SelectDictionaryBottomSheet().show(childFragmentManager, "SelectDictionaryTag")
+        if (viewModel.isCreationMode){
+            binding.toolbar.setOnClickListener {
+                SelectDictionaryBottomSheet().show(childFragmentManager, "SelectDictionaryTag")
+            }
+        } else {
+            binding.toolbar.subtitle = null
         }
+
         binding.toolbar.setOnMenuItemClickListener { option ->
             when (option.itemId) {
                 R.id.menu_item_save -> {
@@ -139,7 +149,7 @@ class CreateWordFragment : Fragment() {
 
     private fun saveWordToDictionary() {
         val wordText = binding.editTextWord.text.toString()
-        val meaningsList = viewModel.meaningList.value.orEmpty()
+        val meaningsList = viewModel.translationList.value.orEmpty()
         val dictionary = sharedViewModel.selectedDictionary.value
         val pos = sharedViewModel.selectedPartOfSpeech.value?:return
         if (wordText.isEmpty()) {
@@ -162,7 +172,7 @@ class CreateWordFragment : Fragment() {
             ).show()
             return
         }
-        viewModel.createWordCardInDictionary(
+        viewModel.saveWordCard(
             wordText,
             meaningsList,
             dictionary,

@@ -9,7 +9,7 @@ import com.mcshr.wordloom.domain.repository.WordCardRepository
 import com.mcshr.wordloom.domain.wrappers.DataOperationState
 import com.mcshr.wordloom.domain.wrappers.DataOperationState.Failure
 import com.mcshr.wordloom.domain.wrappers.DataOperationState.Success
-import com.mcshr.wordloom.domain.wrappers.errors.WordCardCreationFailure
+import com.mcshr.wordloom.domain.wrappers.errors.WordCardOperationFailure
 import javax.inject.Inject
 
 class CreateWordCardUseCase @Inject constructor(
@@ -23,7 +23,7 @@ class CreateWordCardUseCase @Inject constructor(
         languageTranslation: Language,
         usageExamples:List<UsageExample> = emptyList(),
         imagePath: String? = null,
-    ): DataOperationState<Long, WordCardCreationFailure> {
+    ): DataOperationState<Long, WordCardOperationFailure> {
         val wordCard = WordCard(
             id = 0,
             wordText = word.trim().lowercase(),
@@ -40,7 +40,7 @@ class CreateWordCardUseCase @Inject constructor(
 
         repository.getWordCardIfTranslationsExists(wordCard)?.let {
             return Failure(
-                WordCardCreationFailure.DuplicateTranslation(it)
+                WordCardOperationFailure.DuplicateTranslation(it)
             )
         }
         val result = repository.createWordCard(wordCard)
@@ -48,7 +48,7 @@ class CreateWordCardUseCase @Inject constructor(
         return if (result!=null){
             Success(result)
         } else {
-            Failure(WordCardCreationFailure.Unknown)
+            Failure(WordCardOperationFailure.Unknown)
         }
     }
 }

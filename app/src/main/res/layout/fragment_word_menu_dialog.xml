@@ -28,7 +28,14 @@
             android:src="@drawable/ic_close_24"/>
     </LinearLayout>
 
-
+    <Button
+        android:layout_marginTop="8dp"
+        android:id="@+id/btn_edit"
+        style="@style/WordloomTextButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:text="@string/edit" />
 
     <Button
         android:layout_marginTop="8dp"

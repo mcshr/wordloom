@@ -17,7 +17,7 @@ import javax.inject.Inject
 class SharedCreateWordViewModel @Inject constructor(
     private val getDictionaryByIdUseCase: GetDictionaryUseCase,
     private val getSelectedDictionaryForWordUseCase: GetSelectedDictionaryForWordUseCase,
-    private val saveSelectedDictionaryForWordUseCase: SaveSelectedDictionaryForWordUseCase
+    private val saveSelectedDictionaryForWordUseCase: SaveSelectedDictionaryForWordUseCase,
 ) : ViewModel() {
 
     private val _selectedDictionary = MutableLiveData<Dictionary>()
@@ -25,7 +25,7 @@ class SharedCreateWordViewModel @Inject constructor(
         get() = _selectedDictionary
 
     private val _selectedPartOfSpeech = MutableLiveData(PartOfSpeech.EMPTY)
-    val selectedPartOfSpeech:LiveData<PartOfSpeech>
+    val selectedPartOfSpeech: LiveData<PartOfSpeech>
         get() = _selectedPartOfSpeech
 
     init {
@@ -45,7 +45,7 @@ class SharedCreateWordViewModel @Inject constructor(
         saveSelectedDictionaryForWordUseCase(dict.id)
     }
 
-    fun selectPartOfSpeech(partOfSpeech: PartOfSpeech){
+    fun selectPartOfSpeech(partOfSpeech: PartOfSpeech) {
         _selectedPartOfSpeech.value = partOfSpeech
     }
 

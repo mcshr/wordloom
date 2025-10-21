@@ -123,12 +123,14 @@ class WordCardRepositoryImpl @Inject constructor(
             val translationsLanguageId = newWordCard.languageTranslation.id
             val oldWordCardRelation = dao.getWordCardByCardId(newWordCard.id)
             val oldWordCard = oldWordCardRelation.toDomainEntity()
-
+            val oldWord = oldWordCardRelation.translations.first().wordOriginal.word
             var wordId: Long
             var newTranslations: List<String>
 
-            if (oldWordCardRelation.translations.first().wordOriginal.word.wordText == newWordCard.wordText) {
-                wordId = oldWordCardRelation.translations.first().wordOriginal.word.id
+            if (oldWord.wordText == newWordCard.wordText
+                && oldWord.partOfSpeechCode == newWordCard.partOfSpeech.code
+                ) {
+                wordId = oldWord.id
                 newTranslations = newWordCard.wordTranslations - oldWordCard.wordTranslations
                 val translationsToDelete = oldWordCard.wordTranslations - newWordCard.wordTranslations
 

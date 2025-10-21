@@ -23,7 +23,7 @@
             app:menu="@menu/toolbar_save_menu"
             app:navigationIcon="@drawable/ic_back_24"
             app:subtitle="@string/selected_dictionary"
-            tools:title="Dictionary name!@" />
+            app:title="@string/edit_word" />
 
     </com.google.android.material.appbar.AppBarLayout>
 

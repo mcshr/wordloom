@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.mcshr.wordloom.R
 import com.mcshr.wordloom.databinding.FragmentWordMenuDialogBinding
 import com.mcshr.wordloom.domain.entities.WordCard
@@ -54,6 +55,16 @@ class WordMenuDialogFragment : DialogFragment() {
 
 
         binding.tvWord.text = wordCard?.wordText
+
+        binding.btnEdit.setOnClickListener {
+            wordCard?.let {
+                val action = DictionaryFragmentDirections.actionDictionaryFragmentToEditWordFragment(
+                    it.id
+                )
+                findNavController().navigate(action)
+            }
+            dismiss()
+        }
 
         binding.btnDelete.setOnClickListener {
             wordCard?.let {
