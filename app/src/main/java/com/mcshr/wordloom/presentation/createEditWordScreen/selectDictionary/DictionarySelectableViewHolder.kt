@@ -1,4 +1,4 @@
-package com.mcshr.wordloom.presentation.createWordScreen.selectDictionary
+package com.mcshr.wordloom.presentation.createEditWordScreen.selectDictionary
 
 import androidx.recyclerview.widget.RecyclerView
 import com.mcshr.wordloom.databinding.ItemDictionarySelectableBinding

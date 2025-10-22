@@ -11,7 +11,7 @@ import com.mcshr.wordloom.data.entities.UsageExampleDbModel
 import com.mcshr.wordloom.data.entities.WordDbModel
 import com.mcshr.wordloom.data.mappers.toCardDBModel
 import com.mcshr.wordloom.data.mappers.toDomainEntity
-import com.mcshr.wordloom.data.mappers.toTranslationsList
+import com.mcshr.wordloom.data.mappers.toTranslationWordsList
 import com.mcshr.wordloom.data.mappers.toWordCardListDomain
 import com.mcshr.wordloom.data.mappers.toWordDBModel
 import com.mcshr.wordloom.domain.entities.WordCard
@@ -39,13 +39,13 @@ class WordCardRepositoryImpl @Inject constructor(
                 val card = wordCard.toCardDBModel()
                 val cardId = dao.createCard(card)
 
-                val meaningList = wordCard.toTranslationsList()
-                for (meaning in meaningList) {
+                val translationWordList = wordCard.toTranslationWordsList()
+                for (translationWord in translationWordList) {
                     val translationId = dao.getWordId(
-                        meaning.wordText,
-                        meaning.languageId,
-                        meaning.partOfSpeechCode
-                    ) ?: dao.createWord(meaning)
+                        translationWord.wordText,
+                        translationWord.languageId,
+                        translationWord.partOfSpeechCode
+                    ) ?: dao.createWord(translationWord)
 
                     val translation = dao.createTranslation(
                         TranslationDbModel(
@@ -84,16 +84,16 @@ class WordCardRepositoryImpl @Inject constructor(
             word.partOfSpeechCode
         ) ?: return null
 
-        val translations = wordCard.toTranslationsList()
-        for (translation in translations) {
+        val translationWordList = wordCard.toTranslationWordsList()
+        for (translationWord in translationWordList) {
             dao.getWordId(
-                translation.wordText,
-                translation.languageId,
-                translation.partOfSpeechCode
-            )?.let { translationId ->
+                translationWord.wordText,
+                translationWord.languageId,
+                translationWord.partOfSpeechCode
+            )?.let { translationWordId ->
                 dao.getWordCardByTranslation(
                     wordId,
-                    translationId
+                    translationWordId
                 )?.let {
                     return it.toDomainEntity()
                 }

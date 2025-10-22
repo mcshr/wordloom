@@ -1,4 +1,4 @@
-package com.mcshr.wordloom.presentation.createWordScreen
+package com.mcshr.wordloom.presentation.createEditWordScreen
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

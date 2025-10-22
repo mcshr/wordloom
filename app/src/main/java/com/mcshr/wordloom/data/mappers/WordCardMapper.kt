@@ -51,7 +51,7 @@ fun WordCard.toCardDBModel(): CardDbModel {
     )
 }
 
-fun WordCard.toTranslationsList(): List<WordDbModel> {
+fun WordCard.toTranslationWordsList(): List<WordDbModel> {
     return wordTranslations.map {
         WordDbModel(
             id = 0,

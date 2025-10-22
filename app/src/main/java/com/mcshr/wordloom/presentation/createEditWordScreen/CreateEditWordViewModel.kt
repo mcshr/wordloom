@@ -1,4 +1,4 @@
-package com.mcshr.wordloom.presentation.createWordScreen
+package com.mcshr.wordloom.presentation.createEditWordScreen
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -22,7 +22,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CreateWordViewModel @Inject constructor(
+class CreateEditWordViewModel @Inject constructor(
     private val createWordCardUseCase: CreateWordCardUseCase,
     private val saveWordCardToDictionaryUseCase: SaveWordCardToDictionaryUseCase,
     private val getWordCardByIdUseCase: GetWordCardByIdUseCase,
@@ -38,27 +38,6 @@ class CreateWordViewModel @Inject constructor(
     val oldWordCard: LiveData<WordCard>
         get() = _oldWordCard
 
-    init {
-        if (!isCreationMode){
-            viewModelScope.launch {
-                val wordCard = getWordCardByIdUseCase(wordCardId)
-                _oldWordCard.value = wordCard
-                wordCard.wordTranslations.forEach {
-                    addTranslation(it)
-                }
-                wordCard.usageExamples.forEach {
-                    val currentList = _examplesList.value.orEmpty()
-                    _examplesList.value = currentList + UsageExampleUiModel(
-                        id = exampleIdCounter++,
-                        text = it.text,
-                        translation = it.translation.orEmpty(),
-                        position = currentList.size + 1
-                    )
-                }
-            }
-        }
-    }
-
     private val _translationList: MutableLiveData<List<String>> = MutableLiveData(emptyList())
     val translationList: LiveData<List<String>>
         get() = _translationList
@@ -73,6 +52,33 @@ class CreateWordViewModel @Inject constructor(
         get() = _saveAndClose
 
     private var exampleIdCounter = 0
+
+
+    init {
+        if (!isCreationMode){
+            setupFromOldWordCard()
+        }
+    }
+
+    private fun setupFromOldWordCard() {
+        viewModelScope.launch {
+            val wordCard = getWordCardByIdUseCase(wordCardId)
+            _oldWordCard.value = wordCard
+            wordCard.wordTranslations.forEach {
+                addTranslation(it)
+            }
+            wordCard.usageExamples.forEach {
+                val currentList = _examplesList.value.orEmpty()
+                _examplesList.value = currentList + UsageExampleUiModel(
+                    id = exampleIdCounter++,
+                    text = it.text,
+                    translation = it.translation.orEmpty(),
+                    position = currentList.size + 1
+                )
+            }
+        }
+    }
+
 
     fun addTranslation(translation: String): Boolean {
         if (_translationList.value?.contains(translation) == false) {
@@ -138,29 +144,7 @@ class CreateWordViewModel @Inject constructor(
             if (isCreationMode) {
                 createWordCardAndSaveToDict(wordText, wordTranslationList, pos, dict)
             } else {
-                val oldWordCard = oldWordCard.value?:return@launch
-                val newWordCard = oldWordCard.copy(
-                    wordText = wordText,
-                    wordTranslations = wordTranslationList,
-                    partOfSpeech = pos,
-                    usageExamples = getUsageExamplesFromLiveData()
-                )
-                Log.d("EDIT", oldWordCard.toString())
-                Log.d("EDIT", newWordCard.toString())
-                val result = editWordCardUseCase(
-                    oldWordCard,
-                    newWordCard
-                )
-                when (result) {
-                    is DataOperationState.Success -> {
-                        _saveAndClose.postValue(true)
-                    }
-
-                    is DataOperationState.Failure<WordCardOperationFailure> -> {
-                        handleError(result.errorData)
-                        _saveAndClose.postValue(false)
-                    }
-                }
+                editWordCard(wordText, wordTranslationList, pos)
             }
         }
     }
@@ -183,6 +167,37 @@ class CreateWordViewModel @Inject constructor(
         when (result) {
             is DataOperationState.Success<Long> -> {
                 saveWordCardToDictionaryUseCase(dict.id, result.data)
+                _saveAndClose.postValue(true)
+            }
+
+            is DataOperationState.Failure<WordCardOperationFailure> -> {
+                handleError(result.errorData)
+                _saveAndClose.postValue(false)
+            }
+        }
+    }
+
+
+    private suspend fun editWordCard(
+        wordText: String,
+        wordTranslationList: List<String>,
+        pos: PartOfSpeech
+    ) {
+        val oldWordCard = oldWordCard.value ?: return
+        val newWordCard = oldWordCard.copy(
+            wordText = wordText,
+            wordTranslations = wordTranslationList,
+            partOfSpeech = pos,
+            usageExamples = getUsageExamplesFromLiveData()
+        )
+        Log.d("EDIT", oldWordCard.toString())
+        Log.d("EDIT", newWordCard.toString())
+        val result = editWordCardUseCase(
+            oldWordCard,
+            newWordCard
+        )
+        when (result) {
+            is DataOperationState.Success -> {
                 _saveAndClose.postValue(true)
             }
 

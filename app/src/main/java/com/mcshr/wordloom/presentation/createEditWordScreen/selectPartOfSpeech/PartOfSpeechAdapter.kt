@@ -1,4 +1,4 @@
-package com.mcshr.wordloom.presentation.createWordScreen.selectPartOfSpeech
+package com.mcshr.wordloom.presentation.createEditWordScreen.selectPartOfSpeech
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

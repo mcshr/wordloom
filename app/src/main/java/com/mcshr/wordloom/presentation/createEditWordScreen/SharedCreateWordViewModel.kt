@@ -1,4 +1,4 @@
-package com.mcshr.wordloom.presentation.createWordScreen
+package com.mcshr.wordloom.presentation.createEditWordScreen
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

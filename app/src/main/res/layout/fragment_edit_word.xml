@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context=".presentation.createWordScreen.CreateWordFragment">
+    tools:context=".presentation.createEditWordScreen.CreateEditWordFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout2"
@@ -115,7 +115,7 @@
                 app:layout_constraintTop_toTopOf="@+id/textInputLayout6" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_meaning_list"
+                android:id="@+id/rv_translation_list"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
@@ -125,7 +125,7 @@
                 app:layout_constraintStart_toStartOf="@+id/startGuideline"
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayout6"
                 tools:itemCount="3"
-                tools:listitem="@layout/item_edit_word_meaning" />
+                tools:listitem="@layout/item_edit_word_translation" />
 
             <TextView
                 android:id="@+id/textView"
@@ -135,7 +135,7 @@
                 android:layout_marginTop="24dp"
                 android:text="@string/part_of_speech"
                 app:layout_constraintStart_toStartOf="@id/startGuideline"
-                app:layout_constraintTop_toBottomOf="@id/rv_meaning_list" />
+                app:layout_constraintTop_toBottomOf="@id/rv_translation_list" />
 
             <Button
                 android:id="@+id/btnPartOfSpeech"

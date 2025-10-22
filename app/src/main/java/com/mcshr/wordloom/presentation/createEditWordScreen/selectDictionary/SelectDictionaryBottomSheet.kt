@@ -1,4 +1,4 @@
-package com.mcshr.wordloom.presentation.createWordScreen.selectPartOfSpeech
+package com.mcshr.wordloom.presentation.createEditWordScreen.selectDictionary
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,23 +8,21 @@ import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.mcshr.wordloom.R
 import com.mcshr.wordloom.databinding.FragmentSelectItemBottomSheetBinding
-import com.mcshr.wordloom.domain.entities.PartOfSpeech
-import com.mcshr.wordloom.presentation.createWordScreen.SharedCreateWordViewModel
+import com.mcshr.wordloom.presentation.createEditWordScreen.SharedCreateWordViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SelectPartOfSpeechBottomSheet : BottomSheetDialogFragment() {
+class SelectDictionaryBottomSheet : BottomSheetDialogFragment() {
+
     private var _binding: FragmentSelectItemBottomSheetBinding? = null
     private val binding
         get() = _binding
-            ?: throw RuntimeException("CreateWord.FragmentSelectPOSBottomSheet Binding is null")
+            ?: throw RuntimeException("CreateWord.FragmentSelectDictionaryBottomSheet Binding is null")
 
-    private val sharedViewModel: SharedCreateWordViewModel by viewModels({ requireParentFragment() })
+    private val viewModel by viewModels<SelectDictionaryViewModel>()
+    private val sharedViewModel: SharedCreateWordViewModel by viewModels({requireParentFragment()})
 
-    private val rvAdapter = PartOfSpeechAdapter { pos ->
-        sharedViewModel.selectPartOfSpeech(pos)
-        dismiss()
-    }
+    private val rvAdapter = DictionarySelectableListAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -41,15 +39,22 @@ class SelectPartOfSpeechBottomSheet : BottomSheetDialogFragment() {
         binding.btnCloseSheet.setOnClickListener {
             dismiss()
         }
-        binding.tvTitle.text = getString(R.string.select_part_of_speech)
+        binding.tvTitle.text = getString(R.string.select_dictionary)
 
-        sharedViewModel.selectedPartOfSpeech.observe(viewLifecycleOwner) {
-            rvAdapter.selectItem(it)
+
+        viewModel.allDictionaries.observe(viewLifecycleOwner) {
+            rvAdapter.submitList(it)
         }
-        rvAdapter.submitList(PartOfSpeech.entries)
+
+        sharedViewModel.selectedDictionary.observe(viewLifecycleOwner) {
+            rvAdapter.selectDictionary(it.id)
+        }
 
         binding.rvList.adapter = rvAdapter
-
+        rvAdapter.onSelectDictionary = { dictionary ->
+            sharedViewModel.selectDictionary(dictionary)
+            dismiss()
+        }
 
         super.onViewCreated(view, savedInstanceState)
     }
@@ -58,4 +63,5 @@ class SelectPartOfSpeechBottomSheet : BottomSheetDialogFragment() {
         _binding = null
         super.onDestroyView()
     }
+
 }
