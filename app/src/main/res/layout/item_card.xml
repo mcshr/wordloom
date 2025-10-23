@@ -14,17 +14,43 @@
         android:id="@+id/front_side"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/card_with_border">
-
+        android:background="@drawable/card_with_border"
+        android:padding="24dp"
+        android:visibility="visible"
+        >
         <TextView
-            android:id="@+id/tv_word_text"
+            style="@style/text.caption"
+            android:id="@+id/tvLanguageWord"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="English" />
+
+        <TextView
+            style="@style/text.card"
+            android:id="@+id/tv_word_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@id/tvPartOfSpeech"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Some word or words" />
+
+        <TextView
+            android:layout_marginTop="16dp"
+            android:id="@+id/tvPartOfSpeech"
+            style="@style/text.partOfSpeech"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="1231" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_word_text"
+            tools:text="noun" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -34,17 +60,82 @@
         android:layout_height="match_parent"
         android:background="@drawable/card_with_border"
         android:visibility="invisible"
+        android:padding="24dp"
         >
 
         <TextView
-            android:id="@+id/tv_word_translation"
+            style="@style/text.caption"
+            android:id="@+id/tvLanguageTranslation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Russian" />
+
+        <TextView
+            style="@style/text.body"
+            android:id="@+id/tvWordStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Unknown" />
+
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/tvTitleTranslation"
+            style="@style/text.caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="@string/translations"
+            app:layout_constraintBottom_toTopOf="@+id/tv_word_translation"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/tv_word_translation"
+            style="@style/text.body"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/materialDivider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Перевод, одного, или, нескольких, слов, или, фраз, Перевод, одного, или, нескольких, слов, или, фраз," />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/materialDivider"
+            android:layout_width="370dp"
+            android:layout_height="2dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="1231" />
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvTitleUsageExample"
+            style="@style/text.caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/usage_examples"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/materialDivider" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvExamples"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:paddingVertical="4dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitleUsageExample"
+            tools:itemCount="3"
+            tools:listitem="@layout/item_usage_example_small" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
