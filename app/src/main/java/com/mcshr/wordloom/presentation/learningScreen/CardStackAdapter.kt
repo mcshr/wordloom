@@ -58,7 +58,7 @@ class CardStackAdapter() : RecyclerView.Adapter<CardViewHolder>() {
             }
             adapter.submitList(wordCard.usageExamples)
             rvExamples.adapter = adapter
-            tvWordStatus.text = wordCard.status.getText()
+            tvWordStatus.text = wordCard.status.getText(context)
             tvWordStatus.setTextColor(
                 wordCard.status.getColor(context)
             )

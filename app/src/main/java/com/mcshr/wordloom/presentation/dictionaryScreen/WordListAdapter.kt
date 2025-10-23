@@ -22,7 +22,7 @@ class WordListAdapter(
             tvMeaningList.text = wordCard.wordTranslations.joinToString(", ") {
                 it
             }
-            tvWordStatus.text = wordCard.status.getText()
+            tvWordStatus.text = wordCard.status.getText(holder.binding.root.context)
             tvWordStatus.setTextColor(statusColor)
             statusIndicatorLong.backgroundTintList = ColorStateList.valueOf(statusColor)
 

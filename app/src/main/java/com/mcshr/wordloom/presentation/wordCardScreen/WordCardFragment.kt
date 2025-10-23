@@ -58,7 +58,7 @@ class WordCardFragment : Fragment() {
             binding.tvWordStatus.backgroundTintList =  ColorStateList.valueOf(
                 binding.tvWordStatus.context.getColor(it.status.getColorId())
             )
-            binding.tvWordStatus.text = it.status.getText()
+            binding.tvWordStatus.text = it.status.getText(binding.root.context)
             translationsAdapter.submitList(it.wordTranslations)
             examplesAdapter.submitList(it.usageExamples)
         }

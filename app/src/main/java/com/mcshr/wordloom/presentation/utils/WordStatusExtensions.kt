@@ -18,6 +18,13 @@ fun WordStatus.getColor(context: Context):Int{
     return context.getColor(this.getColorId())
 }
 
-fun WordStatus.getText():String{
-    return this.toString().lowercase().replaceFirstChar { it.uppercase() }
+fun WordStatus.getText(context: Context):String{
+    val resId = when(this){
+        WordStatus.UNKNOWN -> R.string.unknown
+        WordStatus.KNOWN -> R.string.known
+        WordStatus.READY_TO_LEARN -> R.string.ready_to_learn
+        WordStatus.LEARNING -> R.string.learning
+        WordStatus.LEARNED -> R.string.learned
+    }
+    return context.getString(resId)
 }

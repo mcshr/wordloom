@@ -23,11 +23,11 @@ class FilteredWordListAdapter : ListAdapter<WordCard, FilteredWordViewHolder>(
         holder.binding.tvMeaningList.text = word.wordTranslations.joinToString(", ") {
             it
         }
+        val context = holder.binding.root.context
         val statusColor = word.status.getColor(holder.binding.root.context)
-        holder.binding.tvWordStatus.text = word.status.getText()
+        holder.binding.tvWordStatus.text = word.status.getText(context)
         holder.binding.tvWordStatus.setTextColor(statusColor)
         holder.binding.statusIndicatorLong.backgroundTintList = ColorStateList.valueOf(statusColor)
-        val context = holder.binding.root.context
         val background = if (word.status == WordStatus.READY_TO_LEARN) {
             R.drawable.card_with_border_selected_purple
         } else {
