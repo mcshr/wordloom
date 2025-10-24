@@ -1,5 +1,6 @@
 package com.mcshr.wordloom.presentation.learningScreen
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -43,15 +44,17 @@ class LearningViewModel @Inject constructor(
     fun onCardSwipe(direction: Direction) {
         val updatedList = learningSet.value?.toMutableList()
         val card: WordCard = updatedList?.getOrNull(position)?:return
+        Log.d("LEARNING", "p:$position  $card")
         val isPositiveAction = direction == Direction.Right
         viewModelScope.launch{
-            val moveCardToEnd = withContext(Dispatchers.IO) {
+            val (updatedCard, moveCardToEnd) = withContext(Dispatchers.IO) {
                 updateWordCardStatusUseCase.invoke(card, isPositiveAction)
             }
             if (moveCardToEnd) {
-                updatedList.add(card)
+                updatedList.add(updatedCard)
             }
             position += 1
+            Log.d("LEARNING_SET", "p+1:$position  $updatedList")
             _learningSet.value = updatedList.toList()
             if (position >= updatedList.size) {
                 _readyToClose.value = true

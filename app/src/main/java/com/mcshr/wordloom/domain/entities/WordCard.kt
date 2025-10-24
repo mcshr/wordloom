@@ -15,7 +15,8 @@ data class WordCard(
     val nextReviewTime: Long?, //Unix timestamp
     val imagePath: String?,
     val usageExamples: List<UsageExample>,
-    val id: Long
+    val id: Long,
+    val reviewCountLocked: Boolean = false
 ) : Parcelable
 {
     companion object{
