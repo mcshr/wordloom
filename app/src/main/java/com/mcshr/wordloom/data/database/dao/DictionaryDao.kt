@@ -10,6 +10,7 @@ import androidx.room.Update
 import com.mcshr.wordloom.data.entities.DictionaryDbModel
 import com.mcshr.wordloom.data.entities.tuples.DictionaryRelation
 import com.mcshr.wordloom.data.entities.tuples.DictionaryWithStatsTuple
+import com.mcshr.wordloom.domain.entities.WordCard
 import com.mcshr.wordloom.domain.entities.WordStatus
 
 @Dao
@@ -32,7 +33,12 @@ interface DictionaryDao {
                 "COUNT(CASE WHEN card.status = :statusKnown THEN 1 END) AS known, " +
                 "COUNT(CASE WHEN card.status = :statusReadyToLearn THEN 1 END) AS readyToLearn, " +
                 "COUNT(CASE WHEN card.status = :statusLearning THEN 1 END) AS learning, " +
-                "COUNT(CASE WHEN card.status = :statusLearned THEN 1 END) AS learned " +
+                "COUNT(CASE WHEN card.status = :statusLearned THEN 1 END) AS learned, " +
+                "CAST(SUM(CASE " +
+                "WHEN card.status = :statusLearned THEN 100 " +
+                "WHEN card.status = :statusLearning THEN (100 * card.reviews_count / :maxReviewCount) " +
+                "ELSE 0 " +
+                "END)/COUNT(card.id ) AS INT) AS progress " +
                 "FROM dictionary " +
                 "LEFT JOIN dictionary_card dc ON dictionary.id = dc.dictionary_id " +
                 "LEFT JOIN card ON dc.card_id = card.id " +
@@ -43,7 +49,8 @@ interface DictionaryDao {
         statusKnown: WordStatus = WordStatus.KNOWN,
         statusReadyToLearn: WordStatus = WordStatus.READY_TO_LEARN,
         statusLearning: WordStatus = WordStatus.LEARNING,
-        statusLearned: WordStatus = WordStatus.LEARNED
+        statusLearned: WordStatus = WordStatus.LEARNED,
+        maxReviewCount: Int = WordCard.MAX_REVIEW_COUNT
     ): LiveData<List<DictionaryWithStatsTuple>>
 
     @Transaction
@@ -54,7 +61,12 @@ interface DictionaryDao {
                 "COUNT(CASE WHEN card.status = :statusKnown THEN 1 END) AS known, " +
                 "COUNT(CASE WHEN card.status = :statusReadyToLearn THEN 1 END) AS readyToLearn, " +
                 "COUNT(CASE WHEN card.status = :statusLearning THEN 1 END) AS learning, " +
-                "COUNT(CASE WHEN card.status = :statusLearned THEN 1 END) AS learned " +
+                "COUNT(CASE WHEN card.status = :statusLearned THEN 1 END) AS learned, " +
+                "CAST(SUM(CASE " +
+                "WHEN card.status = :statusLearned THEN 100 " +
+                "WHEN card.status = :statusLearning THEN (100 * card.reviews_count / :maxReviewCount) " +
+                "ELSE 0 " +
+                "END)/COUNT(card.id ) AS INT) AS progress " +
                 "FROM dictionary " +
                 "LEFT JOIN dictionary_card dc ON dictionary.id = dc.dictionary_id " +
                 "LEFT JOIN card ON dc.card_id = card.id " +
@@ -66,7 +78,8 @@ interface DictionaryDao {
         statusKnown: WordStatus = WordStatus.KNOWN,
         statusReadyToLearn: WordStatus = WordStatus.READY_TO_LEARN,
         statusLearning: WordStatus = WordStatus.LEARNING,
-        statusLearned: WordStatus = WordStatus.LEARNED
+        statusLearned: WordStatus = WordStatus.LEARNED,
+        maxReviewCount: Int = WordCard.MAX_REVIEW_COUNT
     ): LiveData<List<DictionaryWithStatsTuple>>
 
     @Transaction

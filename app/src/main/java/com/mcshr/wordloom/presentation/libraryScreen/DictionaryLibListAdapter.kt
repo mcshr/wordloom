@@ -23,10 +23,7 @@ class DictionaryLibListAdapter(
         holder.binding.tvTotalCount.text = dictionaryWithStats.totalCountCards.toString()
         holder.binding.tvLearnedCount.text = dictionaryWithStats.learnedCountCards.toString()
         holder.binding.tvLearningCount.text = dictionaryWithStats.learningCountCards.toString()
-        val progress = if(dictionaryWithStats.totalCountCards != 0) {
-            ((dictionaryWithStats.learnedCountCards + dictionaryWithStats.knownCountCards) /
-                    dictionaryWithStats.totalCountCards.toDouble()  * 100).toInt()
-        } else {0}
+        val progress = dictionaryWithStats.learningProgress
         holder.binding.progressIndicator.progress = progress
         holder.binding.progressText.text = "$progress%"
 

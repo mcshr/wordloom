@@ -7,5 +7,6 @@ data class DictionaryWithStats(
     val knownCountCards: Int,
     val readyToLearnCountCards: Int,
     val learningCountCards: Int,
-    val learnedCountCards: Int
+    val learnedCountCards: Int,
+    val learningProgress:Int
 )

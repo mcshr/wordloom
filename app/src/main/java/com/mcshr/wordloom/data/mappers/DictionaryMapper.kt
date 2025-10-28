@@ -47,7 +47,8 @@ fun DictionaryWithStatsTuple.toDomainEntity(): DictionaryWithStats {
         knownCountCards = known,
         readyToLearnCountCards = readyToLearn,
         learningCountCards = learning,
-        learnedCountCards = learned
+        learnedCountCards = learned,
+        learningProgress = progress
     )
 }
 

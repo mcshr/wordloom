@@ -9,5 +9,6 @@ data class DictionaryWithStatsTuple(
     val known: Int,
     val readyToLearn: Int,
     val learning: Int,
-    val learned: Int
+    val learned: Int,
+    val progress: Int
 )
